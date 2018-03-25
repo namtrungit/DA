@@ -19,9 +19,29 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "assets/css/animate.css",
+        "assets/css/font-awesome.min.css",
+        "assets/css/simple-line-icons.css",
+        "assets/css/bootstrap.css",
+        "assets/css/bootstrap-datetimepicker.min.css",
+        "assets/css/font.css",
+        "../node_modules/toastr/build/toastr.min.css",
+        "assets/css/app.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/jquery.js",
+        "../node_modules/toastr/build/toastr.min.js",
+        "assets/js/bootstrap.js",
+        "assets/js/app.js",
+        "assets/js/ui-client.js",
+        "assets/js/ui-jp.config.js",
+        "assets/js/ui-jp.js",
+        "assets/js/ui-load.js",
+        "assets/js/ui-nav.js",
+        "assets/js/ui-toggle.js",
+        "assets/js/moment.min.js",
+        "assets/js/bootstrap-datetimepicker.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

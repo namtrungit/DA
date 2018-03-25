@@ -1,0 +1,22 @@
+<div class="app app-header-fixed ">
+  <div class="container w-xxl w-auto-xs" ng-init="app.settings.container = false;">
+    <div class="text-center m-b-lg">
+      <h1 class="errorText text-white">404</h1>
+      <h2 class="errorText">Mất kết nối tới server</h2>
+    </div>
+    <div class="list-group bg-info auto m-b-sm m-b-lg">
+      <a routerLink="/main" class="list-group-item">
+        <i class="fa fa-chevron-right text-muted"></i>
+        <i class="fa fa-fw fa-mail-forward m-r-xs"></i> Truy cập lại
+      </a>
+    </div>
+    <div class="text-center" ng-include="'tpl/blocks/page_footer.html'">
+      <p>
+        <small class="text-muted">Web được thiết kế bới Bùi Nam Trung
+          <br>&copy; 2018</small>
+      </p>
+    </div>
+  </div>
+
+
+</div>
