@@ -5336,11 +5336,11 @@ ul.find-result li p{
 .panel-bill-detail .list-group-item{
   padding: 7px 15px;
 }
-.staff-avatar{
+.stu-avatar{
   padding-right: 0;
 }
 @media(max-width: 768px){
-  .staff-avatar{
+  .stu-avatar{
     padding-right: 15px;
   }
 }

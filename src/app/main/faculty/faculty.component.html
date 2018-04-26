@@ -1,0 +1,85 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">KHOA</h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM KHOA</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Khoa</label>
+                    <input class="form-control" id='fal-name' name="fal_name" [(ngModel)]='fal_name' placeholder="Nhập tên khoa">
+                  </div>              
+                  <button type="button" (click)="addFal()"  class='btn m-b-xs btn-sm btn-success btn-addon' >
+                    <i class="fa fa-plus"></i>
+                    Thêm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH KHOA</div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>#</td>
+                      <td>Tên khoa</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let fal of list_fal">
+                      <td>{{fal.fal_id}}</td>
+                      <td>{{fal.fal_name}}</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectFaculty(fal)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button"  class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA KHOA</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delFal(fal_id)" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

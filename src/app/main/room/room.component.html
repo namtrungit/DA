@@ -1,0 +1,309 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-9 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">PHÒNG</h1>
+          </div>
+          <div class="col-sm-3 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' data-toggle="modal" data-target="#searchModal">
+              <i class="icon-magnifier"></i>
+              Tìm kiếm
+            </button>
+            <button class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateRoom()' data-toggle="modal" data-target="#createModal">
+              <i class="fa fa-plus"></i>
+              Thêm
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH PHÒNG</div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>Số phòng</td>
+                      <td>Sức chứa</td>
+                      <td>Còn trống</td>
+                      <td>Khu</td>
+                      <td>Dãy</td>
+                      <td>Giá</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let room of list_room">
+                      <td>{{room.room_name}}</td>
+                      <td>{{room.room_max}}</td>
+                      <td>{{room.room_empty}}</td>
+                      <td>{{room.area_sympol}}</td>
+                      <td>{{room.floor_id}}</td>
+                      <td>{{room.price|currency:" ":true:'0.0-0'}} VNĐ</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-info btn-addon' (click)='selectStuInRoom(room)' data-toggle="modal" data-target="#stuModal">
+                          <i class="fa fa-group"></i>
+                          Sinh viên
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectRoom(room)' data-toggle="modal" data-target="#updateModal">
+                          <i class="icon-pencil"></i>
+                          Cập nhật
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectRoom(room)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                        <!-- <button (click)='selectRoom(room)' class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delModal">Xóa</button> -->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA PHÒNG</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delRoom(room_id)" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal Student-->
+  <div id="stuModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">DANH SÁCH SINH VIÊN</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold"></div>
+                <div class="panel-body">
+                  <table class="table table-striped m-b-none">
+                    <thead>
+                      <tr>
+                        <td>Mã số</td>
+                        <td>Họ và tên</td>
+                        <td>Ngày sinh</td>
+                        <td>Giới tính</td>
+                        <td>SDT</td>
+                        <td>Lớp</td>
+                        <td>Khoa</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let stu of list_stu">
+                        <td>{{stu.stu_id_school}}</td>
+                        <td>{{stu.stu_name}}</td>
+                        <td>{{stu.stu_birthday}}</td>
+                        <td>{{stu.stu_sex === 'male'? 'Nam':'Nữ'}}</td>
+                        <td>{{stu.stu_phone}}</td>
+                        <td>{{stu.class_name}}</td>
+                        <td>{{stu.fal_name}}</td>   
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- <button class="btn btn-xs btn-danger" (click)="delRoom(room_id)" data-dismiss="modal">Xóa</button> -->
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal create-->
+  <div id="createModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thêm phòng</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM PHÒNG</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Phòng</label>
+                    <input class="form-control" id='room-name' name="room_name" [(ngModel)]='room_name' placeholder="Nhập tên tên phòng">
+                  </div>
+                  <div class="form-group">
+                    <label>Sức chứa</label>
+                    <input class="form-control" id='room-max' name="room_max" [(ngModel)]='room_max' placeholder="Nhập số lượng chứa của phòng">
+                  </div>
+                  <div class="form-group">
+                    <label>Khu</label>
+                    <select class="form-control" [(ngModel)]="room_id_area" name="room_id_area" id="room-id-area">
+                      <option value="">Chọn khu</option>
+                      <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_sympol']}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Dãy</label>
+                    <select class="form-control" [(ngModel)]="room_id_floor" name="room_id_floor" id="room-id-floor">
+                      <option value="">Chọn dãy</option>
+                      <option *ngFor="let floor of list_floor" [ngValue]="floor['floor_id']">{{floor['floor_id']}}</option>
+                    </select>
+                  </div>
+                  <button type="button" (click)="addRoom()" class="btn m-b-xs btn-sm btn-success btn-addon">
+                    <i class='fa fa-check'></i>
+                    Thêm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal search-->
+  <div id="searchModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" (click)='clearRoom()' class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tìm kiếm</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">TÌM KIẾM PHÒNG</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Phòng</label>
+                    <input class="form-control" id='room-id' name="room_id" [(ngModel)]='room_id' placeholder="Nhập tên tên phòng">
+                  </div>
+                  <div class="form-group">
+                    <label>Sức chứa</label>
+                    <input class="form-control" id='room-quantity' name="room_quantity" [(ngModel)]='room_quantity' placeholder="Nhập số lượng chứa của phòng">
+                  </div>
+                  <div class="form-group">
+                    <label>Giá</label>
+                    <select class="form-control" [(ngModel)]="room_id_price" name="room_id_price" id="room-id-price">
+                      <option value="">Chọn giá phòng</option>
+                      <option *ngFor="let price of list_price" [ngValue]="price['price_id']">{{price['price_value']|currency:"VND":true:'0.0-0'}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Khu</label>
+                    <select class="form-control" [(ngModel)]="room_id_area" name="room_id_area" id="room-id-area">
+                      <option value="">Chọn khu</option>
+                      <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_address']}}</option>
+                    </select>
+                  </div>
+                  <button type="button" (click)="searchRoom()" class="btn m-b-xs btn-sm btn-primary btn-addon" data-dismiss="modal">
+                    <i class='icon-magnifier'></i>
+                    Tìm kiếm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)='clearRoom()' data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cập nhật phòng</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">CẬP NHẬT PHÒNG</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Phòng</label>
+                    <input class="form-control" id='room-name' name="room_name" [(ngModel)]='room_name' placeholder="Nhập tên tên phòng" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label>Sức chứa</label>
+                    <input class="form-control" id='room-max' name="room_max" [(ngModel)]='room_max' placeholder="Nhập số lượng chứa của phòng">
+                  </div>
+                  <div class="form-group">
+                    <label>Khu</label>
+                    <select class="form-control" [(ngModel)]="room_id_area" name="room_id_area" id="room-id-area">
+                      <option value="">Chọn khu</option>
+                      <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_sympol']}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Dãy</label>
+                    <select class="form-control" [(ngModel)]="room_id_floor" name="room_id_floor" id="room-id-floor">
+                      <option value="">Chọn dãy</option>
+                      <option *ngFor="let floor of list_floor" [ngValue]="floor['floor_id']">{{floor['floor_id']}}</option>
+                    </select>
+                  </div>
+                  <button type="button" (click)="updateRoom()" class="btn m-b-xs btn-sm btn-dark btn-addon">
+                    <i class='icon-pencil'></i>
+                    Cập nhật
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

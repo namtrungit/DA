@@ -1,0 +1,128 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 staff-avatar">
+            <h1 class="m-n font-thin h3 text-black"></h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-8 col-xs-12 col-md-10">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM SINH VIÊN</div>
+              <div class="panel-body">
+                <form role="form" #formAddStaff="ngForm">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Mã số sinh viên</label>
+                      <input id="stu-id-school" type="number" [(ngModel)]="stu_id_school" name="stu_id_school" class="form-control" placeholder="Nhập mã số sinh viên">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Tên sinh viên</label>
+                      <input id="stu-name" type="text" [(ngModel)]="stu_name" name="stu_name" class="form-control" placeholder="Nhập tên sinh viên">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Chọn lớp</label>
+                        <select class="form-control" [(ngModel)]="stu_id_class" name="stu_id_class" id="stu-id-class">
+                          <option value="">Chọn lớp</option>
+                          <option *ngFor="let class of list_class" [ngValue]="class['class_id']">{{class['class_name']}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Số điện thoại</label>
+                      <input id="stu-phone" type="number" [(ngModel)]="stu_phone" name="stu_phone" class="form-control" placeholder="Nhập số điện thoại">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input id="stu-email" type="text" [(ngModel)]="stu_email" name="stu_email" class="form-control" placeholder="Nhập email">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Địa chỉ</label>
+                      <input id="stu-address" type="text" [(ngModel)]="stu_address" name="stu_address" class="form-control" placeholder="Nhập địa chỉ">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Ngày sinh</label>
+                      <input id="stu-birthday" type="text" class="form-control" placeholder="Nhập ngày sinh">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Giới tính</label>
+                      <select id="stu-sex" [(ngModel)]="stu_sex" name="stu_sex" class="form-control">
+                        <option value="undefined">Chọn giới tính</option>
+                        <option value="male">Nam</option>
+                        <option value="female">Nữ</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Tên cha</label>
+                      <input id="stu-dad-name" type="text" [(ngModel)]="stu_dad_name" name="stu_dad_name" class="form-control" placeholder="Nhập tên cha">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Số điện thoại của cha</label>
+                      <input id="stu-dad-phone" type="number" [(ngModel)]="stu_dad_phone" name="stu_dad_phone" class="form-control" placeholder="Nhập số điện thoại của cha">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Tên mẹ</label>
+                      <input id="stu-mom-name" type="text" [(ngModel)]="stu_mom_name" name="stu_mom_name" class="form-control" placeholder="Nhập tên mẹ">
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label>Số điện thoại của mẹ</label>
+                      <input id="stu-mom-phone" type="number" [(ngModel)]="stu_mom_phone" name="stu_mom_phone" class="form-control" placeholder="Nhập số điện thoại của mẹ">
+                    </div>
+                  </div>          
+                  <!-- <button type="button" (click)="addStaff()" class="btn btn-sm btn-primary">Thêm</button> -->
+                </form>
+              </div>
+              <div class="panel-footer">
+                <button type="button" (click)="addStu()" class="btn btn-success btn-block">Thêm nhân viên</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 col-xs-12 col-md-2 ">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Ảnh đại diện</div>
+              <div class="panel-body">
+                <div class="stu-avatar" style="display:block; text-align:center">
+                  <img *ngIf="stu_avatar === ''" src="https://i.imgur.com/jNNT4LE.jpg" width="125" height="125" />
+                  <img *ngIf="stu_avatar != ''" [src]="folder_avatar + stu_avatar" width="125" height="125" />
+                  <label class="btn m-b-xs btn-sm btn-primary btn-addon" style="margin-top:45px">
+                    <i class="fa fa-picture-o"></i>
+                    Chọn ảnh
+                    <input id="stu-avatar" (change)="uploadAvatar($event)" type="file" style="display: none" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+</div>

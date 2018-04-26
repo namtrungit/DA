@@ -86,7 +86,6 @@ export class ProfileComponent implements OnInit {
       user_phone: this.user_phone,
       user_sex: this.user_sex,
     });
-    console.log(data);
     this._profileService.updateProfile(data).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);

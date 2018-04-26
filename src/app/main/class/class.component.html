@@ -1,0 +1,122 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">LỚP</h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-5">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM LỚP</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Lớp</label>
+                    <input class="form-control" id='class-name' name="class_name" [(ngModel)]='class_name' placeholder="Nhập lớp">
+                  </div>
+                  <div class="form-group">
+                    <label>Khoa</label>
+                    <select class="form-control" [(ngModel)]="class_id_faculty" name="class_id_faculty" id="class-id-faculty">
+                      <option value="">Chọn khoa</option>
+                      <option *ngFor="let fal of list_fal" [ngValue]="fal['fal_id']">{{fal['fal_name']}}</option>
+                    </select>
+                  </div>
+                  <button type="button" (click)="addClass()" class="btn btn-sm btn-primary">Thêm</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH LỚP</div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <!-- <td>#</td> -->
+                      <td>Lớp</td>
+                      <td>Khoa</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let class of list_class">
+                      <!-- <td>{{class.class_id}}</td> -->
+                      <td>{{class.class_name}}</td>
+                      <td>{{class.fal_name}}</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectClass(class)' data-toggle="modal" data-target="#updateModal">
+                          <i class="icon-pencil"></i>
+                          Cập nhật
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectClass(class)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="clearClass()" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA KHU</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delClass(class_id)" data-dismiss="modal">Xóa</button>
+          <button type="button" (click)="clearClass()"  class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" (click)='clearClass()' class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cập nhật</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Lớp</label>
+            <input class="form-control" id='sl-class-name' name="sl_class_name" [(ngModel)]='sl_class_name' placeholder="Nhập lớp">
+          </div>
+          <div class="form-group">
+            <label>Khoa</label>
+            <select class="form-control" [(ngModel)]="sl_class_id_faculty" name="sl_class_id_faculty" id="sl-class-id-faculty">
+              <option value="">Chọn khoa</option>
+              <option *ngFor="let fal of list_fal" [ngValue]="fal['fal_id']">{{fal['fal_name']}}</option>
+            </select>
+          </div>
+          <button type="button" (click)="updateClass()"  class="btn btn-sm btn-dark">Cập nhật</button>
+          <button type="button" (click)="clearClass()"  class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>

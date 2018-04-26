@@ -12,7 +12,14 @@ const _routes: Routes = [
       // localhost:4200/main/index
       { path: 'index', loadChildren: './index/index.module#IndexModule' },
       { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
-      { path: 'password', loadChildren: './password/password.module#PasswordModule'}
+      { path: 'password', loadChildren: './password/password.module#PasswordModule' },
+      { path: 'faculty', loadChildren: './faculty/faculty.module#FacultyModule' },
+      { path: 'student', loadChildren: './student/student.module#StudentModule' },
+      { path: 'area', loadChildren: './area/area.module#AreaModule' },
+      { path: 'room', loadChildren: './room/room.module#RoomModule' },
+      { path: 'price', loadChildren: './price/price.module#PriceModule' },
+      { path: 'class', loadChildren: './class/class.module#ClassModule' },
+      { path: 'floor', loadChildren: './floor/floor.module#FloorModule' },
     ]
   }
 ];

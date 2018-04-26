@@ -1,0 +1,238 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">KHU</h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM KHU</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <input class="form-control" id='area-address' name="area_address" [(ngModel)]='area_address' placeholder="Nhập địa chỉ của khu">
+                  </div>
+                  <div class="form-group">
+                    <label>Ký hiệu</label>
+                    <input class="form-control" id='area-sympol' name="area_sympol" [(ngModel)]='area_sympol' placeholder="Nhập ký hiệu của khu">
+                  </div>
+                  <div class="form-group">
+                    <label>Giới tính</label>
+                    <select id="area-sex" [(ngModel)]="area_sex" name="area_sex" class="form-control">
+                      <option value="undefined">Chọn giới tính</option>
+                      <option value="male">Nam</option>
+                      <option value="female">Nữ</option>
+                    </select>
+                  </div>
+                  <button type="button" (click)="addArea()" class='btn m-b-xs btn-sm btn-success btn-addon'>
+                    <i class="fa fa-plus"></i>
+                    Thêm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH KHU</div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>Địa chỉ</td>
+                      <td>Ký hiệu</td>
+                      <td>Giới tính</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let area of list_area">
+                      <td>{{area.area_address}}</td>
+                      <td>{{area.area_sympol}}</td>
+                      <td>{{area.area_sex === 'male'? 'Nam':'Nữ'}}</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-info btn-addon' (click)='selectPriceArea(area)' data-toggle="modal" data-target="#priceModal">
+                          <i class="fa fa-usd"></i>
+                          Giá
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectArea(area)' data-toggle="modal" data-target="#updateModal">
+                          <i class="icon-pencil"></i>
+                          Cập nhật
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectArea(area)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA KHU</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delArea(area_id)" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">CẬP NHẬT KHU</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold"></div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <input class="form-control" id='sl-area-address' name="sl_area_address" [(ngModel)]='sl_area_address' placeholder="Nhập địa chỉ của khu">
+                  </div>
+                  <div class="form-group">
+                    <label>Ký hiệu</label>
+                    <input class="form-control" id='sl-area-sympol' name="sl_area_sympol" [(ngModel)]='sl_area_sympol' placeholder="Nhập ký hiệu của khu">
+                  </div>
+                  <div class="form-group">
+                    <label>Giới tính</label>
+                    <select id="sl-area-sex" [(ngModel)]="sl_area_sex" name="sl_area_sex" class="form-control">
+                      <option value="undefined">Chọn giới tính</option>
+                      <option value="male">Nam</option>
+                      <option value="female">Nữ</option>
+                    </select>
+                  </div>
+                  <button type="button" (click)="updateArea()" class="btn m-b-xs btn-sm btn-dark btn-addon">
+                    <i class='icon-pencil'></i>
+                    Cập nhật
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal Price-->
+  <div id="priceModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">GIÁ KHU/PHÒNG</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold"></div>
+                <div class="panel-body">
+                  <form role="form" #formRoom="ngForm">
+                    <div class="form-group">
+                      <label>Khu</label>
+                      <select class="form-control" [(ngModel)]="price_area_id" name="price_area_id" id="price-area-id" disabled>
+                        <option value="">Chọn khu</option>
+                        <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_sympol']}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Dãy</label>
+                      <select class="form-control" [(ngModel)]="price_floor_id" name="price_floor_id" id="price-floor-id">
+                        <option value="">Chọn Dãy</option>
+                        <option *ngFor="let floor of list_floor" [ngValue]="floor['floor_id']">{{floor['floor_id']}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Giá</label>
+                      <input class="form-control" type="number" id='price-value' name="price_value" [(ngModel)]='price_value' placeholder="Nhập giá">
+                    </div>
+                    <button type="button" (click)="addAfd()" class="btn m-b-xs btn-sm btn-info btn-addon">
+                      <i class='fa fa-check'></i>
+                      Thêm giá
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold">DANH SÁCH KHU</div>
+                <div class="panel-body">
+                  <table class="table table-striped m-b-none">
+                    <thead>
+                      <tr>
+                        <td>Khu</td>
+                        <td>Dãy</td>
+                        <td>Giá</td>
+                        <td>Tác vụ</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let afd of list_adfById">
+                        <td>{{afd.area_sympol}}</td>
+                        <td>{{afd.floor_id}}</td>
+                        <td>{{afd.af_price|currency:" ":true:'0.0-0'}} VNĐ</td>
+                        <td>    
+                          <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='delAfd(afd)'>
+                            <i class="icon-trash"></i>
+                            Xóa
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
