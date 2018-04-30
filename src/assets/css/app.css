@@ -5344,3 +5344,24 @@ ul.find-result li p{
     padding-right: 15px;
   }
 }
+.state-container-dropdown {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  max-height: 150px;
+  background: white;
+  overflow-y: auto;
+
+}
+.pos-rel {
+  position: relative;
+}
+.state {
+  padding: 10px;
+  font-family: sans-serif;
+  color: #1797be
+}
+
+.state:hover {
+  background: #cfdadd
+}

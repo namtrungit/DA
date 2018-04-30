@@ -5,8 +5,18 @@
       <!-- main header -->
       <div class="bg-light lter b-b wrapper-md">
         <div class="row">
-          <div class="col-sm-12 col-xs-12 staff-avatar">
+          <div class="col-sm-10 col-xs-12 ">
             <h1 class="m-n font-thin h3 text-black">Danh sách sinh viên</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
+              <i class="icon-magnifier"></i>
+              Tìm kiếm
+            </button>
+            <!-- <button class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateRoom()' data-toggle="modal" data-target="#createModal">
+              <i class="fa fa-plus"></i>
+              Thêm
+            </button> -->
           </div>
         </div>
       </div>
@@ -35,10 +45,10 @@
                       <td>{{stu.fal_name}}</td>
                       <td>{{stu.room_name}}</td>
                       <td>
-                        <button class='btn m-b-xs btn-sm btn-primary ' (click)='selectStu(stu)' data-toggle="modal" data-target="#pickRoomModal">
+                        <button class='btn m-b-xs btn-sm btn-primary' (click)='toggleOff()' (click)='selectStu(stu)' data-toggle="modal" data-target="#pickRoomModal">
                           <i class="fa fa-home"></i>
                         </button>
-                        <button class='btn m-b-xs btn-sm btn-success' (click)='selectStu(stu)' data-toggle="modal" data-target="#swapRoomModal">
+                        <button class='btn m-b-xs btn-sm btn-success' (click)='toggleOff()' (click)='selectStu(stu)' data-toggle="modal" data-target="#swapRoomModal">
                           <i class="icon-refresh"></i>
                         </button>
                         <button class='btn m-b-xs btn-sm btn-info' (click)='selectStu(stu)' data-toggle="modal" data-target="#endRoomModal">
@@ -84,7 +94,8 @@
                   <div class="stu-avatar" style="display:block; text-align:center">
                     <img *ngIf="stu_avatar === ''" src="https://i.imgur.com/jNNT4LE.jpg" width="125" height="125" />
                     <img *ngIf="stu_avatar != ''" [src]="folder_avatar + stu_avatar" width="125" height="125" />
-                    <label class="btn btn-default btn-file" style="margin-top:45px">
+                    <label class="btn m-b-xs btn-sm btn-warning btn-addon" style="margin-top:45px">
+                      <i class="fa fa-camera"></i>
                       Chọn ảnh
                       <input id="stu-avatar" (change)="uploadAvatar($event)" type="file" style="display: none" />
                     </label>
@@ -180,7 +191,7 @@
                   </form>
                 </div>
                 <div class="panel-footer">
-                  <button type="button" (click)="updateStu()" class="btn btn-primary btn-block">Sửa thông tin</button>
+                  <button type="button" (click)="updateStu()" class="btn btn-warning btn-block">Sửa thông tin</button>
                 </div>
               </div>
             </div>
@@ -216,7 +227,7 @@
   </div>
   <!-- Modal pick-room-->
   <div id="pickRoomModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -224,14 +235,31 @@
           <h4 class="modal-title">CHỌN PHÒNG</h4>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <label>Phòng</label>
-            <select class="form-control" [(ngModel)]="stu_id_room" name="stu_id_room" id="stu-id-room">
-              <option value="0">Chọn phòng</option>
-              <option *ngFor="let room of list_room" [ngValue]="room['room_id']">{{room['room_name']}}</option>
-            </select>
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold"></div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Phòng</label>
+                    <div class="pos-rel">
+                      <input class="form-control" (keyup)='getRoomCreTap()' (click)='toggleDropDown()' type="text" id='stu-room-name' name="stu_room_name"
+                        [(ngModel)]='stu_room_name' placeholder="Nhập phòng cho sinh viên">
+                      <div *ngIf='showDD' class="state-container-dropdown">
+                        <div>
+                          <div (click)='toggleDropDown()' (click)='selectRoomName(room)' class="state" *ngFor="let room of list_room">
+                            {{room.room_name}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="modal-footer">
           <button type="button" (click)="pickRoom()" class="btn m-b-xs btn-sm btn-primary btn-addon">
             <i class='fa fa-home'></i>
@@ -245,22 +273,40 @@
   </div>
   <!-- Modal swap-room-->
   <div id="swapRoomModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">ĐỔI PHÒNG</h4>
         </div>
+
         <div class="modal-body">
-          <div class="form-group">
-            <label>Phòng</label>
-            <select class="form-control" [(ngModel)]="swap_id_room" name="swap_id_room" id="swap-id-room">
-              <option value="0">Chọn phòng</option>
-              <option *ngFor="let room of list_room" [ngValue]="room['room_id']">{{room['room_name']}}</option>
-            </select>
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold"></div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Phòng</label>
+                    <div class="pos-rel">
+                      <input class="form-control" (keyup)='getRoomUpdateTap()' (click)='toggleDropDown()' type="text" id='swap-room-name' name="swap_room_name"
+                        [(ngModel)]='swap_room_name' placeholder="Nhập phòng cần đổi cho sinh viên">
+                      <div *ngIf='showDD' class="state-container-dropdown">
+                        <div>
+                          <div (click)='toggleDropDown()' (click)='selectRoomNameSwap(room)' class="state" *ngFor="let room of list_room">
+                            {{room.room_name}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="modal-footer">
           <button type="button" (click)="swapRoom()" class="btn m-b-xs btn-sm btn-success btn-addon">
             <i class='icon-refresh'></i>
@@ -288,6 +334,37 @@
         <div class="modal-footer">
           <button type="button" (click)="endRoom()" class="btn m-b-xs btn-sm btn-info btn-addon">
             <i class='icon-login'></i>
+            Xác nhận
+          </button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal search-stu-->
+  <div id="searchModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">TÌM SINH VIÊN</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Mã sinh viên</label>
+            <input id="search-stu-id-school" type="text" [(ngModel)]="search_stu_id_school" name="search_stu_id_school" class="form-control"
+              placeholder="Nhập mã sinh viên">
+          </div>
+          <div class="form-group">
+            <label>Tên sinh viên</label>
+            <input id="search-stu-name" type="text" [(ngModel)]="search_stu_name" name="search_stu_name" class="form-control" placeholder="Nhập tên sinh viên">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="searchStu()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+            <i class='icon-magnifier'></i>
             Xác nhận
           </button>
           <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>

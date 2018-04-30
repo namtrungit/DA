@@ -20,6 +20,8 @@ const _routes: Routes = [
       { path: 'price', loadChildren: './price/price.module#PriceModule' },
       { path: 'class', loadChildren: './class/class.module#ClassModule' },
       { path: 'floor', loadChildren: './floor/floor.module#FloorModule' },
+      { path: 'contractreg', loadChildren: './contractreg/contractreg.module#ContractregModule' },
+      { path: 'contract', loadChildren: './contract/contract.module#ContractModule' },
     ]
   }
 ];

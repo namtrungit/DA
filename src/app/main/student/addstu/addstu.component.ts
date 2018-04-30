@@ -169,6 +169,10 @@ export class AddstuComponent implements OnInit {
         this._addStuService.tokenError();
         return;
       }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
       if (res.status === 'success') {
         toastr.success(res.message);
         this.stu_id_school = '';

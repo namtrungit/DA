@@ -112,7 +112,7 @@
                   <img *ngIf="stu_avatar === ''" src="https://i.imgur.com/jNNT4LE.jpg" width="125" height="125" />
                   <img *ngIf="stu_avatar != ''" [src]="folder_avatar + stu_avatar" width="125" height="125" />
                   <label class="btn m-b-xs btn-sm btn-primary btn-addon" style="margin-top:45px">
-                    <i class="fa fa-picture-o"></i>
+                    <i class="fa fa-camera"></i>
                     Chọn ảnh
                     <input id="stu-avatar" (change)="uploadAvatar($event)" type="file" style="display: none" />
                   </label>

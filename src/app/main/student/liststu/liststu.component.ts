@@ -22,7 +22,7 @@ export class ListstuComponent implements OnInit {
   public stu_email = '';
   public stu_address = '';
   public stu_id_class = '';
-  public stu_id_room = 0;
+  public stu_room_name = '';
   public stu_birthday = '';
   public stu_sex: string;
   public stu_dad_name = '';
@@ -30,7 +30,14 @@ export class ListstuComponent implements OnInit {
   public stu_mom_name = '';
   public stu_mom_phone = '';
   // Modal swap
-  public swap_id_room = 0;
+  public swap_room_name = '';
+
+  // Modal Search
+  public search_stu_name = '';
+  public search_stu_id_school = '';
+
+  // Autotext
+  public showDD = false;
   constructor(
     private _router: Router,
     private _listStuService: ListstuService
@@ -135,21 +142,17 @@ export class ListstuComponent implements OnInit {
     this.stu_address = student.stu_address;
     $('#stu-birthday').val(student.stu_birthday);
     this.stu_sex = student.stu_sex;
-    this.stu_id_room = student.stu_id_room;
+    this.stu_room_name = student.stu_room_name;
     this.stu_dad_name = student.stu_dad_name;
     this.stu_dad_phone = student.stu_dad_phone;
     this.stu_mom_name = student.stu_mom_name;
     this.stu_mom_phone = student.stu_mom_phone;
     this.stu_avatar = student.stu_avatar;
+    this.swap_room_name = '';
     console.log(student);
   }
-  delStu(stu_id, room_id) {
-    stu_id = this.stu_id;
-    room_id = this.stu_id_room;
-    console.log(stu_id);
-    console.log(room_id);
-    // return;
-    this._listStuService.delStu(stu_id, room_id).subscribe(res => {
+  delStu() {
+    this._listStuService.delStu(this.stu_id, this.stu_room_name).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);
         return;
@@ -280,16 +283,17 @@ export class ListstuComponent implements OnInit {
   }
   pickRoom() {
     // validated
-    if (this.stu_id_room === 0) {
-      toastr.warning('Bạn chưa chọn phòng', 'Thông báo');
-      $('#stu-id-room').focus();
+    if (this.stu_room_name === '') {
+      toastr.warning('Bạn chưa nhập phòng', 'Thông báo');
+      $('#stu-room-name').focus();
       return;
     }
     const pick = JSON.stringify({
       stu_id: this.stu_id,
-      room_id: this.stu_id_room
+      room_name: this.stu_room_name
     });
     // console.log(pick);
+    // return;
     this._listStuService.pickRoom(pick).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);
@@ -299,6 +303,10 @@ export class ListstuComponent implements OnInit {
         return this._listStuService.tokenError();
       }
       if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'warning find room') {
         toastr.warning(res.message);
         return;
       }
@@ -319,17 +327,18 @@ export class ListstuComponent implements OnInit {
     });
   }
   swapRoom() {
-    if (this.swap_id_room === 0) {
-      toastr.warning('Bạn chưa chọn phòng để đổi', 'Thông báo');
-      $('#swap-id-room').focus();
+    if (this.swap_room_name === '') {
+      toastr.warning('Bạn chưa nhập phòng để đổi', 'Thông báo');
+      $('#swap-room-name').focus();
       return;
     }
     const swap = JSON.stringify({
       stu_id: this.stu_id,
-      old_room_id: this.stu_id_room,
-      new_room_id: this.swap_id_room
+      old_room_name: this.stu_room_name,
+      new_room_name: this.swap_room_name
     });
-    console.log(swap);
+    // console.log(swap);
+    // return;
     this._listStuService.swapRoom(swap).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);
@@ -338,12 +347,24 @@ export class ListstuComponent implements OnInit {
       if (!res.isAuth && res.status === 'error') {
         return this._listStuService.tokenError();
       }
+      if (res.status === 'same') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'warning stu cant swap') {
+        toastr.warning(res.message);
+        return;
+      }
       if (res.status === 'warning') {
         toastr.warning(res.message);
         return;
       }
       if (res.status === 'warning sex') {
         toastr.warning('Giới tính của sinh viên không hợp lệ để chọn phòng này', 'Cảnh báo');
+        return;
+      }
+      if (res.status === 'warning find room') {
+        toastr.warning(res.message);
         return;
       }
       if (res.status === 'success') {
@@ -361,7 +382,7 @@ export class ListstuComponent implements OnInit {
   endRoom() {
     const end = JSON.stringify({
       stu_id: this.stu_id,
-      room_id: this.stu_id_room
+      room_name: this.stu_room_name
     });
     // console.log(end);
     this._listStuService.endRoom(end).subscribe(res => {
@@ -377,6 +398,102 @@ export class ListstuComponent implements OnInit {
         $('#endRoomModal').modal('toggle');
         this.getStu();
         return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+  clearSearch() {
+    this.search_stu_id_school = '';
+    this.search_stu_name = '';
+  }
+  searchStu() {
+    const search = JSON.stringify({
+      stu_id_school: this.search_stu_id_school,
+      stu_name: this.search_stu_name
+    });
+    console.log(search);
+    this._listStuService.searchStu(search).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._listStuService.tokenError();
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        $('#search-stu-id-school').focus();
+        // $('#search-stu-name').focus();
+        return;
+      }
+      if (res.status === 'success') {
+        this.list_students = res.list;
+        $('#searchModal').modal('toggle');
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+
+
+  toggleDropDown() {
+    this.showDD = !this.showDD;
+  }
+  toggleOff() {
+    this.showDD = false;
+  }
+  // Auto complete textbox create modal
+  selectRoomName(room) {
+    this.stu_room_name = room.room_name;
+  }
+  getRoomCreTap() {
+    const room_name_s = JSON.stringify({
+      room_name_s: this.stu_room_name
+    });
+    // console.log(room_name_s);
+    this._listStuService.getRoomText(room_name_s).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._listStuService.tokenError();
+      }
+      if (res.status === 'success') {
+        this.list_room = res.Rooms;
+        // console.log(this.stu_room_name);
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+
+  // Auto complete textbox update modal
+  selectRoomNameSwap(room) {
+    this.swap_room_name = room.room_name;
+  }
+  getRoomUpdateTap() {
+    const room_name_s = JSON.stringify({
+      room_name_s: this.swap_room_name
+    });
+    // console.log(room_name_s);
+    this._listStuService.getRoomText(room_name_s).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._listStuService.tokenError();
+      }
+      if (res.status === 'success') {
+        this.list_room = res.Rooms;
+        // console.log(this.stu_room_name);
       }
     }, error => {
       console.log('Không nết nối được tới máy chủ');

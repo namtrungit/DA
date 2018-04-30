@@ -1,0 +1,271 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">HỢP ĐỒNG</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateContract()' data-toggle="modal" data-target="#createModal">
+              <i class="fa fa-plus"></i>
+              Thêm
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH HỢP ĐỒNG</div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>Mã</td>
+                      <td>Sinh viên</td>
+                      <td>Phòng</td>
+                      <td>Hợp đồng</td>
+                      <td>Ngày lập</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let contract of list_contract">
+                      <td>{{contract.contract_id}}</td>
+                      <td>{{contract.stu_name}}</td>
+                      <td>{{contract.room_name}}</td>
+                      <td>{{contract.recontract_name}}</td>
+                      <td>{{contract.contract_createdAt}}</td>
+                      <td>
+                          <button class='btn m-b-xs btn-sm btn-warning btn-addon' (click)='selectDetailContract(contract)'  data-toggle="modal" data-target="#detailModal">
+                              <i class="fa fa-file-word-o"></i>
+                              Thông tin
+                            </button>
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectContract(contract)'  data-toggle="modal" data-target="#updateModal">
+                          <i class="icon-pencil"></i>
+                          Cập nhật
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                        <!-- <button (click)='selectRoom(room)' class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delModal">Xóa</button> -->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA PHÒNG</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delContract(contract_id)">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal create-->
+  <div id="createModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">HỢP ĐỒNG</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">LẬP HỢP ĐỒNG</div>
+              <div class="panel-body">
+                <form role="form" autocomplete="off" #formRoom="ngForm" >
+                  <div class="form-group">
+                    <label>Mã sinh viên</label>
+                    <input class="form-control" type="number" id='cre-contract-id-stu-school' name="cre_contract_id_stu_school" [(ngModel)]='cre_contract_id_stu_school'
+                      placeholder="Nhập mã số sinh viên">
+                  </div>
+                  <div class="form-group">
+                      <label>Phòng</label>
+                      <div class="pos-rel">
+                        <input class="form-control" (keyup)='RoomDCreTap()' (click) ='toggleDropDown()' type="text" id='cre-contract-room-name' name="cre_contract_room_name" [(ngModel)]='cre_contract_room_name' placeholder="Nhập phòng">
+                        <div *ngIf='showDD' class="state-container-dropdown">
+                          <div>
+                            <div (click)='selectListCre(room)' (click) ='toggleDropDown()' class="state" *ngFor="let room of list_room">
+                              {{room.room_name}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="form-group">
+                    <label>Hợp đồng</label>
+                    <select class="form-control" [(ngModel)]="cre_contract_id_recontract" name="cre_contract_id_recontract" id="cre-contract-id-recontract">
+                      <option value="">Chọn hợp đồng</option>
+                      <option *ngFor="let rec of list_recenbale" [ngValue]="rec['recontract_id']">{{rec['recontract_name']}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Ngày nhận phòng</label>
+                    <input id="cre-contract-date" type="text" class="form-control" placeholder="Chọn ngày nhận phòng">
+                  </div>
+                  <button type="button" (click)="addContract()" class="btn m-b-xs btn-sm btn-success btn-addon">
+                    <i class='fa fa-check'></i>
+                    Thêm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">HỢP ĐỒNG</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">CẬP NHẬT PHÒNG</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Mã sinh viên</label>
+                    <input class="form-control" type="number" id='contract-id-stu-school' name="contract_id_stu_school" [(ngModel)]='contract_id_stu_school'
+                      placeholder="Nhập mã số sinh viên">
+                  </div>
+                  <div class="form-group">
+                    <label>Phòng</label>
+                    <div class="pos-rel">
+                      <input class="form-control" (keyup)='getListbyTap()' (click)='toggleDropDown()' type="text" id='contract-room-name' name="contract_room_name"
+                        [(ngModel)]='contract_room_name' placeholder="Nhập phòng">
+                      <div *ngIf='showDD' class="state-container-dropdown">
+                        <div>
+                          <div (click)='selectListUpdate(room)' (click)='toggleDropDown()' class="state" *ngFor="let room of list_room">
+                            {{room.room_name}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Hợp đồng</label>
+                    <select class="form-control" [(ngModel)]="contract_id_recontract" name="contract_id_recontract" id="contract-id-recontract">
+                      <option value="">Chọn hợp đồng</option>
+                      <option *ngFor="let rec of list_recenbale" [ngValue]="rec['recontract_id']">{{rec['recontract_name']}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Ngày nhận phòng</label>
+                    <input id="contract-date" type="text" class="form-control" placeholder="Chọn ngày nhận phòng">
+                  </div>
+                  <button type="button" (click)="updateContract()" class="btn m-b-xs btn-sm btn-dark btn-addon">
+                    <i class='icon-pencil'></i>
+                    Cập nhật
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal DetailContract-->
+  <div id="detailModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">HỢP ĐỒNG</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">NỘI DUNG HỢP ĐỒNG</div>
+              <div class="panel-body">
+                <form role="form" autocomplete="off" #formRoom="ngForm" >
+                  <div class="form-group">
+                    <label>Mã sinh viên: {{de_stu_id_school}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Tên sinh viên: {{de_stu_name}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Hợp đồng: {{de_contract_id}}</label>
+                  </div>
+                  <div class="form-group">
+                      <label>Phòng thuê: {{de_room_name}}</label>
+                    </div>
+                  <div class="form-group">
+                    <label>Nội dung hợp đồng: {{de_recontract_name}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Khuyến mãi: {{de_recontract_promotion}}%</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Thời hạn hợp đồng: {{de_recontract_limit}} tháng</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Ngày lập: {{de_contract_createdAt}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Ngày nhận phòng: {{de_contract_date_get_room}}</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

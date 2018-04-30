@@ -125,6 +125,7 @@ export class RoomComponent implements OnInit {
     this.room_max = '';
     this.room_id_area = '';
     this.area_address = '';
+    this.room_id_floor = '';
   }
   delRoom(room_id) {
     this._roomService.delRoom(this.room_id).subscribe(res => {
@@ -163,7 +164,7 @@ export class RoomComponent implements OnInit {
       return;
     }
     if (this.room_id_floor === '') {
-      toastr.warning('Bạn chưa chọn khu vực của phòng', 'Thông báo');
+      toastr.warning('Bạn chưa chọn dãy của phòng', 'Thông báo');
       $('#room-id-floor').focus();
       return;
     }
