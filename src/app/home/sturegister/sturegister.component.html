@@ -1,0 +1,86 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 staff-avatar">
+            <h1 class="m-n font-thin h3 text-black"></h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-2 col-xs-12 "></div>
+          <div class="col-sm-8 col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">ĐĂNG KÝ THUÊ PHÒNG</div>
+              <div class="panel-body">
+                <form role="form" #formAddStaff="ngForm">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Mã số sinh viên</label>
+                      <input id="register-id-school" type="number" [(ngModel)]="register_id_school" name="register_id_school" class="form-control" placeholder="Nhập mã số sinh viên">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Họ và tên</label>
+                      <input id="register-name" type="text" [(ngModel)]="register_name" name="register_name" class="form-control" placeholder="Nhập tên sinh viên">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Giới tính</label>
+                      <select id="register-sex" [(ngModel)]="register_sex" name="register_sex" class="form-control">
+                        <option value="">Chọn giới tính</option>
+                        <option value="male">Nam</option>
+                        <option value="female">Nữ</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Ngày sinh</label>
+                      <input id="register-birthday" type="text" class="form-control" placeholder="Nhập ngày sinh">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Lớp</label>
+                      <input id="register-class" type="text" [(ngModel)]="register_class" name="register_class" class="form-control" placeholder="Nhập lớp">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Khoa</label>
+                      <input id="register-faculty" type="text" [(ngModel)]="register_faculty" name="register_faculty" class="form-control" placeholder="Nhập khoa">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Số điện thoại</label>
+                      <input id="register-phone" type="number" [(ngModel)]="register_phone" name="register_phone" class="form-control" placeholder="Nhập số điện thoại">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Email</label>
+                      <input id="register-mail" type="text" [(ngModel)]="register_mail" name="register_mail" class="form-control" placeholder="Nhập email">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="panel-footer">
+                <button type="button" (click)="addRegister()" class="btn btn-success btn-block">Đăng ký</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+</div>

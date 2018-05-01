@@ -28,9 +28,6 @@
           <i class="fa fa-dedent fa-fw text"></i>
           <i class="fa fa-indent fa-fw text-active"></i>
         </a>
-        <a href="#" class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user">
-          <i class="icon-user fa-fw"></i>
-        </a>
       </div>
       <!-- / buttons -->
 
@@ -180,14 +177,14 @@
 
       <!-- nabar right -->
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+        <!-- <li class="dropdown"> -->
+        <!-- <a href="#" data-toggle="dropdown" class="dropdown-toggle">
             <i class="icon-bell fa-fw"></i>
             <span class="visible-xs-inline">Notifications</span>
             <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
-          </a>
-          <!-- dropdown -->
-          <div class="dropdown-menu w-xl animated fadeInUp">
+          </a> -->
+        <!-- dropdown -->
+        <!-- <div class="dropdown-menu w-xl animated fadeInUp">
             <div class="panel bg-white">
               <div class="panel-heading b-light bg-light">
                 <strong>You have
@@ -219,16 +216,16 @@
                 <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
               </div>
             </div>
-          </div>
-          <!-- / dropdown -->
-        </li>
+          </div> -->
+        <!-- / dropdown -->
+        <!-- </li> -->
         <li class="dropdown">
           <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
             <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
               <img src="assets/img/a0.jpg" alt="...">
               <i class="on md b-white bottom"></i>
             </span>
-            <span class="hidden-sm hidden-md">{{user['user_name']}}</span>
+            <span class="hidden-sm hidden-md"></span>
             <b class="caret"></b>
           </a>
           <!-- dropdown -->
@@ -261,54 +258,16 @@
 
 
   <!-- aside -->
-  <aside id="aside" class="app-aside hidden-xs bg-dark">
-    <div class="aside-wrap">
-      <div class="navi-wrap">
+  <aside id="aside" class="app-aside hidden-xs bg-dark ">
+    <div class="aside-wrap ">
+      <div class="navi-wrap ">
         <!-- user -->
-        <div class="clearfix hidden-xs text-center hide show" id="aside-user">
-          <div class="dropdown wrapper">
-            <a href="app.page.profile">
-              <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                <img src="assets/img/a0.jpg" class="img-full" alt="...">
-              </span>
-            </a>
-            <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
-              <span class="clear">
-                <span class="block m-t-sm">
-                  <strong class="font-bold text-lt">{{user['user_name']}}</strong>
-                  <b class="caret"></b>
-                </span>
-                <span class="text-muted text-xs block">Art Director</span>
-              </span>
-            </a>
-            <!-- dropdown -->
-            <ul class="dropdown-menu animated fadeInRight w hidden-folded">
-              <li>
-                <a href>
-                  <span class="badge bg-danger pull-right"></span>
-                  <span>Thông tin</span>
-                </a>
-              </li>
-              <li>
-                <a ui-sref="app.docs">
-                  <span class="label bg-info pull-right"></span>
-                  Đổi mật khẩu
-                </a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a ui-sref="access.signin">Đăng xuất</a>
-              </li>
-            </ul>
-            <!-- / dropdown -->
-          </div>
-          <div class="line dk hidden-folded"></div>
-        </div>
+
         <!-- / user -->
 
         <!-- nav -->
         <nav ui-nav class="navi clearfix">
-          <ul class="nav">
+          <ul class="nav ">
             <!-- <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                     <span>Navigation</span>
                   </li> -->
@@ -340,33 +299,25 @@
                       </li>
                     </ul>
                   </li> -->
-            <li>
-                <a href class="auto">
-                  <span class="pull-right text-muted">
-                    <i class="fa fa-fw fa-angle-right text"></i>
-                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                  </span>
-                  <i class="icon-note icon text-info-lter"></i>
-                  <span class="font-bold">Phiếu đăng ký</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li>
-                    <a routerLink='register/enable'>
-                      <span>Chưa xem</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a routerLink="register/disable">
-                      <span>Đã xem</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            <li class="line dk"></li>
+            <li class="line dk "></li>
 
             <!-- <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
                     <span>Components</span>
                   </li> -->
+            <li>
+              <a routerLink='index'>
+                <b class="badge bg-info pull-right "></b>
+                <i class="fa fa-home icon text-info-lter "></i>
+                <span class="font-bold ">Trang chủ</span>
+              </a>
+            </li>
+            <li>
+              <a href="mail.html">
+                <b class="badge bg-info pull-right"></b>
+                <i class="icon-pin "></i>
+                <span>Giới thiệu</span>
+              </a>
+            </li>
             <li>
               <a>
                 <span class="pull-right text-muted">
@@ -374,18 +325,23 @@
                   <i class="fa fa-fw fa-angle-down text-active"></i>
                 </span>
                 <b class="badge bg-info pull-right"></b>
-                <i class="icon-users"></i>
-                <span>Sinh viên</span>
+                <i class=" icon-credit-card"></i>
+                <span>Thông tin KTX</span>
               </a>
               <ul class="nav nav-sub dk">
                 <li>
-                  <a routerLink="student">
-                    <span>Danh sách</span>
+                  <a routerLink="">
+                    <span>Hợp đồng</span>
                   </a>
                 </li>
                 <li>
-                  <a routerLink="student/addstu">
-                    <span>Thêm sinh viên</span>
+                  <a routerLink="">
+                    <span>Dịch vụ</span>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="">
+                    <span>Nội qui</span>
                   </a>
                 </li>
                 <!-- <li>
@@ -406,8 +362,8 @@
                   <i class="fa fa-fw fa-angle-right text"></i>
                   <i class="fa fa-fw fa-angle-down text-active"></i>
                 </span>
-                <i class="icon-book-open"></i>
-                <span>Khoa/Lớp</span>
+                <i class="fa fa-usd"></i>
+                <span>Bảng giá</span>
               </a>
               <ul class="nav nav-sub dk">
                 <!-- <li class="nav-sub-header">
@@ -416,14 +372,14 @@
                         </a>
                       </li> -->
                 <li>
-                  <a routerLink="faculty">
-                    <span>Khoa</span>
+                  <a routerLink="">
+                    <span>Hợp đồng</span>
                   </a>
                 </li>
                 <li>
-                  <a routerLink="class">
+                  <a routerLink="">
                     <b class="badge bg-info pull-right"></b>
-                    <span>Lớp</span>
+                    <span>Dịch vụ</span>
                   </a>
                 </li>
                 <!-- <li>
@@ -460,63 +416,41 @@
               </ul>
             </li>
             <li>
-              <a href class="auto">
+              <a class="auto">
                 <span class="pull-right text-muted">
                   <i class="fa fa-fw fa-angle-right text"></i>
                   <i class="fa fa-fw fa-angle-down text-active"></i>
                 </span>
-                <i class="fa fa-building-o"></i>
-                <span>Ký túc xá</span>
+                <i class="icon-bubble"></i>
+                <span>Tin tức</span>
               </a>
               <ul class="nav nav-sub dk">
                 <li>
-                  <a routerLink='area'>
-                    <span>Khu</span>
+                  <a routerLink="">
+                    <span>Thông báo</span>
                   </a>
                 </li>
                 <li>
-                  <a routerLink="floor">
-                    <span>Dãy</span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="room">
-                    <span>Phòng</span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="price">
-                    <span>Giá</span>
+                  <a routerLink="" class="">
+                    <b class="badge bg-info pull-right"></b>
+                    <span>Quy định</span>
                   </a>
                 </li>
               </ul>
             </li>
             <li>
-              <a href class="auto">
-                <span class="pull-right text-muted">
-                  <i class="fa fa-fw fa-angle-right text"></i>
-                  <i class="fa fa-fw fa-angle-down text-active"></i>
-                </span>
-                <i class="glyphicon glyphicon-edit"></i>
-                <span>Hợp đồng</span>
+              <a routerLink='register'>
+                <b class="badge bg-info pull-right"></b>
+                <i class="fa fa-edit icon text-info-lter"></i>
+                <span>Đăng ký phòng</span>
               </a>
-              <ul class="nav nav-sub dk">
-                <li>
-                  <a routerLink='contractreg'>
-                    <span>Qui định</span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="contract">
-                    <span>Danh sách</span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="">
-                    <span>Biên lai</span>
-                  </a>
-                </li>
-              </ul>
+            </li>
+            <li>
+              <a routerLink='contact'>
+                <b class="badge bg-info pull-right"></b>
+                <i class="icon-call-end icon text-info-lter"></i>
+                <span>Liên hệ</span>
+              </a>
             </li>
             <li class="line dk hidden-folded"></li>
           </ul>
@@ -551,6 +485,45 @@
 
   <!-- content -->
   <div id="content" class="app-content" role="main">
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+      <div class="col">
+        <div style="background:url(assets/img/BannerKTX.jpg) center center; background-size:cover">
+          <div class="wrapper-xl bg-white-opacity">
+            <div class="row m-t">
+              <div class="col-sm-7">
+                <a href class="thumb-lg pull-left m-r">
+                  <img src="assets/img/logohutech.jpg" class="img-circle">
+                </a>
+                <div class="clear m-b">
+                  <div class="m-b m-t-sm">
+                    <span class="h3 text-black"></span>
+                    <small class="m-l"></small>
+                  </div>
+                  <p class="m-b">
+                    <!-- <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-twitter"></i></a>
+                          <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-facebook"></i></a>
+                          <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-google-plus"></i></a> -->
+                  </p>
+                  <!-- <a href class="btn btn-sm btn-success btn-rounded">Follow</a> -->
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="pull-right pull-none-xs text-center">
+                  <a href class="m-b-md inline m">
+                    <span class="h3 block font-bold"></span>
+                    <small></small>
+                  </a>
+                  <a href class="m-b-md inline m">
+                    <span class="h3 block font-bold"></span>
+                    <small></small>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </div>
   <!-- /content -->

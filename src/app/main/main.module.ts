@@ -22,6 +22,7 @@ const _routes: Routes = [
       { path: 'floor', loadChildren: './floor/floor.module#FloorModule' },
       { path: 'contractreg', loadChildren: './contractreg/contractreg.module#ContractregModule' },
       { path: 'contract', loadChildren: './contract/contract.module#ContractModule' },
+      { path: 'register', loadChildren: './register/register.module#RegisterModule' },
     ]
   }
 ];
