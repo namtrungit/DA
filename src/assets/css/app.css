@@ -5365,3 +5365,8 @@ ul.find-result li p{
 .state:hover {
   background: #cfdadd
 }
+
+.price {
+  color: red;
+  font-weight: bold
+}

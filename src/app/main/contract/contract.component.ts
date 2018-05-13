@@ -13,11 +13,12 @@ export class ContractComponent implements OnInit {
   public list_contract: Array<any> = [];
   public list_recenbale: Array<any> = [];
   public list_room: Array<any> = [];
-
+  public idBill = '';
   // create Modal
   public cre_contract_id_stu_school = '';
   public cre_contract_room_name = '';
   public cre_contract_id_recontract = '';
+  public cre_contract_create = '';
 
   // del and update modal
   public contract_id = '';
@@ -38,6 +39,9 @@ export class ContractComponent implements OnInit {
   public de_recontract_limit = '';
   public de_contract_createdAt = '';
   public de_contract_date_get_room = '';
+  public de_contract_date_end = '';
+  public de_contract_create = '';
+  public de_contract_price = 0;
   constructor(
     private _contractService: ContractService,
     private _router: Router
@@ -47,10 +51,17 @@ export class ContractComponent implements OnInit {
     this.getRoom();
     this.getContract();
     this.getRecenable();
+    this.getCreate();
     $('#cre-contract-date').datetimepicker({
       format: 'DD/MM/YYYY'
     });
     $('#contract-date').datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+    $('#cre-contract-end').datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+    $('#contract-end').datetimepicker({
       format: 'DD/MM/YYYY'
     });
   }
@@ -61,6 +72,7 @@ export class ContractComponent implements OnInit {
     this.contract_room_name = contract.room_name;
     this.contract_id_recontract = contract.recontract_id;
     $('#contract-date').val(contract.contract_date_get_room);
+    $('#contract-end').val(contract.contract_date_end);
     this.showDD = false;
     console.log(contract);
   }
@@ -70,6 +82,25 @@ export class ContractComponent implements OnInit {
     this.cre_contract_id_recontract = '';
     $('#cre-contract-date').val(null);
     this.showDD = false;
+  }
+  getCreate() {
+    this._contractService.getCreate().subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._contractService.tokenError();
+      }
+      if (res.status === 'success') {
+        this.cre_contract_create = res.user.user_name;
+        // console.log(this.cre_contract_create);
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
   }
   getContract() {
     this._contractService.getContract().subscribe(res => {
@@ -150,11 +181,22 @@ export class ContractComponent implements OnInit {
       $('#cre-contract-date').focus();
       return;
     }
+    if ($('#cre-contract-end').val() === '') {
+      toastr.warning('Bạn chưa chọn ngày kết thúc hợp đồng', 'Thông báo');
+      $('#cre-contract-end').focus();
+      return;
+    }
+    if (this.cre_contract_create === '') {
+      toastr.warning('Bạn chưa cập nhật tên ở phần thông tin tài khoản', 'Thông báo');
+      return;
+    }
     const contract = JSON.stringify({
       contract_date_get_room: $('#cre-contract-date').val(),
+      contract_date_end: $('#cre-contract-end').val(),
       contract_room_name: this.cre_contract_room_name,
       contract_id_stu_school: this.cre_contract_id_stu_school,
-      contract_id_recontract: this.cre_contract_id_recontract
+      contract_id_recontract: this.cre_contract_id_recontract,
+      contract_create: this.cre_contract_create
     });
     // console.log(contract);
     this._contractService.addContract(contract).subscribe(res => {
@@ -166,10 +208,17 @@ export class ContractComponent implements OnInit {
       }
       if (res.status === 'warning stu') {
         toastr.warning('Sinh viên này không có trong cơ sở dữ liệu', 'Thông báo');
+        $('#cre-contract-id-stu-school').focus();
         return;
       }
       if (res.status === 'warning room') {
         toastr.warning('Phòng này không có trong cơ sở dữ liệu', 'Thông báo');
+        $('#cre-contract-room-name').focus();
+        return;
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        $('#cre-contract-end').focus();
         return;
       }
       if (res.status === 'success') {
@@ -209,9 +258,15 @@ export class ContractComponent implements OnInit {
       $('#contract-date').focus();
       return;
     }
+    if ($('#contract-end').val() === '') {
+      toastr.warning('Bạn chưa chọn ngày kết thúc hợp đồng', 'Thông báo');
+      $('#contract-end').focus();
+      return;
+    }
     const contract = JSON.stringify({
       contract_id: this.contract_id,
       contract_date_get_room: $('#contract-date').val(),
+      contract_date_end: $('#contract-end').val(),
       contract_room_name: this.contract_room_name,
       contract_id_stu_school: this.contract_id_stu_school,
       contract_id_recontract: this.contract_id_recontract
@@ -266,7 +321,7 @@ export class ContractComponent implements OnInit {
   }
 
 
-  // Autocomplete textbox
+  // Autocomplete textbox room
   toggleDropDown() {
     this.showDD = !this.showDD;
   }
@@ -332,5 +387,8 @@ export class ContractComponent implements OnInit {
     this.de_recontract_limit = contract.recontract_limit;
     this.de_contract_createdAt = contract.contract_createdAt;
     this.de_contract_date_get_room = contract.contract_date_get_room;
+    this.de_contract_date_end = contract.contract_date_end;
+    this.de_contract_create = contract.contract_create;
+    this.de_contract_price = (contract.af_price * contract.recontract_limit * (100 - contract.recontract_promotion)) / 100;
   }
 }

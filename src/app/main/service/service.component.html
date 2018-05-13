@@ -1,0 +1,206 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">DỊCH VỤ</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateService()' data-toggle="modal" data-target="#createModal">
+              <i class="fa fa-plus"></i>
+              Thêm
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH</div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>Mã </td>
+                      <td>Tên dịch vụ</td>
+                      <td>Ngày ban hành</td>
+                      <td>Ngày áp dụng</td>
+                      <td>Trạng thái</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let service of list_service">
+                      <td>{{service.service_id}}</td>
+                      <td>{{service.service_name}}</td>
+                      <td>{{service.createdAt}}</td>
+                      <td>{{service.service_date}}</td>
+                      <td>{{service.service_status === 'disable'? 'Ngưng':'Hoạt động'}}</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectService(service)' data-toggle="modal" data-target="#updateModal">
+                          <i class="icon-pencil"></i>
+                          Cập nhật
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectService(service)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA DỊCH VỤ</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delService()" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal create-->
+  <div id="createModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM DỊCH VỤ</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Tên dịch vụ</label>
+                    <input class="form-control" type="text" id='cre-service-name' name="cre_service_name" [(ngModel)]='cre_service_name'
+                      placeholder="Nhập tên dịch vụ">
+                  </div>
+                  <div class="form-group">
+                    <label>Giá</label>
+                    <input class="form-control" type="number" id='cre-service-price' name="cre_service_price" [(ngModel)]='cre_service_price'
+                      placeholder="Nhập tên dịch vụ">
+                  </div>
+                  <div class="form-group">
+                    <label>Ngày áp dụng</label>
+                    <input id="cre-service-date" type="text" class="form-control" placeholder="Chọn ngày áp dụng dịch vụ">
+                  </div>
+                  <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea class="form-control" rows="8" id="cre-service-content" [(ngModel)]='cre_service_content' name="cre_service_content"
+                      placeholder="Nhập mô tả dịch vụ"></textarea>
+                  </div>
+                  <button type="button" (click)="addService()" class="btn m-b-xs btn-sm btn-success btn-addon">
+                    <i class='fa fa-check'></i>
+                    Thêm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">CẬP NHẬT DỊCH VỤ</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Tên dịch vụ</label>
+                    <input class="form-control" type="text" id='service-name' name="service_name" [(ngModel)]='service_name'
+                      placeholder="Nhập tên dịch vụ">
+                  </div>
+                  <div class="form-group">
+                    <label>Giá</label>
+                    <input class="form-control" type="number" id='service-price' name="service_price" [(ngModel)]='service_price'
+                      placeholder="Nhập tên dịch vụ">
+                  </div>
+                  <div class="form-group">
+                    <label>Ngày áp dụng</label>
+                    <input id="service-date" type="text" class="form-control" placeholder="Chọn ngày áp dụng dịch vụ">
+                  </div>
+                  <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea class="form-control" rows="8" id="service-content" [(ngModel)]='service_content' name="service_content"
+                      placeholder="Nhập mô tả dịch vụ"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Trạng thái</label>
+                    <div class="">
+                      <div class="radio-inline">
+                        <label class="i-checks">
+                          <input type="radio" [(ngModel)]="service_status" name="service_status" value="disable">
+                          <i></i>
+                          Ngưng
+                        </label>
+                      </div>
+                      <div class="radio-inline">
+                        <label class="i-checks">
+                          <input type="radio" [(ngModel)]="service_status" name="service_status" value="enable">
+                          <i></i>
+                          Hoạt động
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" (click)="updateService()" class="btn m-b-xs btn-sm btn-dark btn-addon">
+                    <i class='icon-pencil'></i>
+                    Cập nhật
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

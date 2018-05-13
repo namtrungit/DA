@@ -9,10 +9,11 @@ import { RouterModule, Routes } from '@angular/router';
 const _routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
-      {path: '', redirectTo: 'stuindex', pathMatch: 'full' },
+      { path: '', redirectTo: 'stuindex', pathMatch: 'full' },
       { path: 'index', loadChildren: './stuindex/stuindex.module#StuindexModule' },
       { path: 'register', loadChildren: './sturegister/sturegister.module#SturegisterModule' },
-      { path: 'contact', loadChildren: './stucontact/stucontact.module#StucontactModule' }
+      { path: 'contact', loadChildren: './stucontact/stucontact.module#StucontactModule' },
+      { path: 'recontract', loadChildren: './sturecontract/sturecontract.module#SturecontractModule' }
     ]
   }
 ];

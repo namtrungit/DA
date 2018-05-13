@@ -42,4 +42,7 @@ export class ContractService {
   getRoomText(room) {
     return this._http.post(CONFIG.BASE_API + '/rooms/type-room', room, { headers: this.createHeader() }).map(res => res.json());
   }
+  getCreate() {
+    return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
+  }
 }

@@ -23,6 +23,8 @@ const _routes: Routes = [
       { path: 'contractreg', loadChildren: './contractreg/contractreg.module#ContractregModule' },
       { path: 'contract', loadChildren: './contract/contract.module#ContractModule' },
       { path: 'register', loadChildren: './register/register.module#RegisterModule' },
+      { path: 'service', loadChildren: './service/service.module#ServiceModule' },
+      { path: 'bill', loadChildren: './bill/bill.module#BillModule' },
     ]
   }
 ];
