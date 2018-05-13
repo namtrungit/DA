@@ -51,4 +51,18 @@ export class AddbillService {
   delBs(bs_id) {
     return this._http.delete(CONFIG.BASE_API + '/bss/del-bs?bs_id=' + bs_id, { headers: this.createHeader() }).map(res => res.json());
   }
+
+  // test
+  getContent() {
+    const lstService = sessionStorage.getItem('giohang');
+    if (lstService) {
+      const dv = JSON.parse(lstService);
+      return dv;
+    } else {
+      return null;
+    }
+  }
+  totalBill(bill) {
+    return this._http.put(CONFIG.BASE_API + '/bills/total-bill', bill, { headers: this.createHeader() }).map(res => res.json());
+  }
 }

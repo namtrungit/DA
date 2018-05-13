@@ -26,4 +26,7 @@ export class ListbillService {
     // tslint:disable-next-line:max-line-length
     return this._http.delete(CONFIG.BASE_API + '/bills/del-bill?bill_id=' + bill_id, { headers: this.createHeader() }).map(res => res.json());
   }
+  getBs(bs) {
+    return this._http.post(CONFIG.BASE_API + '/bss/bsById', bs, { headers: this.createHeader() }).map(res => res.json());
+  }
 }
