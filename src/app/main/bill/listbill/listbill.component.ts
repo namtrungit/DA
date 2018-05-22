@@ -21,6 +21,10 @@ export class ListbillComponent implements OnInit {
   public de_bill_create = '';
   public de_bill_total = '';
   public de_bill_stu_name = '';
+
+  // Search modal
+  public search_bill_id = '';
+  public search_stu_id = '';
   constructor(
     private _listbillService: ListbillService,
     private _router: Router
@@ -93,6 +97,39 @@ export class ListbillComponent implements OnInit {
       if (res.status === 'success') {
         toastr.success(res.message);
         this.getBill();
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+  clearSearch() {
+    this.search_bill_id = '';
+    this.search_stu_id = '';
+  }
+  findBill() {
+    const bill = JSON.stringify({
+      bill_id: this.search_bill_id,
+      bill_stu_id: this.search_stu_id
+    });
+    // console.log(bill);
+    this._listbillService.findBill(bill).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._listbillService.tokenError();
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'success') {
+        this.list_bill = res.list;
+        $('#searchModal').modal('toggle');
         return;
       }
     }, error => {

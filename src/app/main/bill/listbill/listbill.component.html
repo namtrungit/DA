@@ -9,7 +9,7 @@
             <h1 class="m-n font-thin h3 text-black">DANH SÁCH HÓA ĐƠN</h1>
           </div>
           <div class="col-sm-2 col-xs-12">
-            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearCreate()" data-toggle="modal" data-target="#searchModal">
+            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
               <i class="icon-magnifier"></i>
               Tìm kiếm
             </button>
@@ -20,7 +20,11 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="panel panel-default">
-              <div class="panel-heading font-bold">HÓA ĐƠN</div>
+              <div class="panel-heading font-bold">HÓA ĐƠN
+                <button class='btn m-b-xs btn-sm btn-info' (click)='getBill()'>
+                  <i class="fa fa-refresh"></i>
+                </button>
+              </div>
               <div class="panel-body">
                 <table class="table table-striped m-b-none">
                   <thead>
@@ -174,8 +178,12 @@
                         <table class="table table-striped m-b-none">
                           <thead>
                             <tr>
-                              <td><strong>Dịch vụ</strong></td>
-                              <td><strong>Giá</strong></td>
+                              <td>
+                                <strong>Dịch vụ</strong>
+                              </td>
+                              <td>
+                                <strong>Giá</strong>
+                              </td>
                             </tr>
                           </thead>
                           <tbody>
@@ -204,5 +212,40 @@
 
     </div>
   </div>
+  <!-- Modal search-->
+  <div id="searchModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">TÌM PHIẾU ĐIỆN</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Mã hóa đơn</label>
+                <input id="search-bill-id" type="text" [(ngModel)]="search_bill_id" name="search_bill_id" class="form-control" placeholder="Nhập mã hóa đơn">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Mã sinh viên</label>
+                <input id="search-stu-id" type="text" [(ngModel)]="search_stu_id" name="search_stu_id" class="form-control" placeholder="Nhập mã số sinh viên">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="findBill()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+            <i class='icon-magnifier'></i>
+            Tìm kiếm
+          </button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
 
+    </div>
+  </div>
 </div>

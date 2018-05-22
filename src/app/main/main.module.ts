@@ -25,6 +25,11 @@ const _routes: Routes = [
       { path: 'register', loadChildren: './register/register.module#RegisterModule' },
       { path: 'service', loadChildren: './service/service.module#ServiceModule' },
       { path: 'bill', loadChildren: './bill/bill.module#BillModule' },
+      { path: 'chart', loadChildren: './chart/chart.module#ChartModule' },
+      { path: 'rule', loadChildren: './rule/rule.module#RuleModule' },
+      { path: 'addelec', loadChildren: './addelec/addelec.module#AddelecModule' },
+      { path: 'enelec', loadChildren: './enelec/enelec.module#EnelecModule' },
+      { path: 'diselec', loadChildren: './diselec/diselec.module#DiselecModule' },
     ]
   }
 ];

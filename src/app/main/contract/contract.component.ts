@@ -13,8 +13,8 @@ export class ContractComponent implements OnInit {
   public list_contract: Array<any> = [];
   public list_recenbale: Array<any> = [];
   public list_room: Array<any> = [];
-  public idBill = '';
   // create Modal
+  public cre_contract_id = '';
   public cre_contract_id_stu_school = '';
   public cre_contract_room_name = '';
   public cre_contract_id_recontract = '';
@@ -65,7 +65,20 @@ export class ContractComponent implements OnInit {
       format: 'DD/MM/YYYY'
     });
   }
-
+  createIdContract(): string {
+    const date = new Date();
+    const random = 'id' + Math.random().toString(30).slice(2);
+    const nam = date.getFullYear().toString(),
+      thang = date.getMonth().toString(),
+      ngay = date.getDate().toString(),
+      gio = date.getHours().toString(),
+      phut = date.getMinutes().toString(),
+      giay = date.getSeconds().toString(),
+      nam1 = nam.substring(2);
+    this.cre_contract_id = 'HD' + nam1.concat(thang, ngay, gio, random.substring(9));
+    // console.log(this.idBill);
+    return;
+  }
   selectContract(contract) {
     this.contract_id = contract.contract_id;
     this.contract_id_stu_school = contract.stu_id_school;
@@ -77,6 +90,7 @@ export class ContractComponent implements OnInit {
     console.log(contract);
   }
   clearCreateContract() {
+    this.cre_contract_id = '';
     this.cre_contract_id_stu_school = '';
     this.cre_contract_room_name = '';
     this.cre_contract_id_recontract = '';
@@ -160,6 +174,7 @@ export class ContractComponent implements OnInit {
     });
   }
   addContract() {
+    this.createIdContract();
     // validate
     if (this.cre_contract_id_stu_school === '') {
       toastr.warning('Bạn chưa nhập mã sinh viên', 'Thông báo');
@@ -191,6 +206,7 @@ export class ContractComponent implements OnInit {
       return;
     }
     const contract = JSON.stringify({
+      contract_id: this.cre_contract_id,
       contract_date_get_room: $('#cre-contract-date').val(),
       contract_date_end: $('#cre-contract-end').val(),
       contract_room_name: this.cre_contract_room_name,
@@ -199,6 +215,7 @@ export class ContractComponent implements OnInit {
       contract_create: this.cre_contract_create
     });
     // console.log(contract);
+    // return;
     this._contractService.addContract(contract).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);

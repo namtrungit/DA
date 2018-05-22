@@ -21,6 +21,10 @@ export class RoomComponent implements OnInit {
   public room_id_floor = '';
   public area_address = '';
 
+  // SearchModal
+  public search_room = '';
+  public search_area = '';
+  public search_empty = '';
   constructor(
     private _roomService: RoomService,
     private _router: Router
@@ -185,7 +189,6 @@ export class RoomComponent implements OnInit {
       }
       if (res.status === 'warning') {
         toastr.warning(res.message);
-        this.getRoom();
         return;
       }
       if (res.status === 'success') {
@@ -249,31 +252,39 @@ export class RoomComponent implements OnInit {
       return;
     });
   }
+  clearSearch() {
+    this.search_area = '';
+    this.search_empty = '';
+    this.search_room = '';
+  }
   searchRoom() {
-    if (this.room_max === '' && this.room_id_area === '' && this.room_id === '') {
-      toastr.warning('Bạn chưa nhập thông tin để tìm kiếm', 'Thông báo');
+    const room = JSON.stringify({
+      room: this.search_room,
+      area: this.search_area,
+      empty: this.search_empty
+    });
+    // console.log(room);
+    this._roomService.searchRoom(room).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._roomService.tokenError();
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'success') {
+        this.list_room = res.list;
+        $('#searchModal').modal('toggle');
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
       return;
-    }
-    // this._roomService.searchRoom(this.room_max, this.room_id_area, this.room_id).subscribe(res => {
-    //   if (res.status === 'error') {
-    //     toastr.error(res.message);
-    //     return;
-    //   }
-    //   if (!res.isAuth && res.status === 'error') {
-    //     return this._roomService.tokenError();
-    //   }
-    //   if (res.status === 'success') {
-    //     // toastr.success(res.message);
-    //     this.list_room = res.Rooms;
-    //     this.room_id = '';
-    //     this.room_max = '';
-    //     this.room_id_area = '';
-    //     return;
-    //   }
-    // }, error => {
-    //   console.log('Không nết nối được tới máy chủ');
-    //   this._router.navigate(['error']);
-    //   return;
-    // });
+    });
   }
 }

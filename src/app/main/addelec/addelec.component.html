@@ -1,0 +1,61 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 staff-avatar">
+            <h1 class="m-n font-thin h3 text-black">LẬP PHIẾU ĐIỆN</h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-2 col-xs-12 "></div>
+          <div class="col-sm-8 col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">PHIẾU ĐIỆN</div>
+              <div class="panel-body">
+                <form role="form" #formAddStaff="ngForm">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Phòng</label>
+                      <input id="elec-room" list="elec" type="text" [(ngModel)]="elec_room" name="elec_room" class="form-control" placeholder="Chọn phòng để lập phiếu điện">
+                      <datalist id="elec">
+                        <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
+                      </datalist>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Tháng-năm</label>
+                      <input id="elec-month" type="month" name="elec_month" class="form-control" [(ngModel)]="elec_month">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Số lương điện</label>
+                      <input id="elec-amount" type="number" [(ngModel)]="elec_amount" name="elec_amount" class="form-control" placeholder="Nhập số lương điện">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Tổng tiền</label>
+                      <input id="elec-total" type="number" [(ngModel)]="elec_total" name="elec_total" class="form-control" placeholder="Nhập tổng tiền">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="panel-footer">
+                <button type="button" (click)="addElec()" class="btn btn-success btn-block">Lập</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+</div>

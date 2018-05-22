@@ -1,0 +1,159 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">QUY ĐỊNH KÝ TÚC XÁ</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateRule()' data-toggle="modal" data-target="#createModal">
+              <i class="fa fa-plus"></i>
+              Thêm
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold">DANH SÁCH</div>
+                <div class="panel-body">
+                  <table class="table table-striped m-b-none">
+                    <thead>
+                      <tr>
+                        <td>Quy định</td>
+                        <td style="width:250px">Tác vụ</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let rule of list_rule">
+                        <td>{{rule.rule_name}}</td>
+                        <td>
+                          <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectRule(rule)' data-toggle="modal" data-target="#updateModal">
+                            <i class="icon-pencil"></i>
+                            Cập nhật
+                          </button>
+                          <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectRule(rule)' data-toggle="modal" data-target="#delModal">
+                            <i class="icon-trash"></i>
+                            Xóa
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          <div class="col-sm-2"></div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA QUY ĐỊNH</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delRule()" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal create-->
+  <div id="createModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM QUY ĐỊNH KÝ TÚC XÁ</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Tên quy định</label>
+                    <input class="form-control" type="text" id='cre-rule-name' name="cre_rule_name" [(ngModel)]='cre_rule_name' placeholder="Nhập tên quy định">
+                  </div>
+                  <div class="form-group">
+                    <label>Nội dung</label>
+                    <textarea class="form-control" rows="8" id="cre-rule-content" [(ngModel)]='cre_rule_content' name="cre_rule_content" placeholder="Nhập nội dung quy định"></textarea>
+                  </div>
+                  <button type="button" (click)="addRule()" class="btn m-b-xs btn-sm btn-success btn-addon">
+                    <i class='fa fa-check'></i>
+                    Thêm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">CẬP NHẬT DỊCH VỤ</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Tên quy định</label>
+                    <input class="form-control" type="text" id='rule-name' name="rule_name" [(ngModel)]='rule_name' placeholder="Nhập tên quy định">
+                  </div>
+                  <div class="form-group">
+                    <label>Nội dung</label>
+                    <textarea class="form-control" rows="8" id="rule-content" [(ngModel)]='rule_content' name="rule_content" placeholder="Nhập nội dung quy định"></textarea>
+                  </div>
+                  <button type="button" (click)="updateRule()" class="btn m-b-xs btn-sm btn-dark btn-addon">
+                    <i class='icon-pencil'></i>
+                    Cập nhật
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

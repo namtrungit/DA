@@ -13,7 +13,8 @@ const _routes: Routes = [
       { path: 'index', loadChildren: './stuindex/stuindex.module#StuindexModule' },
       { path: 'register', loadChildren: './sturegister/sturegister.module#SturegisterModule' },
       { path: 'contact', loadChildren: './stucontact/stucontact.module#StucontactModule' },
-      { path: 'recontract', loadChildren: './sturecontract/sturecontract.module#SturecontractModule' }
+      { path: 'recontract', loadChildren: './sturecontract/sturecontract.module#SturecontractModule' },
+      { path: 'rule', loadChildren: './sturule/sturule.module#SturuleModule' },
     ]
   }
 ];

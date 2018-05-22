@@ -29,4 +29,7 @@ export class ListbillService {
   getBs(bs) {
     return this._http.post(CONFIG.BASE_API + '/bss/bsById', bs, { headers: this.createHeader() }).map(res => res.json());
   }
+  findBill(bill) {
+    return this._http.post(CONFIG.BASE_API + '/bills/find-bill', bill, { headers: this.createHeader() }).map(res => res.json());
+  }
 }

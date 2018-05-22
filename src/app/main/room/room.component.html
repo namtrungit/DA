@@ -9,7 +9,7 @@
             <h1 class="m-n font-thin h3 text-black">PHÒNG</h1>
           </div>
           <div class="col-sm-3 col-xs-12">
-            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' data-toggle="modal" data-target="#searchModal">
+            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)='clearSearch()' data-toggle="modal" data-target="#searchModal">
               <i class="icon-magnifier"></i>
               Tìm kiếm
             </button>
@@ -24,7 +24,11 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="panel panel-default">
-              <div class="panel-heading font-bold">DANH SÁCH PHÒNG</div>
+              <div class="panel-heading font-bold">DANH SÁCH PHÒNG
+                <button class='btn m-b-xs btn-sm btn-info' (click)='getRoom()'>
+                  <i class="fa fa-refresh"></i>
+                </button>
+              </div>
               <div class="panel-body">
                 <table class="table table-striped m-b-none">
                   <thead>
@@ -127,7 +131,7 @@
                         <td>{{stu.stu_sex === 'male'? 'Nam':'Nữ'}}</td>
                         <td>{{stu.stu_phone}}</td>
                         <td>{{stu.class_name}}</td>
-                        <td>{{stu.fal_name}}</td>   
+                        <td>{{stu.fal_name}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -216,37 +220,35 @@
                 <form role="form" #formRoom="ngForm">
                   <div class="form-group">
                     <label>Phòng</label>
-                    <input class="form-control" id='room-id' name="room_id" [(ngModel)]='room_id' placeholder="Nhập tên tên phòng">
-                  </div>
-                  <div class="form-group">
-                    <label>Sức chứa</label>
-                    <input class="form-control" id='room-quantity' name="room_quantity" [(ngModel)]='room_quantity' placeholder="Nhập số lượng chứa của phòng">
-                  </div>
-                  <div class="form-group">
-                    <label>Giá</label>
-                    <select class="form-control" [(ngModel)]="room_id_price" name="room_id_price" id="room-id-price">
-                      <option value="">Chọn giá phòng</option>
-                      <option *ngFor="let price of list_price" [ngValue]="price['price_id']">{{price['price_value']|currency:"VND":true:'0.0-0'}}</option>
-                    </select>
+                    <input class="form-control" id='search-room' name="search_room" [(ngModel)]='search_room' placeholder="Nhập tên tên phòng">
                   </div>
                   <div class="form-group">
                     <label>Khu</label>
-                    <select class="form-control" [(ngModel)]="room_id_area" name="room_id_area" id="room-id-area">
+                    <select class="form-control" [(ngModel)]="search_area" name="search_area" id="search-area">
                       <option value="">Chọn khu</option>
                       <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_address']}}</option>
                     </select>
                   </div>
-                  <button type="button" (click)="searchRoom()" class="btn m-b-xs btn-sm btn-primary btn-addon" data-dismiss="modal">
-                    <i class='icon-magnifier'></i>
-                    Tìm kiếm
-                  </button>
+                  <div class="form-group">
+                    <label>Phòng trống</label>
+                    <div class="col-sm-12">
+                      <label class="i-switch i-switch-md bg-info m-t-xs m-r">
+                        <input type="checkbox" checked [(ngModel)]="search_empty" name="search_empty">
+                        <i></i>
+                      </label>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" (click)='clearRoom()' data-dismiss="modal">Close</button>
+          <button type="button" (click)="searchRoom()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+            <i class='icon-magnifier'></i>
+            Tìm kiếm
+          </button>
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
         </div>
       </div>
 

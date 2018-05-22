@@ -1,0 +1,37 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black" style="text-align:center">
+              <strong>QUY ĐỊNH KÝ TÚC XÁ</strong>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold"></div>
+              <div class="panel-body">
+                <p *ngFor="let rule of list_rule">
+                  <span>
+                    <strong>
+                      <u>{{rule.rule_name}}</u>
+                    </strong>
+                    : {{rule.rule_content}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+</div>

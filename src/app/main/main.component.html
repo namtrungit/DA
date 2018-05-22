@@ -341,27 +341,44 @@
                     </ul>
                   </li> -->
             <li>
-                <a href class="auto">
-                  <span class="pull-right text-muted">
-                    <i class="fa fa-fw fa-angle-right text"></i>
-                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                  </span>
-                  <i class="icon-note icon text-info-lter"></i>
-                  <span class="font-bold">Phiếu đăng ký</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li>
-                    <a routerLink='register/enable'>
-                      <span>Chưa xem</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a routerLink="register/disable">
-                      <span>Đã xem</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
+              <a href class="auto">
+                <span class="pull-right text-muted">
+                  <i class="fa fa-fw fa-angle-right text"></i>
+                  <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="icon-note icon text-info-lter"></i>
+                <span class="font-bold">Phiếu đăng ký</span>
+              </a>
+              <ul class="nav nav-sub dk">
+                <li>
+                  <a routerLink='register/enable'>
+                    <span>Chưa xem</span>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="register/disable">
+                    <span>Đã xem</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href class="auto">
+                <span class="pull-right text-muted">
+                  <i class="fa fa-fw fa-angle-right text"></i>
+                  <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="glyphicon glyphicon-signal icon  text-info-lter"></i>
+                <span class="font-bold">Thống kê</span>
+              </a>
+              <ul class="nav nav-sub dk">
+                <li>
+                  <a routerLink='chart/contract'>
+                    <span>Hợp đồng hết hạn</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
             <li class="line dk"></li>
 
             <!-- <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
@@ -489,6 +506,11 @@
                     <span>Giá</span>
                   </a>
                 </li>
+                <li>
+                  <a routerLink="rule">
+                    <span>Quy định</span>
+                  </a>
+                </li>
               </ul>
             </li>
             <li>
@@ -541,6 +563,33 @@
                 <li>
                   <a routerLink="bill/addbill">
                     <span>Lập hóa đơn</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href class="auto">
+                <span class="pull-right text-muted">
+                  <i class="fa fa-fw fa-angle-right text"></i>
+                  <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="icon-energy"></i>
+                <span>Phiếu điện</span>
+              </a>
+              <ul class="nav nav-sub dk">
+                <li>
+                  <a routerLink="addelec">
+                    <span>Lập phiếu điện</span>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="diselec">
+                    <span>Đã thanh toán</span>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="enelec">
+                    <span>Chưa thanh toán</span>
                   </a>
                 </li>
               </ul>

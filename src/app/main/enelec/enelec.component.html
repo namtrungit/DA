@@ -1,0 +1,269 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">PHIẾU ĐIỆN CHƯA THANH TOÁN</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
+              <i class="icon-magnifier"></i>
+              Tìm kiếm
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH
+                <button class='btn m-b-xs btn-sm btn-success' (click)='getElec()'>
+                  <i class="fa fa-refresh"></i>
+                </button>
+              </div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>Mã</td>
+                      <td>Phòng</td>
+                      <td>Kỳ</td>
+                      <td>Số lượng điện</td>
+                      <td>Tổng tiền</td>
+                      <td>Người lập</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let elec of list_elec">
+                      <td>{{elec.elec_id}}</td>
+                      <td>{{elec.elec_room}}</td>
+                      <td>{{elec.elec_month}}</td>
+                      <td>{{elec.elec_amount}} kWh</td>
+                      <td>{{elec.elec_total|currency:" ":true:'0.0-0'}} VNĐ</td>
+                      <td>{{elec.elec_creater}}</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-warning btn-addon' (click)='selectElec(elec)' data-toggle="modal" data-target="#detailModal">
+                          <i class="fa fa-file-word-o"></i>
+                          Thông tin
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectElec(elec)' data-toggle="modal" data-target="#updateModal">
+                          <i class="icon-pencil"></i>
+                          Cập nhật
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectElec(elec)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal search-->
+  <div id="searchModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">TÌM PHIẾU ĐIỆN</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Mã phiếu điện</label>
+                <input id="search-elec-id" type="text" [(ngModel)]="search_elec_id" name="search_elec_id" class="form-control" placeholder="Nhập mã phiếu điện">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Thời gian</label>
+                <input type="month" name="month_year" class="form-control" [(ngModel)]="month_year" id="month-year">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Phòng</label>
+                <input id="search-elec-room" list="elec" type="text" [(ngModel)]="search_elec_room" name="search_elec_room" class="form-control"
+                  placeholder="Chọn phòng">
+                <datalist id="elec">
+                  <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
+                </datalist>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="findElec()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+            <i class='icon-magnifier'></i>
+            Tìm kiếm
+          </button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal DetailContract-->
+  <div id="detailModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">PHIẾU ĐIỆN</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">NỘI DUNG PHIẾU ĐIỆN</div>
+              <div class="panel-body">
+                <form role="form" autocomplete="off" #formRoom="ngForm">
+                  <div class="form-group">
+                    <strong>Mã phiếu: </strong>
+                    <label>{{elec_id}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Phòng: </strong>
+                    <label>{{elec_room}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Kỳ: </strong>
+                    <label>{{elec_month}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Số lượng điện: </strong>
+                    <label>{{elec_amount}} kWh</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Tổng tiền: </strong>
+                    <label class="price">{{elec_total|currency:" ":true:'0.0-0'}} VNĐ</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Người lập: </strong>
+                    <label>{{elec_creater}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Ngày lập: </strong>
+                    <label>{{createdAt}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Trạng thái: </strong>
+                    <label class="price">{{elec_status === 'disable'? 'Đã thanh toán':'Chưa thanh toán'}}</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class='btn m-b-xs btn-sm btn-info btn-addon' (click)="checkDisable()">
+            <i class="fa fa-thumbs-up"></i>
+            Đã thanh toán
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA DỊCH VỤ</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delElec()" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">CẬP NHẬT PHIẾU ĐIỆN</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <strong>Mã phiếu: </strong>
+                    <label>{{elec_id}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Phòng: </strong>
+                    <label>{{elec_room}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Kỳ: </strong>
+                    <label>{{elec_month}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Số lương điện</label>
+                    <input id="elec-amount" type="number" [(ngModel)]="elec_amount" name="elec_amount" class="form-control" placeholder="Nhập số lương điện">
+                  </div>
+                  <div class="form-group">
+                    <label>Tổng tiền</label>
+                    <input id="elec-total" type="number" [(ngModel)]="elec_total" name="elec_total" class="form-control" placeholder="Nhập tổng tiền">
+                  </div>
+                  <div class="form-group">
+                    <strong>Người lập: </strong>
+                    <label>{{elec_creater}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Ngày lập: </strong>
+                    <label>{{createdAt}}</label>
+                  </div>
+                  <div class="form-group">
+                    <strong>Trạng thái: </strong>
+                    <label class="price">{{elec_status === 'disable'? 'Đã thanh toán':'Chưa thanh toán'}}</label>
+                  </div>
+                  <button type="button" (click)="updateElec()" class="btn m-b-xs btn-sm btn-dark btn-addon">
+                    <i class='icon-pencil'></i>
+                    Cập nhật
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
