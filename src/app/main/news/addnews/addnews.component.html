@@ -1,0 +1,61 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 staff-avatar">
+            <h1 class="m-n font-thin h3 text-black"></h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-4 col-xs-12 col-md-8">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">THÊM TIN TỨC</div>
+              <div class="panel-body">
+                <form role="form" #formAddStaff="ngForm">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Tiêu đề</label>
+                      <input id="new-title" type="text" [(ngModel)]="new_title" name="new_title" class="form-control" placeholder="Nhập tiêu đề">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <label>Nội dung</label>
+                      <textarea class="form-control" rows="13" id="new-content" [(ngModel)]='new_content' name="new_content" placeholder="Nhập mô tả dịch vụ"></textarea>
+                    </div>
+                  </div>
+                  <!-- <button type="button" (click)="addStaff()" class="btn btn-sm btn-primary">Thêm</button> -->
+                </form>
+              </div>
+              <div class="panel-footer">
+                <button type="button" (click)="addNews()" class="btn btn-success btn-block">Đăng tin</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8 col-xs-12 col-md-4 ">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Ảnh tin tức</div>
+              <div class="panel-body">
+                <div class="stu-avatar" style="display:block; text-align:center">
+                  <img *ngIf="new_picture === ''" src="https://i.imgur.com/jNNT4LE.jpg" width="300" height="365" />
+                  <img *ngIf="new_picture != ''" [src]="folder_picture + new_picture" width="300" height="365" />
+                  <label class="btn m-b-xs btn-sm btn-primary btn-addon" style="margin-top:45px">
+                    <i class="fa fa-camera"></i>
+                    Chọn ảnh
+                    <input id="stu-avatar" (change)="uploadPicture($event)" type="file" style="display: none" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+</div>

@@ -104,17 +104,10 @@
                   </div>
                   <div class="form-group">
                     <label>Mã sinh viên</label>
-                    <div class="pos-rel">
-                      <input class="form-control" (keyup)='getStuTap()' (click)='toggleDropDown()' type="number" id='bill-stu-id' name="bill_stu_id"
-                        [(ngModel)]='bill_stu_id' placeholder="Nhập mã sinh viên">
-                      <div *ngIf='showDD' class="state-container-dropdown">
-                        <div>
-                          <div (click)='toggleDropDown()' (click)='selectId(stu)' class="state" *ngFor="let stu of list_id_stu">
-                            {{stu.stu_id_school}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <input id="bill-stu-id" list="elec" type="text" [(ngModel)]="bill_stu_id" name="bill_stu_id" class="form-control" placeholder="Nhập mã sinh viên">
+                    <datalist id="elec">
+                      <option *ngFor="let stu of list_id_stu" [ngValue]="stu.stu_id_school">{{stu['stu_id_school']}}</option>
+                    </datalist>
                   </div>
                   <button type="button" (click)="addBill()" class="btn m-b-xs btn-sm btn-success btn-addon">
                     <i class='fa fa-check'></i>

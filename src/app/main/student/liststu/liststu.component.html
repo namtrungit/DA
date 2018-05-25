@@ -242,17 +242,10 @@
                 <form role="form" #formRoom="ngForm">
                   <div class="form-group">
                     <label>Phòng</label>
-                    <div class="pos-rel">
-                      <input class="form-control" (keyup)='getRoomCreTap()' (click)='toggleDropDown()' type="text" id='stu-room-name' name="stu_room_name"
-                        [(ngModel)]='stu_room_name' placeholder="Nhập phòng cho sinh viên">
-                      <div *ngIf='showDD' class="state-container-dropdown">
-                        <div>
-                          <div (click)='toggleDropDown()' (click)='selectRoomName(room)' class="state" *ngFor="let room of list_room">
-                            {{room.room_name}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <input id="stu-room-name" list="elec" type="text" [(ngModel)]="stu_room_name" name="stu_room_name" class="form-control" placeholder="Nhập phòng cho sinh viên">
+                    <datalist id="elec">
+                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
+                    </datalist>
                   </div>
                 </form>
               </div>
@@ -289,17 +282,10 @@
                 <form role="form" #formRoom="ngForm">
                   <div class="form-group">
                     <label>Phòng</label>
-                    <div class="pos-rel">
-                      <input class="form-control" (keyup)='getRoomUpdateTap()' (click)='toggleDropDown()' type="text" id='swap-room-name' name="swap_room_name"
-                        [(ngModel)]='swap_room_name' placeholder="Nhập phòng cần đổi cho sinh viên">
-                      <div *ngIf='showDD' class="state-container-dropdown">
-                        <div>
-                          <div (click)='toggleDropDown()' (click)='selectRoomNameSwap(room)' class="state" *ngFor="let room of list_room">
-                            {{room.room_name}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <input id="swap-room-name" list="elec" type="text" [(ngModel)]="swap_room_name" name="swap_room_name" class="form-control" placeholder="Nhập phòng cần đổi cho sinh viên">
+                    <datalist id="elec">
+                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
+                    </datalist>
                   </div>
                 </form>
               </div>

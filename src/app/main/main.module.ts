@@ -30,6 +30,7 @@ const _routes: Routes = [
       { path: 'addelec', loadChildren: './addelec/addelec.module#AddelecModule' },
       { path: 'enelec', loadChildren: './enelec/enelec.module#EnelecModule' },
       { path: 'diselec', loadChildren: './diselec/diselec.module#DiselecModule' },
+      { path: 'news', loadChildren: './news/news.module#NewsModule' },
     ]
   }
 ];

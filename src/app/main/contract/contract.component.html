@@ -111,17 +111,10 @@
                   </div>
                   <div class="form-group">
                     <label>Phòng</label>
-                    <div class="pos-rel">
-                      <input class="form-control" (keyup)='RoomDCreTap()' (click)='toggleDropDown()' type="text" id='cre-contract-room-name' name="cre_contract_room_name"
-                        [(ngModel)]='cre_contract_room_name' placeholder="Nhập phòng">
-                      <div *ngIf='showDD' class="state-container-dropdown">
-                        <div>
-                          <div (click)='selectListCre(room)' (click)='toggleDropDown()' class="state" *ngFor="let room of list_room">
-                            {{room.room_name}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <input id="cre-contract-room-name" list="elec" type="text" [(ngModel)]="cre_contract_room_name" name="cre_contract_room_name" class="form-control" placeholder="Nhập phòng">
+                    <datalist id="elec">
+                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
+                    </datalist>
                   </div>
                   <div class="form-group">
                     <label>Hợp đồng</label>
