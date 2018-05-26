@@ -32,9 +32,6 @@ export class RoomService {
   getArea() {
     return this._http.get(CONFIG.BASE_API + '/areas/area', { headers: this.createHeader() }).map(res => res.json());
   }
-  getFloor() {
-    return this._http.get(CONFIG.BASE_API + '/floors/floor', { headers: this.createHeader() }).map(res => res.json());
-  }
   updateRoom(room: Object) {
     return this._http.put(CONFIG.BASE_API + '/rooms/update-room', room, { headers: this.createHeader() }).map(res => res.json());
   }
@@ -42,8 +39,11 @@ export class RoomService {
     // tslint:disable-next-line:max-line-length
     return this._http.post(CONFIG.BASE_API + '/rooms/find-room', room, { headers: this.createHeader() }).map(res => res.json());
   }
-  getStuInRoom(room_id) {
+  getStuInRoom(room_name) {
     // tslint:disable-next-line:max-line-length
-    return this._http.get(CONFIG.BASE_API + '/students/student-room?room_id=' + room_id, { headers: this.createHeader() }).map(res => res.json());
+    return this._http.post(CONFIG.BASE_API + '/students/student-room', room_name, { headers: this.createHeader() }).map(res => res.json());
+  }
+  updatePrice(price) {
+    return this._http.put(CONFIG.BASE_API + '/rooms/update-price', price, { headers: this.createHeader() }).map(res => res.json());
   }
 }

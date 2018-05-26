@@ -304,6 +304,10 @@ export class ContractComponent implements OnInit {
         toastr.warning('Phòng này không có trong cơ sở dữ liệu', 'Thông báo');
         return;
       }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
       if (res.status === 'success') {
         toastr.success(res.message);
         $('#updateModal').modal('toggle');
@@ -406,6 +410,6 @@ export class ContractComponent implements OnInit {
     this.de_contract_date_get_room = contract.contract_date_get_room;
     this.de_contract_date_end = contract.contract_date_end;
     this.de_contract_create = contract.contract_create;
-    this.de_contract_price = (contract.af_price * contract.recontract_limit * (100 - contract.recontract_promotion)) / 100;
+    this.de_contract_price = contract.contract_total;
   }
 }

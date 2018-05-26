@@ -13,18 +13,33 @@ export class RoomComponent implements OnInit {
   public list_area: Array<any> = [];
   public list_floor: Array<any> = [];
   public list_stu: Array<any> = [];
-  // Create Modal
+  // Update Modal
   public room_id = '';
   public room_name = '';
   public room_max = '';
-  public room_id_area = '';
-  public room_id_floor = '';
-  public area_address = '';
+  public update_room_name = '';
+  // public area_address = '';
+
+  // Create Modal
+  public cre_room_name = '';
+  public cre_room_max = '';
+  public cre_room_id_area = '';
+  public cre_room_id_floor = '';
+  public cre_room_floor = '';
+  public cre_room_price = '';
 
   // SearchModal
   public search_room = '';
   public search_area = '';
-  public search_empty = '';
+  public search_floor = '';
+
+  // Price modal
+  public p_room_id_area = '';
+  public p_room_floor = '';
+  public p_room_price = '';
+
+  // Stu Modal
+  public stu_room_name = '';
   constructor(
     private _roomService: RoomService,
     private _router: Router
@@ -33,12 +48,31 @@ export class RoomComponent implements OnInit {
   ngOnInit() {
     this.getRoom();
     this.getArea();
-    this.getFloor();
   }
   selectStuInRoom(room) {
     // this.room_id = room.room_id;
-    this.getStu(room.room_id);
-    console.log(room);
+    this.stu_room_name = room.room_name;
+    // console.log(this.stu_room_name);
+    const room_name = JSON.stringify({
+      room_name: this.stu_room_name
+    });
+    this._roomService.getStuInRoom(room_name).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._roomService.tokenError();
+      }
+      if (res.status === 'success') {
+        this.list_stu = res.list;
+        console.log(this.list_stu);
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
   }
   getStu(room_id) {
     this._roomService.getStuInRoom(room_id).subscribe(res => {
@@ -97,39 +131,18 @@ export class RoomComponent implements OnInit {
       return;
     });
   }
-  getFloor() {
-    this._roomService.getFloor().subscribe(res => {
-      if (res.status === 'error') {
-        toastr.error(res.message);
-        return;
-      }
-      if (!res.isAuth && res.status === 'error') {
-        return this._roomService.tokenError();
-      }
-      if (res.status === 'success') {
-        this.list_floor = res.Floors;
-        console.log(this.list_floor);
-      }
-    }, error => {
-      console.log('Không nết nối được tới máy chủ');
-      this._router.navigate(['error']);
-      return;
-    });
-  }
   selectRoom(room) {
     this.room_id = room.room_id;
     this.room_name = room.room_name;
     this.room_max = room.room_max;
-    this.room_id_area = room.area_id;
-    this.room_id_floor = room.floor_id;
     // console.log(room.room_id);
   }
   clearCreateRoom() {
-    this.room_name = '';
-    this.room_max = '';
-    this.room_id_area = '';
-    this.area_address = '';
-    this.room_id_floor = '';
+    this.cre_room_name = '';
+    this.cre_room_max = '';
+    this.cre_room_id_area = '';
+    this.cre_room_floor = '';
+    this.cre_room_price = '';
   }
   delRoom(room_id) {
     this._roomService.delRoom(this.room_id).subscribe(res => {
@@ -152,31 +165,37 @@ export class RoomComponent implements OnInit {
     });
   }
   addRoom() {
-    if (this.room_name === '') {
+    if (this.cre_room_name === '') {
       toastr.warning('Bạn chưa nhập tên phòng', 'Thông báo');
-      $('#room-name').focus();
+      $('#cre-room-name').focus();
       return;
     }
-    if (this.room_max === '') {
+    if (this.cre_room_max === '') {
       toastr.warning('Bạn chưa nhập sức chứa của phòng', 'Thông báo');
-      $('#room-quantity').focus();
+      $('#cre-room-quantity').focus();
       return;
     }
-    if (this.room_id_area === '') {
+    if (this.cre_room_id_area === '') {
       toastr.warning('Bạn chưa chọn khu vực của phòng', 'Thông báo');
-      $('#room-id-area').focus();
+      $('#cre-room-id-area').focus();
       return;
     }
-    if (this.room_id_floor === '') {
-      toastr.warning('Bạn chưa chọn dãy của phòng', 'Thông báo');
-      $('#room-id-floor').focus();
+    if (this.cre_room_floor === '') {
+      toastr.warning('Bạn chưa nhập tầng của phòng', 'Thông báo');
+      $('#cre-room-floor').focus();
+      return;
+    }
+    if (this.cre_room_price === '') {
+      toastr.warning('Bạn chưa nhập giá của phòng', 'Thông báo');
+      $('#cre-room-price').focus();
       return;
     }
     const room = JSON.stringify({
-      room_name: this.room_name,
-      room_max: this.room_max,
-      room_id_area: this.room_id_area,
-      room_id_floor: this.room_id_floor
+      room_name: this.cre_room_name,
+      room_max: this.cre_room_max,
+      room_id_area: this.cre_room_id_area,
+      room_floor: this.cre_room_floor,
+      room_price: this.cre_room_price
     });
     // console.log(room);
     this._roomService.addRoom(room).subscribe(res => {
@@ -204,32 +223,15 @@ export class RoomComponent implements OnInit {
     });
   }
   updateRoom() {
-    if (this.room_name === '') {
-      toastr.warning('Bạn chưa nhập tên phòng', 'Thông báo');
-      $('#room-id').focus();
-      return;
-    }
     if (this.room_max === '') {
       toastr.warning('Bạn chưa nhập sức chứa của phòng', 'Thông báo');
       $('#room-quantity').focus();
       return;
     }
-    if (this.room_id_area === '') {
-      toastr.warning('Bạn chưa chọn khu vực của phòng', 'Thông báo');
-      $('#room-id-area').focus();
-      return;
-    }
-    if (this.room_id_floor === '') {
-      toastr.warning('Bạn chưa chọn khu vực của phòng', 'Thông báo');
-      $('#room-id-floor').focus();
-      return;
-    }
     const room = JSON.stringify({
       room_id: this.room_id,
-      room_name: this.room_name,
+      update_room_name: this.update_room_name,
       room_max: this.room_max,
-      room_id_area: this.room_id_area,
-      room_id_floor: this.room_id_floor
     });
     // return console.log(room);
     this._roomService.updateRoom(room).subscribe(res => {
@@ -239,6 +241,10 @@ export class RoomComponent implements OnInit {
       }
       if (!res.isAuth && res.status === 'error') {
         return this._roomService.tokenError();
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
       }
       if (res.status === 'success') {
         toastr.success(res.message);
@@ -254,16 +260,17 @@ export class RoomComponent implements OnInit {
   }
   clearSearch() {
     this.search_area = '';
-    this.search_empty = '';
+    this.search_floor = '';
     this.search_room = '';
   }
   searchRoom() {
     const room = JSON.stringify({
-      room: this.search_room,
-      area: this.search_area,
-      empty: this.search_empty
+      room_name: this.search_room,
+      room_id_area: this.search_area,
+      room_floor: this.search_floor
     });
     // console.log(room);
+    // return;
     this._roomService.searchRoom(room).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);
@@ -277,7 +284,7 @@ export class RoomComponent implements OnInit {
         return;
       }
       if (res.status === 'success') {
-        this.list_room = res.list;
+        this.list_room = res.Rooms;
         $('#searchModal').modal('toggle');
         return;
       }
@@ -286,5 +293,56 @@ export class RoomComponent implements OnInit {
       this._router.navigate(['error']);
       return;
     });
+  }
+  updatePrice() {
+    if (this.p_room_id_area === '') {
+      toastr.warning('Bạn chưa chọn khu', 'Thông báo');
+      $('#p-room-id-area').focus();
+      return;
+    }
+    if (this.p_room_floor === '') {
+      toastr.warning('Bạn chưa nhập tầng', 'Thông báo');
+      $('#p-room-floor').focus();
+      return;
+    }
+    if (this.p_room_price === '') {
+      toastr.warning('Bạn chưa nhập tiền phòng', 'Thông báo');
+      $('#p-room-price').focus();
+      return;
+    }
+    const price = JSON.stringify({
+      room_id_area: this.p_room_id_area,
+      room_floor: this.p_room_floor,
+      room_price: this.p_room_price
+    });
+    // console.log(price);
+    this._roomService.updatePrice(price).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._roomService.tokenError();
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'success') {
+        toastr.success(res.message);
+        $('#priceModal').modal('toggle');
+        this.getRoom();
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+  clearPrice() {
+    this.p_room_id_area = '';
+    this.p_room_floor = '';
+    this.p_room_price = '';
   }
 }

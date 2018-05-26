@@ -31,17 +31,4 @@ export class AreaService {
   updateArea(area) {
     return this._http.put(CONFIG.BASE_API + '/areas/update-area', area, { headers: this.createHeader() }).map(res => res.json());
   }
-  getFloor() {
-    return this._http.get(CONFIG.BASE_API + '/floors/floor', { headers: this.createHeader() }).map(res => res.json());
-  }
-  getAfdById(area_id) {
-    // tslint:disable-next-line:max-line-length
-    return this._http.get(CONFIG.BASE_API + '/afds/afdByAreaId?af_area_id=' + area_id, { headers: this.createHeader() }).map(res => res.json());
-  }
-  addAfd(afd) {
-    return this._http.post(CONFIG.BASE_API + '/afds/afd', afd, { headers: this.createHeader() }).map(res => res.json());
-  }
-  delAfd(af_id) {
-    return this._http.delete(CONFIG.BASE_API + '/afds/del-afd?af_id=' + af_id, { headers: this.createHeader() }).map(res => res.json());
-  }
 }
