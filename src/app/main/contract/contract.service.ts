@@ -45,4 +45,7 @@ export class ContractService {
   getCreate() {
     return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
   }
+  searchContract(contract) {
+    return this._http.post(CONFIG.BASE_API + '/contracts/find-contract', contract, { headers: this.createHeader() }).map(res => res.json());
+  }
 }

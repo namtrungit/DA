@@ -1,202 +1,206 @@
 <div class="app-content-body ">
-    <div class="hbox hbox-auto-xs hbox-auto-sm">
-      <!-- main -->
-      <div class="col">
-        <!-- main header -->
-        <div class="bg-light lter b-b wrapper-md">
-          <div class="row">
-            <div class="col-sm-10 col-xs-12">
-              <h1 class="m-n font-thin h3 text-black">Phiếu đăng ký</h1>
-            </div>
-            <div class="col-sm-2 col-xs-12">
-              <button class='btn m-b-xs btn-sm btn-primary btn-rounded' data-toggle="modal" data-target="#searchModal">
-                <i class="icon-magnifier"></i>
-                Tìm kiếm
-              </button>
-            </div>
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">Phiếu đăng ký</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' data-toggle="modal" data-target="#searchModal">
+              <i class="icon-magnifier"></i>
+              Tìm kiếm
+            </button>
           </div>
         </div>
-        <div class="wrapper-md">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="panel panel-default">
-                <div class="panel-heading font-bold">Đã xem</div>
-                <div class="panel-body">
-                  <table class="table table-striped m-b-none">
-                    <thead>
-                      <tr>
-                        <td>Mã sinh viên</td>
-                        <td>Tên sinh viên</td>
-                        <td>Giới tính</td>
-                        <td>Khoa</td>
-                        <td>Email</td>
-                        <td>SDT</td>
-                        <td>Tác vụ</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let register of list_register">
-                        <td>{{register.register_id_school}}</td>
-                        <td>{{register.register_name}}</td>
-                        <td>{{register.register_sex === 'male'? 'Nam':'Nữ'}}</td>
-                        <td>{{register.register_faculty}}</td>
-                        <td>{{register.register_mail}}</td>
-                        <td>{{register.register_phone}}</td>
-                        <td>
-                          <button class='btn m-b-xs btn-sm btn-warning' (click)='selectRegister(register)' data-toggle="modal" data-target="#detailModal">
-                            <i class="fa fa-file-word-o"></i>
-                          </button>
-                          <button class='btn m-b-xs btn-sm btn-danger' (click)='selectRegister(register)' data-toggle="modal" data-target="#delModal">
-                            <i class="icon-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Đã xem</div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>Mã sinh viên</td>
+                      <td>Tên sinh viên</td>
+                      <td>Giới tính</td>
+                      <td>Khoa</td>
+                      <td>Email</td>
+                      <td>SDT</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let register of list_register">
+                      <td>{{register.register_id_school}}</td>
+                      <td>{{register.stu_name}}</td>
+                      <td>{{register.stu_sex === 'male'? 'Nam':'Nữ'}}</td>
+                      <td>{{register.fal_name}}</td>
+                      <td>{{register.stu_email}}</td>
+                      <td>{{register.stu_phone}}</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-warning' (click)='selectRegister(register)' data-toggle="modal" data-target="#detailModal">
+                          <i class="fa fa-file-word-o"></i>
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger' (click)='selectRegister(register)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- / main -->
     </div>
-    <!-- Modal del-->
-    <div id="delModal" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-sm">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">XÓA PHIẾU ĐĂNG KÝ</h4>
-          </div>
-          <div class="modal-body">
-            <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-xs btn-danger" (click)="delRegister()" data-dismiss="modal">Xóa</button>
-            <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
-          </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA PHIẾU ĐĂNG KÝ</h4>
         </div>
-  
-      </div>
-    </div>
-    <!-- Modal search-->
-    <div id="searchModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-  
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" (click)='clearRoom()' class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Tìm kiếm</h4>
-          </div>
-          <div class="modal-body">
-            <div class="col-sm-12">
-              <div class="panel panel-default">
-                <div class="panel-heading font-bold">TÌM KIẾM PHÒNG</div>
-                <div class="panel-body">
-                  <form role="form" #formRoom="ngForm">
-                    <div class="form-group">
-                      <label>Phòng</label>
-                      <input class="form-control" id='room-id' name="room_id" [(ngModel)]='room_id' placeholder="Nhập tên tên phòng">
-                    </div>
-                    <div class="form-group">
-                      <label>Sức chứa</label>
-                      <input class="form-control" id='room-quantity' name="room_quantity" [(ngModel)]='room_quantity' placeholder="Nhập số lượng chứa của phòng">
-                    </div>
-                    <div class="form-group">
-                      <label>Giá</label>
-                      <select class="form-control" [(ngModel)]="room_id_price" name="room_id_price" id="room-id-price">
-                        <option value="">Chọn giá phòng</option>
-                        <option *ngFor="let price of list_price" [ngValue]="price['price_id']">{{price['price_value']|currency:"VND":true:'0.0-0'}}</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Khu</label>
-                      <select class="form-control" [(ngModel)]="room_id_area" name="room_id_area" id="room-id-area">
-                        <option value="">Chọn khu</option>
-                        <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_address']}}</option>
-                      </select>
-                    </div>
-                    <button type="button" (click)="searchRoom()" class="btn m-b-xs btn-sm btn-primary btn-addon" data-dismiss="modal">
-                      <i class='icon-magnifier'></i>
-                      Tìm kiếm
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" (click)='clearRoom()' data-dismiss="modal">Close</button>
-          </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
         </div>
-  
-      </div>
-    </div>
-    <!-- Modal DetailRegister-->
-    <div id="detailModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-  
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">PHIẾU ĐĂNG KÝ</h4>
-          </div>
-          <div class="modal-body">
-            <div class="col-sm-12">
-              <div class="panel panel-default">
-                <div class="panel-heading font-bold">NỘI DUNG</div>
-                <div class="panel-body">
-                  <form role="form" autocomplete="off" #formRoom="ngForm">
-                    <div class="form-group">
-                      <label class="font-bold">Mã sinh viên:   </label>
-                      <label>{{register_id_school}}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Tên sinh viên:   </label>
-                      <label>{{register_name}}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Giới tính:   </label>
-                      <label>{{register_sex === 'male'? 'Nam':'Nữ'}}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Ngày sinh:   </label>
-                      <label>{{register_birthday | date: 'dd-MM-yyyy' }}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Lớp:   </label>
-                      <label>{{register_class}}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Khoa:   </label>
-                      <label>{{register_faculty}}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Điện thoại:   </label>
-                      <label>{{register_phone}}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Email:   </label>
-                      <label>{{register_mail}}</label>
-                    </div>
-                    <div class="form-group">
-                      <label class="font-bold">Ngày đăng ký:   </label>
-                      <label>{{register_createdAt | date: 'dd-MM-yyyy'}}</label>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delRegister()" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
         </div>
-  
       </div>
+
     </div>
   </div>
+  <!-- Modal search-->
+  <div id="searchModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" (click)='clearRoom()' class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tìm kiếm</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">TÌM KIẾM PHÒNG</div>
+              <div class="panel-body">
+                <form role="form" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Phòng</label>
+                    <input class="form-control" id='room-id' name="room_id" [(ngModel)]='room_id' placeholder="Nhập tên tên phòng">
+                  </div>
+                  <div class="form-group">
+                    <label>Sức chứa</label>
+                    <input class="form-control" id='room-quantity' name="room_quantity" [(ngModel)]='room_quantity' placeholder="Nhập số lượng chứa của phòng">
+                  </div>
+                  <div class="form-group">
+                    <label>Giá</label>
+                    <select class="form-control" [(ngModel)]="room_id_price" name="room_id_price" id="room-id-price">
+                      <option value="">Chọn giá phòng</option>
+                      <option *ngFor="let price of list_price" [ngValue]="price['price_id']">{{price['price_value']|currency:"VND":true:'0.0-0'}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Khu</label>
+                    <select class="form-control" [(ngModel)]="room_id_area" name="room_id_area" id="room-id-area">
+                      <option value="">Chọn khu</option>
+                      <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_address']}}</option>
+                    </select>
+                  </div>
+                  <button type="button" (click)="searchRoom()" class="btn m-b-xs btn-sm btn-primary btn-addon" data-dismiss="modal">
+                    <i class='icon-magnifier'></i>
+                    Tìm kiếm
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)='clearRoom()' data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal DetailRegister-->
+  <div id="detailModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">PHIẾU ĐĂNG KÝ</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">NỘI DUNG</div>
+              <div class="panel-body">
+                <form role="form" autocomplete="off" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label class="font-bold">Mã sinh viên: </label>
+                    <label>{{register_id_school}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Tên sinh viên: </label>
+                    <label>{{register_name}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Giới tính: </label>
+                    <label>{{register_sex === 'male'? 'Nam':'Nữ'}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Ngày sinh: </label>
+                    <label>{{register_birthday}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Lớp: </label>
+                    <label>{{register_class}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Khoa: </label>
+                    <label>{{register_faculty}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Điện thoại: </label>
+                    <label>{{register_phone}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Email: </label>
+                    <label>{{register_mail}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Ngày đăng ký: </label>
+                    <label>{{register_createdAt}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Nội dung: </label>
+                    <label>{{register_content}}</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

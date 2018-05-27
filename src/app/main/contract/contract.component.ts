@@ -42,6 +42,10 @@ export class ContractComponent implements OnInit {
   public de_contract_date_end = '';
   public de_contract_create = '';
   public de_contract_price = 0;
+
+  // modal search
+  public search_contract_id = '';
+  public search_stu_id = '';
   constructor(
     private _contractService: ContractService,
     private _router: Router
@@ -63,6 +67,39 @@ export class ContractComponent implements OnInit {
     });
     $('#contract-end').datetimepicker({
       format: 'DD/MM/YYYY'
+    });
+  }
+  clearSearch() {
+    this.search_contract_id = '';
+    this.search_stu_id = '';
+  }
+  searchContract() {
+    const contract = JSON.stringify({
+      contract_id: this.search_contract_id,
+      stu_id: this.search_stu_id
+    });
+    // console.log(contract);
+    this._contractService.searchContract(contract).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._contractService.tokenError();
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'success') {
+        this.list_contract = res.list;
+        console.log(this.list_contract);
+        $('#searchModal').modal('toggle');
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
     });
   }
   createIdContract(): string {
@@ -95,6 +132,7 @@ export class ContractComponent implements OnInit {
     this.cre_contract_room_name = '';
     this.cre_contract_id_recontract = '';
     $('#cre-contract-date').val(null);
+    $('#cre-contract-end').val(null);
     this.showDD = false;
   }
   getCreate() {
@@ -235,7 +273,6 @@ export class ContractComponent implements OnInit {
       }
       if (res.status === 'warning') {
         toastr.warning(res.message);
-        $('#cre-contract-end').focus();
         return;
       }
       if (res.status === 'success') {

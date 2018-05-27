@@ -20,6 +20,7 @@ export class ReenableComponent implements OnInit {
   public register_phone = '';
   public register_mail = '';
   public register_createdAt = '';
+  public register_content = '';
   constructor(
     private _router: Router,
     private _reenableService: ReenableService
@@ -31,14 +32,15 @@ export class ReenableComponent implements OnInit {
   selectRegister(register) {
     this.register_id = register.register_id;
     this.register_id_school = register.register_id_school;
-    this.register_name = register.register_name;
-    this.register_sex = register.register_sex;
-    this.register_birthday = register.register_birthday;
-    this.register_class = register.register_class;
-    this.register_faculty = register.register_faculty;
-    this.register_phone = register.register_phone;
-    this.register_mail = register.register_mail;
+    this.register_name = register.stu_name;
+    this.register_sex = register.stu_sex;
+    this.register_birthday = register.stu_birthday;
+    this.register_class = register.class_name;
+    this.register_faculty = register.fal_name;
+    this.register_phone = register.stu_phone;
+    this.register_mail = register.stu_email;
     this.register_createdAt = register.createdAt;
+    this.register_content =  register.register_content;
     // console.log(this.register_id);
   }
   getEnable() {
@@ -51,7 +53,7 @@ export class ReenableComponent implements OnInit {
         return this._reenableService.tokenError();
       }
       if (res.status === 'success') {
-        this.list_register = res.Registers;
+        this.list_register = res.list;
         console.log(this.list_register);
       }
     }, error => {
@@ -84,6 +86,8 @@ export class ReenableComponent implements OnInit {
     const re = JSON.stringify({
       register_id: register.register_id
     });
+    // console.log(re);
+    // return;
     this._reenableService.checkRegister(re).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);

@@ -5,17 +5,13 @@
       <!-- main header -->
       <div class="bg-light lter b-b wrapper-md">
         <div class="row">
-          <div class="col-sm-9 col-xs-12">
+          <div class="col-sm-10 col-xs-12">
             <h1 class="m-n font-thin h3 text-black">HỢP ĐỒNG</h1>
           </div>
-          <div class="col-sm-3 col-xs-12">
+          <div class="col-sm-2 col-xs-12">
             <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
               <i class="icon-magnifier"></i>
               Tìm kiếm
-            </button>
-            <button class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateContract()' data-toggle="modal" data-target="#createModal">
-              <i class="fa fa-plus"></i>
-              Thêm
             </button>
           </div>
         </div>
@@ -24,7 +20,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="panel panel-default">
-              <div class="panel-heading font-bold">DANH SÁCH HỢP ĐỒNG CÒN THỜI HẠN
+              <div class="panel-heading font-bold">DANH SÁCH HỢP ĐỒNG HẾT HẠN
                 <button class='btn m-b-xs btn-sm btn-info' (click)='getContract()'>
                   <i class="fa fa-refresh"></i>
                 </button>
@@ -54,10 +50,6 @@
                         <button class='btn m-b-xs btn-sm btn-warning btn-addon' (click)='selectDetailContract(contract)' data-toggle="modal" data-target="#detailModal">
                           <i class="fa fa-file-word-o"></i>
                           Thông tin
-                        </button>
-                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#updateModal">
-                          <i class="icon-pencil"></i>
-                          Cập nhật
                         </button>
                         <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#delModal">
                           <i class="icon-trash"></i>
@@ -96,128 +88,6 @@
 
     </div>
   </div>
-  <!-- Modal create-->
-  <div id="createModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">HỢP ĐỒNG</h4>
-        </div>
-        <div class="modal-body">
-          <div class="col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-heading font-bold">LẬP HỢP ĐỒNG</div>
-              <div class="panel-body">
-                <form role="form" autocomplete="off" #formRoom="ngForm">
-                  <div class="form-group">
-                    <label>Mã sinh viên</label>
-                    <input class="form-control" type="number" id='cre-contract-id-stu-school' name="cre_contract_id_stu_school" [(ngModel)]='cre_contract_id_stu_school'
-                      placeholder="Nhập mã số sinh viên">
-                  </div>
-                  <div class="form-group">
-                    <label>Phòng</label>
-                    <input id="cre-contract-room-name" list="elec" type="text" [(ngModel)]="cre_contract_room_name" name="cre_contract_room_name"
-                      class="form-control" placeholder="Nhập phòng">
-                    <datalist id="elec">
-                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
-                    </datalist>
-                  </div>
-                  <div class="form-group">
-                    <label>Hợp đồng</label>
-                    <select class="form-control" [(ngModel)]="cre_contract_id_recontract" name="cre_contract_id_recontract" id="cre-contract-id-recontract">
-                      <option value="">Chọn hợp đồng</option>
-                      <option *ngFor="let rec of list_recenbale" [ngValue]="rec['recontract_id']">{{rec['recontract_name']}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Ngày nhận phòng</label>
-                    <input id="cre-contract-date" type="text" class="form-control" placeholder="Chọn ngày nhận phòng">
-                  </div>
-                  <div class="form-group">
-                    <label>Ngày hết hạn</label>
-                    <input id="cre-contract-end" type="text" class="form-control" placeholder="Chọn ngày hết hạn">
-                  </div>
-                  <button type="button" (click)="addContract()" class="btn m-b-xs btn-sm btn-success btn-addon">
-                    <i class='fa fa-check'></i>
-                    Thêm
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Modal update-->
-  <div id="updateModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">HỢP ĐỒNG</h4>
-        </div>
-        <div class="modal-body">
-          <div class="col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-heading font-bold">CẬP NHẬT PHÒNG</div>
-              <div class="panel-body">
-                <form role="form" #formRoom="ngForm">
-                  <div class="form-group">
-                    <label>Mã sinh viên</label>
-                    <input class="form-control" type="number" id='contract-id-stu-school' name="contract_id_stu_school" [(ngModel)]='contract_id_stu_school'
-                      placeholder="Nhập mã số sinh viên">
-                  </div>
-                  <div class="form-group">
-                    <label>Phòng</label>
-                    <input id="contract-room-name" list="elec" type="text" [(ngModel)]="contract_room_name" name="contract_room_name" class="form-control"
-                      placeholder="Nhập phòng">
-                    <datalist id="elec">
-                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
-                    </datalist>
-                  </div>
-                  <div class="form-group">
-                    <label>Hợp đồng</label>
-                    <select class="form-control" [(ngModel)]="contract_id_recontract" name="contract_id_recontract" id="contract-id-recontract">
-                      <option value="">Chọn hợp đồng</option>
-                      <option *ngFor="let rec of list_recenbale" [ngValue]="rec['recontract_id']">{{rec['recontract_name']}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Ngày nhận phòng</label>
-                    <input id="contract-date" type="text" class="form-control" placeholder="Chọn ngày nhận phòng">
-                  </div>
-                  <div class="form-group">
-                    <label>Ngày hết hạn</label>
-                    <input id="contract-end" type="text" class="form-control" placeholder="Chọn ngày hết hạn">
-                  </div>
-                  <button type="button" (click)="updateContract()" class="btn m-b-xs btn-sm btn-dark btn-addon">
-                    <i class='icon-pencil'></i>
-                    Cập nhật
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
   <!-- Modal DetailContract-->
   <div id="detailModal" class="modal fade" role="dialog">
     <div class="modal-dialog">

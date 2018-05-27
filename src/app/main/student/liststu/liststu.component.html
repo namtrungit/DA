@@ -33,7 +33,7 @@
                       <th>Họ và tên</th>
                       <th>Giới tính</th>
                       <th>Khoa</th>
-                      <th>Phòng</th>
+                      <th>Lớp</th>
                       <th style="width:250px">Công cụ</th>
                     </tr>
                   </thead>
@@ -43,24 +43,16 @@
                       <td>{{stu.stu_name}}</td>
                       <td>{{stu.stu_sex === 'male'? 'Nam':'Nữ'}}</td>
                       <td>{{stu.fal_name}}</td>
-                      <td>{{stu.room_name}}</td>
+                      <td>{{stu.class_name}}</td>
                       <td>
-                        <button class='btn m-b-xs btn-sm btn-primary' (click)='toggleOff()' (click)='selectStu(stu)' data-toggle="modal" data-target="#pickRoomModal">
-                          <i class="fa fa-home"></i>
-                        </button>
-                        <button class='btn m-b-xs btn-sm btn-success' (click)='toggleOff()' (click)='selectStu(stu)' data-toggle="modal" data-target="#swapRoomModal">
-                          <i class="icon-refresh"></i>
-                        </button>
-                        <button class='btn m-b-xs btn-sm btn-info' (click)='selectStu(stu)' data-toggle="modal" data-target="#endRoomModal">
-                          <i class="icon-login"></i>
-                        </button>
-                        <button class='btn m-b-xs btn-sm btn-warning ' (click)='selectStu(stu)' data-toggle="modal" data-target="#stuModal">
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon'  (click)='selectStu(stu)' data-toggle="modal" data-target="#stuModal">
                           <i class="icon-pencil"></i>
+                          Cập nhật
                         </button>
-                        <button class='btn m-b-xs btn-sm btn-danger ' (click)='selectStu(stu)' data-toggle="modal" data-target="#delModal">
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon ' (click)='selectStu(stu)' data-toggle="modal" data-target="#delModal">
                           <i class="icon-trash"></i>
+                          Xóa
                         </button>
-
                       </td>
                     </tr>
                   </tbody>
@@ -219,109 +211,6 @@
         </div>
         <div class="modal-footer">
           <button (click)='delStu()' data-dismiss="modal" class="btn btn-sm btn-danger">Xóa</button>
-          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <!-- Modal pick-room-->
-  <div id="pickRoomModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">CHỌN PHÒNG</h4>
-        </div>
-        <div class="modal-body">
-          <div class="col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-heading font-bold"></div>
-              <div class="panel-body">
-                <form role="form" #formRoom="ngForm">
-                  <div class="form-group">
-                    <label>Phòng</label>
-                    <input id="stu-room-name" list="elec" type="text" [(ngModel)]="stu_room_name" name="stu_room_name" class="form-control" placeholder="Nhập phòng cho sinh viên">
-                    <datalist id="elec">
-                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
-                    </datalist>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" (click)="pickRoom()" class="btn m-b-xs btn-sm btn-primary btn-addon">
-            <i class='fa fa-home'></i>
-            Chọn phòng
-          </button>
-          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-  <!-- Modal swap-room-->
-  <div id="swapRoomModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">ĐỔI PHÒNG</h4>
-        </div>
-
-        <div class="modal-body">
-          <div class="col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-heading font-bold"></div>
-              <div class="panel-body">
-                <form role="form" #formRoom="ngForm">
-                  <div class="form-group">
-                    <label>Phòng</label>
-                    <input id="swap-room-name" list="elec" type="text" [(ngModel)]="swap_room_name" name="swap_room_name" class="form-control" placeholder="Nhập phòng cần đổi cho sinh viên">
-                    <datalist id="elec">
-                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
-                    </datalist>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" (click)="swapRoom()" class="btn m-b-xs btn-sm btn-success btn-addon">
-            <i class='icon-refresh'></i>
-            Đổi phòng
-          </button>
-          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Modal leave-room-->
-  <div id="endRoomModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">TRẢ PHÒNG</h4>
-        </div>
-        <div class="modal-body">
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" (click)="endRoom()" class="btn m-b-xs btn-sm btn-info btn-addon">
-            <i class='icon-login'></i>
-            Xác nhận
-          </button>
           <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
         </div>
       </div>

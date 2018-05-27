@@ -37,11 +37,11 @@
                   <tbody>
                     <tr *ngFor="let register of list_register">
                       <td>{{register.register_id_school}}</td>
-                      <td>{{register.register_name}}</td>
-                      <td>{{register.register_sex === 'male'? 'Nam':'Nữ'}}</td>
-                      <td>{{register.register_faculty}}</td>
-                      <td>{{register.register_mail}}</td>
-                      <td>{{register.register_phone}}</td>
+                      <td>{{register.stu_name}}</td>
+                      <td>{{register.stu_sex === 'male'? 'Nam':'Nữ'}}</td>
+                      <td>{{register.fal_name}}</td>
+                      <td>{{register.stu_email}}</td>
+                      <td>{{register.stu_phone}}</td>
                       <td>
                         <button class='btn m-b-xs btn-sm btn-warning' (click)='selectRegister(register)' data-toggle="modal" data-target="#detailModal">
                           <i class="fa fa-file-word-o"></i>
@@ -155,40 +155,44 @@
               <div class="panel-body">
                 <form role="form" autocomplete="off" #formRoom="ngForm">
                   <div class="form-group">
-                    <label class="font-bold">Mã sinh viên:   </label>
+                    <label class="font-bold">Mã sinh viên: </label>
                     <label>{{register_id_school}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Tên sinh viên:   </label>
+                    <label class="font-bold">Tên sinh viên: </label>
                     <label>{{register_name}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Giới tính:   </label>
+                    <label class="font-bold">Giới tính: </label>
                     <label>{{register_sex === 'male'? 'Nam':'Nữ'}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Ngày sinh:   </label>
-                    <label>{{register_birthday | date: 'dd-MM-yyyy' }}</label>
+                    <label class="font-bold">Ngày sinh: </label>
+                    <label>{{register_birthday}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Lớp:   </label>
+                    <label class="font-bold">Lớp: </label>
                     <label>{{register_class}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Khoa:   </label>
+                    <label class="font-bold">Khoa: </label>
                     <label>{{register_faculty}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Điện thoại:   </label>
+                    <label class="font-bold">Điện thoại: </label>
                     <label>{{register_phone}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Email:   </label>
+                    <label class="font-bold">Email: </label>
                     <label>{{register_mail}}</label>
                   </div>
                   <div class="form-group">
-                    <label class="font-bold">Ngày đăng ký:   </label>
-                    <label>{{register_createdAt | date: 'dd-MM-yyyy'}}</label>
+                    <label class="font-bold">Ngày đăng ký: </label>
+                    <label>{{register_createdAt}}</label>
+                  </div>
+                  <div class="form-group">
+                    <label class="font-bold">Nội dung: </label>
+                    <label>{{register_content}}</label>
                   </div>
                 </form>
               </div>
