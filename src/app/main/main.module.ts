@@ -8,7 +8,7 @@ import { MainService } from './main.service';
 const _routes: Routes = [
   {
     path: '', component: MainComponent, children: [
-      { path: '', redirectTo: 'index', pathMatch: 'full' },
+      { path: '', redirectTo: 'register', pathMatch: 'full' },
       // localhost:4200/main/index
       { path: 'index', loadChildren: './index/index.module#IndexModule' },
       { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
@@ -30,6 +30,7 @@ const _routes: Routes = [
       { path: 'diselec', loadChildren: './diselec/diselec.module#DiselecModule' },
       { path: 'news', loadChildren: './news/news.module#NewsModule' },
       { path: 'oldcontract', loadChildren: './oldcontract/oldcontract.module#OldcontractModule' },
+      { path: 'report', loadChildren: './report/report.module#ReportModule' },
     ]
   }
 ];

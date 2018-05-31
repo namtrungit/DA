@@ -1,0 +1,99 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">LẬP BIÊN BẢN</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">NỘI DUNG BIÊN BẢN</div>
+              <div class="panel-body">
+                <form role="form" autocomplete="off" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Mã số sinh viên</label>
+                    <input id="report-stu-id" list="elec" type="text" [(ngModel)]="report_stu_id" name="report_stu_id" class="form-control" placeholder="Nhập mã số sinh viên">
+                    <datalist id="elec">
+                      <option *ngFor="let stu of list_stu" [ngValue]="stu_id_school">{{stu['stu_id_school']}}</option>
+                    </datalist>
+                  </div>
+                  <div class="form-group">
+                    <label>Nội dung</label>
+                    <textarea class="form-control" rows="4" id="report-content" [(ngModel)]='report_content' name="report_content"
+                      placeholder="Nhập nội dung biên bản"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <div class="panel-heading font-bold">Chi tiết biên bản</div>
+                    <div class="panel-body">
+                      <table class="table table-striped m-b-none">
+                        <thead>
+                          <tr>
+                            <td>
+                              <strong>Nội quy vi phạm</strong>
+                            </td>
+                            <td>
+                              <strong>Hình thức xử lý</strong>
+                            </td>
+                            <td>
+                              <strong>Tác vụ</strong>
+                            </td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let rd of giohangs">
+                            <td>Điều {{rd.rd_rule_id}}</td>
+                            <td>{{rd.rd_content}}</td>
+                            <td>
+                              <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='xoaItemgiohang(rd)'>
+                                <i class="icon-trash"></i>
+                                Xóa
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="panel-footer">
+                      <button type="button" (click)="Pay()" class="btn btn-success btn-block">Lập biên bản</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Danh sách nội quy</div>
+              <div class="panel-body">
+                <form role="form" autocomplete="off" #formRoom="ngForm">
+                  <div class="form-group">
+                    <label>Nội quy</label>
+                    <select class="form-control" [(ngModel)]="rd_rule_id" name="rd_rule_id" id="rd-rule-id">
+                      <option value="">Chọn nội quy</option>
+                      <option *ngFor="let rule of list_rule" [ngValue]="rule['rule_id']">{{rule['rule_name']}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Hình thức xử phạt</label>
+                    <textarea class="form-control" rows="4" id="rd-content" [(ngModel)]='rd_content' name="rd_content" placeholder="Nhập hình thức xử phạt"></textarea>
+                  </div>
+                  <button type="button" (click)="addRd()" class="btn btn-sm btn-primary">Thêm</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+</div>

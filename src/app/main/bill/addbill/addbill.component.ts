@@ -44,6 +44,7 @@ export class AddbillComponent implements OnInit {
     this.getCreate();
     this.getListStuId();
     this.getService();
+    sessionStorage.removeItem('giohang');
   }
   //
   getCreate() {
@@ -300,7 +301,7 @@ export class AddbillComponent implements OnInit {
       this.thongtingio();
       this.bill_id = '';
       this.newBill();
-      $('#detailsModal').modal('toggle');
+      $('#addServiceModal').modal('toggle');
     }
   }
   totalBill() {
