@@ -271,38 +271,78 @@ export class AddbillComponent implements OnInit {
 
   // Test
   Pay() {
-    this.totalBill();
-    const lstService = sessionStorage.getItem('giohang');
-    console.log(lstService);
-    if (lstService) {
-      const sanpham = JSON.parse(lstService);
-      for (let i = 0; i < sanpham.length; i++) {
-        const bs = JSON.stringify({
-          bs_bill_id: this.bill_id,
-          bs_service_id: sanpham[i].bs_service_id,
-          bs_service_price: sanpham[i].bs_service_price
-        });
-        console.log(bs);
-        this._addBillService.addBs(bs).subscribe(res => {
-          if (res.status === 'error') {
-            toastr.error(res.message);
-            return;
-          }
-          if (!res.isAuth && res.status === 'error') {
-            return this._addBillService.tokenError();
-          }
-        }, error => {
-          console.log('Không nết nối được tới máy chủ');
-          this._router.navigate(['error']);
-          return;
-        });
-      }
-      sessionStorage.removeItem('giohang');
-      this.thongtingio();
-      this.bill_id = '';
-      this.newBill();
-      $('#addServiceModal').modal('toggle');
+    this.createIdBill();
+    if (this.bill_stu_id === '') {
+      toastr.warning('Bạn chưa nhập mã sinh viên', 'Thông báo');
+      $('#bill-stu-id').focus();
+      return;
     }
+    if (this.giohangs.length === 0) {
+      toastr.warning('Bạn chưa thêm dịch vụ nào vào hóa đơn', 'Thông báo');
+      return;
+    }
+    const bill = JSON.stringify({
+      bill_id: this.idBill,
+      bill_stu_id: this.bill_stu_id,
+      bill_create_name: this.bill_create_name,
+      bill_total: this.tongtien
+    });
+    console.log(bill);
+    this._addBillService.addBill(bill).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._addBillService.tokenError();
+      }
+      if (res.status === 'warning stu') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'success') {
+        toastr.success(res.message);
+        const lstService = sessionStorage.getItem('giohang');
+        if (lstService) {
+          const sanpham = JSON.parse(lstService);
+          for (let i = 0; i < sanpham.length; i++) {
+            const bs = JSON.stringify({
+              bs_bill_id: this.idBill,
+              bs_service_id: sanpham[i].bs_service_id,
+              bs_count: sanpham[i].bs_count,
+              bs_service_price: sanpham[i].bs_service_price,
+              bs_total: sanpham[i].bs_service_price * sanpham[i].bs_count
+            });
+            console.log(bs);
+            // tslint:disable-next-line:no-shadowed-variable
+            this._addBillService.addBs(bs).subscribe(res => {
+              if (res.status === 'error') {
+                toastr.error(res.message);
+                return;
+              }
+              if (!res.isAuth && res.status === 'error') {
+                return this._addBillService.tokenError();
+              }
+              if (res.status === 'success') {
+                console.log('ok');
+              }
+            }, error => {
+              console.log('Không nết nối được tới máy chủ');
+              this._router.navigate(['error']);
+              return;
+            });
+          }
+          this.idBill = '';
+          this.bill_stu_id = '';
+          sessionStorage.removeItem('giohang');
+          this.thongtingio();
+        }
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
   }
   totalBill() {
     if (this.bill_id === '') {
@@ -342,6 +382,7 @@ export class AddbillComponent implements OnInit {
     const obj = {
       bs_service_id: service['service_id'],
       bs_service_name: service['service_name'],
+      bs_count: 1,
       bs_service_price: service['service_price'],
     };
     console.log(obj);
@@ -352,11 +393,16 @@ export class AddbillComponent implements OnInit {
       let i;
       for (i = 0; i < sanpham.length; i++) {
         if (sanpham[i].bs_service_id === service['service_id']) {
-          toastr.warning('Dịch vụ này đã có trong hóa đơn rồi', 'Thông báo');
-          return;
+          sanpham[i].bs_count = (Number.parseInt(sanpham[i].bs_count) * 1 + 1 * 1);
+          break;
         }
       }
-      sanpham.push(obj);
+      if (i >= sanpham.length) {
+        console.log('nhay vo i >= lenght roi');
+        sanpham.push(obj);
+        console.log(sanpham);
+      }
+      // sanpham.push(obj);
       const myJsString = JSON.stringify(sanpham);
       console.log('chuoi mystring ' + myJsString);
       sessionStorage.setItem('giohang', myJsString);
@@ -377,7 +423,7 @@ export class AddbillComponent implements OnInit {
       const sanpham = JSON.parse(lstService);
       let tongtien = 0;
       for (let i = 0; i < sanpham.length; i++) {
-        tongtien += Number.parseInt(sanpham[i].bs_service_price);
+        tongtien += Number.parseInt(sanpham[i].bs_count) * Number.parseInt(sanpham[i].bs_service_price);
       }
       return tongtien;
     } else {
@@ -407,5 +453,43 @@ export class AddbillComponent implements OnInit {
     sessionStorage.setItem('giohang', myJString);
     this.thongtingio();
     this.gettotalMoney();
+  }
+  capnhatgio(event: any) {
+    const id = event.target.id;
+    // console.log(id);
+    const msp = id.substring(2);
+    // console.log('ma san pham' + msp);
+    let bs_count = event.target.value;
+    // console.log('bs_count:' + bs_count);
+    const tan = sessionStorage.getItem('giohang');
+    const sanpham = JSON.parse(tan);
+    // console.log(bs_count.length);
+    if (bs_count.length > 0) {
+      bs_count = Number.parseInt(bs_count);
+      if (Number.isNaN(bs_count) || bs_count > 0) {
+        // console.log('Đã vào');
+        for (let i = 0; i < this.giohangs.length; i++) {
+          // tslint:disable-next-line:triple-equals
+          if (msp == this.giohangs[i].bs_service_id) {
+            // console.log('Đã vào 2');
+            this.giohangs[i].bs_count = bs_count;
+            // console.log(bs_count);
+            // console.log(this.giohangs[i].bs_count);
+            // console.log(this.giohangs[i]);
+            sanpham[i].bs_count = this.giohangs[i].bs_count;
+            // console.log('san pham thay doi');
+            // console.log(sanpham[i]);
+            break;
+          }
+        }
+      }
+    }
+    const myJsString = JSON.stringify(sanpham);
+    // console.log('chuoi mystring  ' + myJsString);
+    sessionStorage.setItem('giohang', myJsString);
+    const tan1 = sessionStorage.getItem('giohang');
+    // console.log('chuoi session da cap nhat: ');
+    // console.log(tan1);
+    this.thongtingio();
   }
 }

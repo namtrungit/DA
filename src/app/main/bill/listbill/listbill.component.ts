@@ -83,7 +83,7 @@ export class ListbillComponent implements OnInit {
     this.de_bill_create = bill.bill_create_name;
     this.de_bill_total = bill.bill_total;
     this.getBs();
-    // console.log(this.bill_id);
+    console.log(bill);
   }
   delBill() {
     this._listbillService.delBill(this.bill_id).subscribe(res => {
