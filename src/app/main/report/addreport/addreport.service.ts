@@ -16,6 +16,9 @@ export class AddreportService {
     headers.append('token', this._tokenService.getToken(CONFIG.TOKEN));
     return headers;
   }
+  getCreater() {
+    return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
+  }
   getRule() {
     return this._http.get(CONFIG.BASE_API + '/rules/rule', { headers: this.createHeader() }).map(res => res.json());
   }

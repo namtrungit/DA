@@ -1,3 +1,337 @@
-<p>
-  listreport works!
-</p>
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">DANH SÁCH BIÊN BẢN</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
+              <i class="icon-magnifier"></i>
+              Tìm kiếm
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">DANH SÁCH
+                <button class='btn m-b-xs btn-sm btn-success' (click)='getElec()'>
+                  <i class="fa fa-refresh"></i>
+                </button>
+              </div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <td>Mã</td>
+                      <td>Mã sinh viên</td>
+                      <td>Tên</td>
+                      <td>Lớp</td>
+                      <td>Khoa</td>
+                      <td>Tác vụ</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let report of list_report">
+                      <td>{{report.report_id}}</td>
+                      <td>{{report.stu_id_school}}</td>
+                      <td>{{report.stu_name}}</td>
+                      <td>{{report.class_name}}</td>
+                      <td>{{report.fal_name}}</td>
+                      <td>
+                        <button class='btn m-b-xs btn-sm btn-warning btn-addon' (click)='selectReport(report)' data-toggle="modal" data-target="#detailModal">
+                          <i class="fa fa-file-word-o"></i>
+                          Thông tin
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectReport(report)' data-toggle="modal" data-target="#updateModal">
+                          <i class="icon-pencil"></i>
+                          Cập nhật
+                        </button>
+                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectReport(report)' data-toggle="modal" data-target="#delModal">
+                          <i class="icon-trash"></i>
+                          Xóa
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+  <!-- Modal search-->
+  <div id="searchModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">TÌM PHIẾU ĐIỆN</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Mã phiếu điện</label>
+                <input id="search-elec-id" type="text" [(ngModel)]="search_elec_id" name="search_elec_id" class="form-control" placeholder="Nhập mã phiếu điện">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Thời gian</label>
+                <input type="month" name="month_year" class="form-control" [(ngModel)]="month_year" id="month-year">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Phòng</label>
+                <input id="search-elec-room" list="elec" type="text" [(ngModel)]="search_elec_room" name="search_elec_room" class="form-control"
+                  placeholder="Chọn phòng">
+                <datalist id="elec">
+                  <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
+                </datalist>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="findElec()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+            <i class='icon-magnifier'></i>
+            Tìm kiếm
+          </button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal DetailReport-->
+  <div id="detailModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Biên bản</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">NỘI DUNG Biên BẢN</div>
+              <div class="panel-body">
+                <form role="form" autocomplete="off" #formRoom="ngForm">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <strong>Mã Biên bản: </strong>
+                      <label>{{de_report_id}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <strong>Mã sinh viên:</strong>
+                      <label>{{de_report_stu_id}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <strong>Tên sinh viên:</strong>
+                      <label>{{de_report_stu_name}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <strong>Lớp:</strong>
+                      <label>{{de_report_class}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <strong>Khoa:</strong>
+                      <label>{{de_report_faculty}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <strong>Ngày lập:</strong>
+                      <label>{{de_report_createdAt| date: 'dd-MM-yyyy'}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <strong>Người lập:</strong>
+                      <label>{{de_report_creater}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <strong>Nội dung:</strong>
+                      <label>{{de_report_content}}</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <div class="panel-heading font-bold">Nội quy vi phạm</div>
+                      <div class="panel-body">
+                        <table class="table table-striped m-b-none">
+                          <thead>
+                            <tr>
+                              <td>
+                                <strong>Nội quy</strong>
+                              </td>
+                              <td>
+                                <strong>Hình thức xử lý</strong>
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let rd of list_rd">
+                              <td>Điều {{rd.rd_rule_id}}</td>
+                              <td>{{rd.rd_content}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal del-->
+  <div id="delModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">XÓA DỊCH VỤ</h4>
+        </div>
+        <div class="modal-body">
+          <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-xs btn-danger" (click)="delReport()" data-dismiss="modal">Xóa</button>
+          <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Modal update-->
+  <div id="updateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold">NỘI DUNG BIÊN BẢN</div>
+                <div class="panel-body">
+                  <form role="form" autocomplete="off" #formRoom="ngForm">
+                    <div class="form-group">
+                      <label>Mã số sinh viên</label>
+                      <input id="report-stu-id" list="stu" type="text" [(ngModel)]="report_stu_id" name="report_stu_id" class="form-control" placeholder="Nhập mã số sinh viên">
+                      <datalist id="stu">
+                        <option *ngFor="let stu of list_stu" [ngValue]="stu_id_school">{{stu['stu_id_school']}}</option>
+                      </datalist>
+                    </div>
+                    <div class="form-group">
+                      <label>Nội dung</label>
+                      <textarea class="form-control" rows="4" id="report-content" [(ngModel)]='report_content' name="report_content" placeholder="Nhập nội dung biên bản"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <div class="panel-heading font-bold">Chi tiết biên bản</div>
+                      <div class="panel-body">
+                        <table class="table table-striped m-b-none">
+                          <thead>
+                            <tr>
+                              <td>
+                                <strong>Nội quy vi phạm</strong>
+                              </td>
+                              <td>
+                                <strong>Hình thức xử lý</strong>
+                              </td>
+                              <td>
+                                <strong>Tác vụ</strong>
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let rd of list_rd">
+                              <td>Điều {{rd.rd_rule_id}}</td>
+                              <td>{{rd.rd_content}}</td>
+                              <td>
+                                <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='delRd(rd)'>
+                                  <i class="icon-trash"></i>
+                                  Xóa
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="panel-footer">
+                        <button type="button" (click)="updateReport()" class="btn btn-success btn-block">Cập nhật biên bản</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold">Danh sách nội quy</div>
+                <div class="panel-body">
+                  <form role="form" autocomplete="off" #formRoom="ngForm">
+                    <div class="form-group">
+                      <label>Nội quy</label>
+                      <select class="form-control" [(ngModel)]="rd_rule_id" name="rd_rule_id" id="rd-rule-id">
+                        <option value="">Chọn nội quy</option>
+                        <option *ngFor="let rule of list_rule" [ngValue]="rule['rule_id']">{{rule['rule_name']}}</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Hình thức xử phạt</label>
+                      <textarea class="form-control" rows="4" id="rd-content" [(ngModel)]='rd_content' name="rd_content" placeholder="Nhập hình thức xử phạt"></textarea>
+                    </div>
+                    <button type="button" (click)="addRd()" class="btn btn-sm btn-primary">Thêm</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

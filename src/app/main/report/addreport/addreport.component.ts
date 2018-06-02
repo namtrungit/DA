@@ -15,6 +15,7 @@ export class AddreportComponent implements OnInit {
   public idReport = '';
   public report_stu_id = '';
   public report_content = '';
+  public report_creater = '';
   public rd_rule_id = '';
   public rd_content = '';
   constructor(
@@ -23,9 +24,30 @@ export class AddreportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getCreater();
     this.getRule();
     this.getStu();
     sessionStorage.removeItem('gioluat');
+  }
+  getCreater() {
+    this._addReportService.getCreater().subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._addReportService.tokenError();
+      }
+      if (res.status === 'success') {
+        this.report_creater = res.user.user_name;
+        console.log(this.report_creater);
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
   }
   getRule() {
     this._addReportService.getRule().subscribe(res => {
@@ -155,6 +177,10 @@ export class AddreportComponent implements OnInit {
       $('#report-content').focus();
       return;
     }
+    if (this.report_creater === '') {
+      toastr.warning('Bạn chưa cập nhật thông tin tài khoản', 'Thông báo');
+      return;
+    }
     // console.log(this.giohangs);
     if (this.giohangs.length === 0) {
       toastr.warning('Bạn chưa thêm nội quy vi phạm', 'Thông báo');
@@ -163,7 +189,8 @@ export class AddreportComponent implements OnInit {
     const report = JSON.stringify({
       report_id: this.idReport,
       report_stu_id: this.report_stu_id,
-      report_content: this.report_content
+      report_content: this.report_content,
+      report_creater: this.report_creater
     });
     console.log('report: ' + report);
     this._addReportService.addReport(report).subscribe(res => {
