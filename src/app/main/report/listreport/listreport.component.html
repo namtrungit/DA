@@ -21,7 +21,7 @@
           <div class="col-sm-12">
             <div class="panel panel-default">
               <div class="panel-heading font-bold">DANH SÁCH
-                <button class='btn m-b-xs btn-sm btn-success' (click)='getElec()'>
+                <button class='btn m-b-xs btn-sm btn-success' (click)='getReport()'>
                   <i class="fa fa-refresh"></i>
                 </button>
               </div>
@@ -76,36 +76,26 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">TÌM PHIẾU ĐIỆN</h4>
+          <h4 class="modal-title">TÌM BIÊN BẢN</h4>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
-                <label>Mã phiếu điện</label>
-                <input id="search-elec-id" type="text" [(ngModel)]="search_elec_id" name="search_elec_id" class="form-control" placeholder="Nhập mã phiếu điện">
+                <label>Mã biên bản</label>
+                <input id="search-report-id" type="text" [(ngModel)]="search_report_id" name="search_report_id" class="form-control" placeholder="Nhập mã hóa đơn">
               </div>
             </div>
             <div class="col-sm-12">
               <div class="form-group">
-                <label>Thời gian</label>
-                <input type="month" name="month_year" class="form-control" [(ngModel)]="month_year" id="month-year">
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="form-group">
-                <label>Phòng</label>
-                <input id="search-elec-room" list="elec" type="text" [(ngModel)]="search_elec_room" name="search_elec_room" class="form-control"
-                  placeholder="Chọn phòng">
-                <datalist id="elec">
-                  <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
-                </datalist>
+                <label>Mã sinh viên</label>
+                <input id="search-stu-id" type="text" [(ngModel)]="search_stu_id" name="search_stu_id" class="form-control" placeholder="Nhập mã số sinh viên">
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" (click)="findElec()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+          <button type="button" (click)="findReport()" class="btn m-b-xs btn-sm btn-primary btn-addon">
             <i class='icon-magnifier'></i>
             Tìm kiếm
           </button>

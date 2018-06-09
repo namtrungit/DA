@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StuindexComponent } from './stuindex.component';
-import { StudentService } from '../../main/student/student.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { StuindexService } from './stuindex.service';
 const _routes: Routes = [
   {path: '', component: StuindexComponent}
 ];
@@ -15,7 +15,7 @@ const _routes: Routes = [
     FormsModule,
     RouterModule.forChild(_routes)
   ],
-  providers: [StudentService],
+  providers: [StuindexService],
   declarations: [StuindexComponent]
 })
 export class StuindexModule { }

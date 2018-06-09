@@ -1,1 +1,58 @@
-<h1>its work</h1>
+<div class="app-content-body ">
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+        <!-- main -->
+        <div class="col">
+            <!-- main header -->
+            <div class="bg-light lter b-b wrapper-md">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 staff-avatar">
+                        <h1 class="m-n font-thin h3 text-black"></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper-md">
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="col-sm-6" *ngFor="let news of list_news">
+                            <a [routerLink] = "['/home/detail',news.new_id]" class="list-group-item clearfix">
+                                <img src="/assets/img/BannerThuTucDangKy.jpg" width="300" height="200"> 
+                                <p class="title">{{news.new_title}}</p>
+                            </a>
+                        </div>
+                        <!-- <div class="col-sm-4">
+                            <a [routerLink] = "['/home/detail',1]" class="list-group-item clearfix">
+                                <img src="/assets/img/BannerThuTucDangKy.jpg" width="180" height="140">
+                                <p class="title">Bản tin 2</p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a [routerLink] = "['/home/detail',1]" class="list-group-item clearfix">
+                                <img src="/assets/img/BannerThuTucDangKy.jpg" width="180" height="140">
+                                <p class="title">Bản tin 3</p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a [routerLink] = "['/home/detail',1]" class="list-group-item clearfix">
+                                <img src="/assets/img/BannerThuTucDangKy.jpg" width="180" height="140">
+                                <p class="title">Bản tin 4</p>
+                            </a>
+                        </div> -->
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <a [routerLink]="['/home/stayprice']" class="list-group-item clearfix">
+                            <img src="/assets/img/BannerThuTucDangKy.jpg" width="320" height="100">
+                        </a>
+                        <a [routerLink]="['/home/bus']" class="list-group-item clearfix">
+                            <img src="/assets/img/TuyenXeBus.jpg" width="320" height="100">
+                        </a>
+                        <a [routerLink]="['/home/listservice']" class="list-group-item clearfix">
+                            <img src="/assets/img/BannerPhai.jpg" width="320" height="100">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- / main -->
+    </div>
+</div>

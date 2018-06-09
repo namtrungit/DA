@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 const _routes: Routes = [
   {
     path: '', component: RegisterComponent, children: [
-      {path: '', redirectTo: 'disable', pathMatch: 'full' },
+      {path: '', redirectTo: 'enable', pathMatch: 'full' },
       { path: 'disable', loadChildren: './redisable/redisable.module#RedisableModule' },
       { path: 'enable', loadChildren: './reenable/reenable.module#ReenableModule' },
     ]

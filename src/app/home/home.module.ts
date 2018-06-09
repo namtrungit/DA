@@ -15,6 +15,12 @@ const _routes: Routes = [
       { path: 'contact', loadChildren: './stucontact/stucontact.module#StucontactModule' },
       { path: 'recontract', loadChildren: './sturecontract/sturecontract.module#SturecontractModule' },
       { path: 'rule', loadChildren: './sturule/sturule.module#SturuleModule' },
+      { path: 'detail/:id', loadChildren: './detail/detail.module#DetailModule' },
+      { path: 'stayprice', loadChildren: './stayprice/stayprice.module#StaypriceModule' },
+      { path: 'outin', loadChildren: './outin/outin.module#OutinModule' },
+      { path: 'listservice', loadChildren: './listservice/listservice.module#ListserviceModule' },
+      { path: 'bus', loadChildren: './bus/bus.module#BusModule' },
+      { path: 'review', loadChildren: './review/review.module#ReviewModule' },
     ]
   }
 ];

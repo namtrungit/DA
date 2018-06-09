@@ -29,6 +29,9 @@ export class ListreportComponent implements OnInit {
   public de_report_createdAt = '';
   public de_report_creater = '';
   public de_report_content = '';
+  // Search Modal
+  public search_report_id = '';
+  public search_stu_id = '';
   constructor(
     private _router: Router,
     private _listReportService: ListreportService
@@ -232,6 +235,39 @@ export class ListreportComponent implements OnInit {
         this.getReport();
         this.clearRd();
         $('#updateModal').modal('toggle');
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+  clearSearch() {
+    this.search_report_id = '';
+    this.search_stu_id = '';
+  }
+  findReport() {
+    const report = JSON.stringify({
+      report: this.search_report_id,
+      stu: this.search_stu_id
+    });
+    // console.log(report);
+    this._listReportService.findReport(report).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._listReportService.tokenError();
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
+      if (res.status === 'success') {
+        this.list_report = res.list;
+        $('#searchModal').modal('toggle');
         return;
       }
     }, error => {

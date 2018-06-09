@@ -45,4 +45,7 @@ export class ListreportService {
   updateReport(report) {
     return this._http.put(CONFIG.BASE_API + '/reports/update-report', report, { headers: this.createHeader() }).map(res => res.json());
   }
+  findReport(report) {
+    return this._http.post(CONFIG.BASE_API + '/reports/find-report', report, { headers: this.createHeader() }).map(res => res.json());
+  }
 }

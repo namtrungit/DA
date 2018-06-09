@@ -5370,3 +5370,23 @@ ul.find-result li p{
   color: red;
   font-weight: bold
 }
+.title {
+  font-size: 15px;
+  word-wrap: break-word;
+}
+.contentspan {
+  font-size: 12pt; font-family: verdana, geneva, sans-serif;
+}
+.box-conner {
+  border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 20px; 
+    width: 700px;
+    height: 150px; 
+}
+.ul-title {
+  color: #3366ff;
+}
+.span-text {
+  font-size: 12pt; color: #000000;
+}
