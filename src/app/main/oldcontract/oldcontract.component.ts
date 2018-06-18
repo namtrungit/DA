@@ -9,6 +9,7 @@ declare var toastr: any;
   styleUrls: ['./oldcontract.component.css']
 })
 export class OldcontractComponent implements OnInit {
+  public p = 1;
   list_contract: Array<any> = [];
   // del and update modal
   public contract_id = '';

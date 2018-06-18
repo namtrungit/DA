@@ -9,6 +9,7 @@ declare var toastr: any;
   styleUrls: ['./redisable.component.css']
 })
 export class RedisableComponent implements OnInit {
+  public p = 1;
   public list_register: Array<any> = [];
   public register_id = '';
   public register_id_school = '';

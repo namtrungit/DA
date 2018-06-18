@@ -10,6 +10,7 @@ declare var toastr: any;
   styleUrls: ['./listnews.component.css']
 })
 export class ListnewsComponent implements OnInit {
+  public p = 1;
   public folder_picture: string = CONFIG.BASE_API + '/uploads/news/';
   public list_news: Array<any> = [];
   public new_id = '';
@@ -129,7 +130,7 @@ export class ListnewsComponent implements OnInit {
         this.getNews();
         return;
       }
-     }, error => {
+    }, error => {
       console.log('Không nết nối được tới máy chủ');
       this._router.navigate(['error']);
       return;

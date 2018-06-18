@@ -5,6 +5,7 @@ import { RoomService } from './room.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 const _routes: Routes = [
   { path: '', component: RoomComponent }
 ];
@@ -13,7 +14,8 @@ const _routes: Routes = [
     CommonModule,
     FormsModule,
     HttpModule,
-    RouterModule.forChild(_routes)
+    RouterModule.forChild(_routes),
+    NgxPaginationModule
   ],
   providers: [RoomService],
   declarations: [RoomComponent]

@@ -9,6 +9,7 @@ declare var $: any;
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
+  public p = 1;
   public list_room: Array<any> = [];
   public list_area: Array<any> = [];
   public list_floor: Array<any> = [];
@@ -135,6 +136,7 @@ export class RoomComponent implements OnInit {
     this.room_id = room.room_id;
     this.room_name = room.room_name;
     this.room_max = room.room_max;
+    this.update_room_name = '';
     // console.log(room.room_id);
   }
   clearCreateRoom() {

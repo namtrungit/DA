@@ -9,6 +9,7 @@ declare var toastr: any;
   styleUrls: ['./class.component.css']
 })
 export class ClassComponent implements OnInit {
+  public p = 1;
   public list_class: Array<any> = [];
   public list_fal: Array<any> = [];
   // class obj create
@@ -95,6 +96,8 @@ export class ClassComponent implements OnInit {
       }
       if (res.status === 'success') {
         toastr.success(res.message);
+        this.class_name = '';
+        this.class_id_faculty = '';
         this.getClass();
         return;
       }

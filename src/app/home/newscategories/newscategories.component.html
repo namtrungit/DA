@@ -17,16 +17,20 @@
                             <span style="color: #ff6600;">TIN TỨC</span>
                             <span style="color: #3366ff;">KÝ TÚC XÁ</span>
                         </h1>
-                        <div class="col-sm-6" *ngFor="let news of list_news">
-                            <a [routerLink]="['/home/detail',news.new_id]" class="list-group-item clearfix">
-                                <img *ngIf="news.new_picture != ''" [src]="folder_picture + news.new_picture" width="300" height="200" />
-                                <strong class="title">{{news.new_title}}</strong>
-                                <p class="icon-calendar"> {{news.createdAt| date: 'dd-MM-yyyy'}}</p>
+                        <div *ngFor="let news of list_news  | paginate: { itemsPerPage: 5, currentPage: p }">
+                            <hr width="100%" align="left" style="border-width: 5px">
+                            <a class="wrapper" [routerLink]="['/home/detail',news.new_id]">
+                                <div class="col-sm-2">
+                                    <img class="pull-left" *ngIf="news.new_picture != ''" [src]="folder_picture + news.new_picture" width="100" height="100">
+                                </div>
+                                <div class="col-sm-10">
+                                    <h4 style="color: #3366ff;">{{news.new_title}}</h4>
+                                    <p class="autofixtext">{{news.new_content}}</p>
+                                    <p>{{news.createdAt| date: 'dd-MM-yyyy'}}, người đăng: {{news.new_creater}}</p>
+                                </div>
                             </a>
                         </div>
-                        <a class="pull-left" [routerLink]="['/home/newscategories']" style="color:red">
-                            Xem tất cả tin tức
-                        </a>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </div>
                     <div class="col-sm-4 col-xs-12">
                         <a [routerLink]="['/home/stayprice']" class="list-group-item clearfix">

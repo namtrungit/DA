@@ -32,7 +32,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let news of list_news">
+                    <tr *ngFor="let news of list_news | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{news.new_title}}</td>
                       <td>{{news.createdAt}}</td>
                       <td>{{news.new_creater}}</td>
@@ -49,6 +49,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { ContractComponent } from './contract.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ContractService } from './contract.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 const _routes: Routes = [
   { path: '', component: ContractComponent }
 ];
@@ -11,7 +12,8 @@ const _routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(_routes)
+    RouterModule.forChild(_routes),
+    NgxPaginationModule
   ],
   providers: [ContractService],
   declarations: [ContractComponent]

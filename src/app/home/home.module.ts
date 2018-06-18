@@ -9,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 const _routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
-      { path: '', redirectTo: 'stuindex', pathMatch: 'full' },
+      { path: '', redirectTo: 'index', pathMatch: 'full' },
       { path: 'index', loadChildren: './stuindex/stuindex.module#StuindexModule' },
       { path: 'register', loadChildren: './sturegister/sturegister.module#SturegisterModule' },
       { path: 'contact', loadChildren: './stucontact/stucontact.module#StucontactModule' },
@@ -21,6 +21,7 @@ const _routes: Routes = [
       { path: 'listservice', loadChildren: './listservice/listservice.module#ListserviceModule' },
       { path: 'bus', loadChildren: './bus/bus.module#BusModule' },
       { path: 'review', loadChildren: './review/review.module#ReviewModule' },
+      { path: 'newscategories', loadChildren: './newscategories/newscategories.module#NewscategoriesModule' },
     ]
   }
 ];

@@ -10,6 +10,7 @@ declare var $: any;
   styleUrls: ['./faculty.component.css']
 })
 export class FacultyComponent implements OnInit {
+  public p = 1;
   public list_fal: Array<any> = [];
   public fal_name = '';
   public fal_id = '';

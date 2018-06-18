@@ -47,7 +47,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let room of list_room">
+                    <tr *ngFor="let room of list_room | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{room.room_name}}</td>
                       <td>{{room.room_max}}</td>
                       <td>{{room.room_currency}}</td>
@@ -72,6 +72,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>

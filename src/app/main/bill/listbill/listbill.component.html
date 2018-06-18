@@ -37,7 +37,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let bill of list_bill">
+                    <tr *ngFor="let bill of list_bill | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{bill.bill_id}}</td>
                       <td>{{bill.stu_name}}</td>
                       <td>{{bill.bill_createAt}}</td>
@@ -56,6 +56,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>
@@ -182,7 +183,7 @@
                                 <strong>Dịch vụ</strong>
                               </td>
                               <td>
-                               <strong>Số lượng</strong>
+                                <strong>Số lượng</strong>
                               </td>
                               <td>
                                 <strong>Đơn giá</strong>

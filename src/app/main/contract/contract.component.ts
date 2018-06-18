@@ -10,9 +10,13 @@ declare var toastr: any;
   styleUrls: ['./contract.component.css']
 })
 export class ContractComponent implements OnInit {
+  public p = 1;
   public list_contract: Array<any> = [];
   public list_recenbale: Array<any> = [];
   public list_room: Array<any> = [];
+  public list_id_stu: Array<any> = [];
+  // ShowDateInpit
+  public show = false;
   // create Modal
   public cre_contract_id = '';
   public cre_contract_id_stu_school = '';
@@ -25,9 +29,10 @@ export class ContractComponent implements OnInit {
   public contract_id_stu_school = '';
   public contract_room_name = '';
   public contract_id_recontract = '';
-
+  public contract_date_end = '';
+  public contract_create = '';
   // autotext
-  public showDD = false;
+  public showDD = true;
 
   // modal detail contract
   public de_stu_name = '';
@@ -52,6 +57,7 @@ export class ContractComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getListStuId();
     this.getRoom();
     this.getContract();
     this.getRecenable();
@@ -62,11 +68,28 @@ export class ContractComponent implements OnInit {
     $('#contract-date').datetimepicker({
       format: 'DD/MM/YYYY'
     });
-    $('#cre-contract-end').datetimepicker({
-      format: 'DD/MM/YYYY'
-    });
     $('#contract-end').datetimepicker({
       format: 'DD/MM/YYYY'
+    });
+  }
+  getListStuId() {
+    this._contractService.getListIdStu().subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+        return;
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._contractService.tokenError();
+      }
+      if (res.status === 'success') {
+        this.list_id_stu = res.list_id;
+        console.log(this.list_id_stu);
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
     });
   }
   clearSearch() {
@@ -121,9 +144,10 @@ export class ContractComponent implements OnInit {
     this.contract_id_stu_school = contract.stu_id_school;
     this.contract_room_name = contract.room_name;
     this.contract_id_recontract = contract.recontract_id;
-    $('#contract-date').val(contract.contract_date_get_room);
+    // $('#contract-date').val(contract.contract_date_get_room);
     $('#contract-end').val(contract.contract_date_end);
-    this.showDD = false;
+    this.contract_date_end = contract.contract_date_end;
+    this.show = true;
     console.log(contract);
   }
   clearCreateContract() {
@@ -146,6 +170,7 @@ export class ContractComponent implements OnInit {
       if (res.status === 'success') {
         this.cre_contract_create = res.user.user_name;
         // console.log(this.cre_contract_create);
+        this.contract_create = res.user.user_name;
         return;
       }
     }, error => {
@@ -234,11 +259,6 @@ export class ContractComponent implements OnInit {
       $('#cre-contract-date').focus();
       return;
     }
-    if ($('#cre-contract-end').val() === '') {
-      toastr.warning('Bạn chưa chọn ngày kết thúc hợp đồng', 'Thông báo');
-      $('#cre-contract-end').focus();
-      return;
-    }
     if (this.cre_contract_create === '') {
       toastr.warning('Bạn chưa cập nhật tên ở phần thông tin tài khoản', 'Thông báo');
       return;
@@ -246,7 +266,6 @@ export class ContractComponent implements OnInit {
     const contract = JSON.stringify({
       contract_id: this.cre_contract_id,
       contract_date_get_room: $('#cre-contract-date').val(),
-      contract_date_end: $('#cre-contract-end').val(),
       contract_room_name: this.cre_contract_room_name,
       contract_id_stu_school: this.cre_contract_id_stu_school,
       contract_id_recontract: this.cre_contract_id_recontract,
@@ -307,25 +326,16 @@ export class ContractComponent implements OnInit {
       $('#contract-id-recontract').focus();
       return;
     }
-    if ($('#contract-date').val() === '') {
-      toastr.warning('Bạn chưa chọn ngày nhận phòng', 'Thông báo');
-      $('#contract-date').focus();
-      return;
-    }
-    if ($('#contract-end').val() === '') {
-      toastr.warning('Bạn chưa chọn ngày kết thúc hợp đồng', 'Thông báo');
-      $('#contract-end').focus();
-      return;
-    }
     const contract = JSON.stringify({
       contract_id: this.contract_id,
-      contract_date_get_room: $('#contract-date').val(),
-      contract_date_end: $('#contract-end').val(),
+      update_contract_date_get_room: $('#contract-date').val(),
       contract_room_name: this.contract_room_name,
       contract_id_stu_school: this.contract_id_stu_school,
-      contract_id_recontract: this.contract_id_recontract
+      contract_id_recontract: this.contract_id_recontract,
+      contract_create: this.contract_create
     });
-    // console.log(contract);
+    console.log(contract);
+    // return;
     this._contractService.updateContract(contract).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);
@@ -377,8 +387,9 @@ export class ContractComponent implements OnInit {
       return;
     });
   }
-
-
+  clearDate() {
+    $('#contract-date').val(null);
+  }
   // Autocomplete textbox room
   toggleDropDown() {
     this.showDD = !this.showDD;
@@ -433,7 +444,6 @@ export class ContractComponent implements OnInit {
   selectListUpdate(room) {
     this.contract_room_name = room.room_name;
   }
-
   // Detail modal
   selectDetailContract(contract) {
     this.de_stu_name = contract.stu_name;

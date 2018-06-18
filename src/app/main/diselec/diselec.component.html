@@ -39,7 +39,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let elec of list_elec">
+                    <tr *ngFor="let elec of list_elec | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{elec.elec_id}}</td>
                       <td>{{elec.elec_room}}</td>
                       <td>{{elec.elec_month}}</td>
@@ -63,6 +63,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>
@@ -95,13 +96,14 @@
               </div>
             </div>
             <div class="col-sm-12">
-                <div class="form-group">
-                    <label>Phòng</label>
-                    <input id="search-elec-room" list="elec" type="text" [(ngModel)]="search_elec_room" name="search_elec_room" class="form-control" placeholder="Chọn phòng">
-                    <datalist id="elec">
-                      <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
-                    </datalist>
-                  </div>
+              <div class="form-group">
+                <label>Phòng</label>
+                <input id="search-elec-room" list="elec" type="text" [(ngModel)]="search_elec_room" name="search_elec_room" class="form-control"
+                  placeholder="Chọn phòng">
+                <datalist id="elec">
+                  <option *ngFor="let room of list_room" [ngValue]="room_name">{{room['room_name']}}</option>
+                </datalist>
+              </div>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ declare var $: any;
   styleUrls: ['./enelec.component.css']
 })
 export class EnelecComponent implements OnInit {
+  public p = 1;
   public list_elec: Array<any> = [];
   public list_room: Array<any> = [];
   // modal search

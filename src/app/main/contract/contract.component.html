@@ -43,7 +43,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let contract of list_contract">
+                    <tr *ngFor="let contract of list_contract | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{contract.contract_id}}</td>
                       <td>{{contract.stu_name}}</td>
                       <td>{{contract.room_name}}</td>
@@ -68,6 +68,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>
@@ -114,8 +115,11 @@
                 <form role="form" autocomplete="off" #formRoom="ngForm">
                   <div class="form-group">
                     <label>Mã sinh viên</label>
-                    <input class="form-control" type="number" id='cre-contract-id-stu-school' name="cre_contract_id_stu_school" [(ngModel)]='cre_contract_id_stu_school'
+                    <input class="form-control" type="number" list="stu" id='cre-contract-id-stu-school' name="cre_contract_id_stu_school" [(ngModel)]='cre_contract_id_stu_school'
                       placeholder="Nhập mã số sinh viên">
+                    <datalist id="stu">
+                      <option *ngFor="let stu of list_id_stu" [ngValue]="stu_id_school">{{stu['stu_id_school']}}</option>
+                    </datalist>
                   </div>
                   <div class="form-group">
                     <label>Phòng</label>
@@ -135,10 +139,6 @@
                   <div class="form-group">
                     <label>Ngày nhận phòng</label>
                     <input id="cre-contract-date" type="text" class="form-control" placeholder="Chọn ngày nhận phòng">
-                  </div>
-                  <div class="form-group">
-                    <label>Ngày hết hạn</label>
-                    <input id="cre-contract-end" type="text" class="form-control" placeholder="Chọn ngày hết hạn">
                   </div>
                   <button type="button" (click)="addContract()" class="btn m-b-xs btn-sm btn-success btn-addon">
                     <i class='fa fa-check'></i>
@@ -175,8 +175,11 @@
                 <form role="form" #formRoom="ngForm">
                   <div class="form-group">
                     <label>Mã sinh viên</label>
-                    <input class="form-control" type="number" id='contract-id-stu-school' name="contract_id_stu_school" [(ngModel)]='contract_id_stu_school'
+                    <input class="form-control" list="stu" type="text" id='contract-id-stu-school' name="contract_id_stu_school" [(ngModel)]='contract_id_stu_school'
                       placeholder="Nhập mã số sinh viên">
+                    <datalist id="stu">
+                      <option *ngFor="let stu of list_id_stu" [ngValue]="stu_id_school">{{stu['stu_id_school']}}</option>
+                    </datalist>
                   </div>
                   <div class="form-group">
                     <label>Phòng</label>
@@ -193,13 +196,17 @@
                       <option *ngFor="let rec of list_recenbale" [ngValue]="rec['recontract_id']">{{rec['recontract_name']}}</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label>Ngày nhận phòng</label>
-                    <input id="contract-date" type="text" class="form-control" placeholder="Chọn ngày nhận phòng">
+                  <div class="form-group" ng-show="check">
+                    <label>Ngày nhận phòng: </label>
+                    <strong>{{contract_date_end}}</strong>
+                    <button class='btn m-b-xs btn-sm btn-info btn-addon' (click)="check = !check" (click)="clearDate()">
+                      Đổi ngày nhận phòng
+                      <i class="fa fa-exchange"></i>
+                    </button>
                   </div>
-                  <div class="form-group">
-                    <label>Ngày hết hạn</label>
-                    <input id="contract-end" type="text" class="form-control" placeholder="Chọn ngày hết hạn">
+                  <div class="form-group" [hidden]="!check">
+                    <label>Ngày nhận phòng mới</label>
+                    <input id="contract-date" type="text" class="form-control" placeholder="Chọn ngày nhận phòng mới">
                   </div>
                   <button type="button" (click)="updateContract()" class="btn m-b-xs btn-sm btn-dark btn-addon">
                     <i class='icon-pencil'></i>

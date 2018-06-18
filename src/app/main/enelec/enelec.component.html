@@ -39,7 +39,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let elec of list_elec">
+                    <tr *ngFor="let elec of list_elec | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{elec.elec_id}}</td>
                       <td>{{elec.elec_room}}</td>
                       <td>{{elec.elec_month}}</td>
@@ -63,6 +63,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>

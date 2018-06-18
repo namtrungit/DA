@@ -38,7 +38,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let report of list_report">
+                    <tr *ngFor="let report of list_report | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{report.report_id}}</td>
                       <td>{{report.stu_id_school}}</td>
                       <td>{{report.stu_name}}</td>
@@ -61,6 +61,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>

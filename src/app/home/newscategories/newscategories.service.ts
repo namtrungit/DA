@@ -3,12 +3,12 @@ import { Http, Headers } from '@angular/http';
 import { CONFIG } from '../../core/app.config';
 
 @Injectable()
-export class StuindexService {
+export class NewscategoriesService {
 
   constructor(
-    private _http: Http,
+    private _http: Http
   ) { }
-  private createHeaders() {
+  createHeaders() {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return headers;

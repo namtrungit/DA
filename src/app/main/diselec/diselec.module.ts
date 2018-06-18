@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { DiselecService } from './diselec.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 const _routes: Routes = [
   {path: '', component: DiselecComponent}
 ];
@@ -13,7 +14,8 @@ const _routes: Routes = [
     CommonModule,
     HttpModule,
     FormsModule,
-    RouterModule.forChild(_routes)
+    RouterModule.forChild(_routes),
+    NgxPaginationModule
   ],
   providers: [DiselecService],
   declarations: [DiselecComponent]

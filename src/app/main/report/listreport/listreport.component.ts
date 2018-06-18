@@ -9,6 +9,7 @@ declare var toastr: any;
   styleUrls: ['./listreport.component.css']
 })
 export class ListreportComponent implements OnInit {
+  public p = 1;
   public list_report: Array<any> = [];
   public list_rule: Array<any> = [];
   public list_rd: Array<any> = [];

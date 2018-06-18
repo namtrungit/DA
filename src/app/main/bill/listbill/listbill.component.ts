@@ -9,6 +9,7 @@ declare var $: any;
   styleUrls: ['./listbill.component.css']
 })
 export class ListbillComponent implements OnInit {
+  public p = 1;
   public list_bill: Array<any> = [];
   public list_bs: Array<any> = [];
   // Bill

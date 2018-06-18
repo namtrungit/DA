@@ -38,14 +38,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let stu of list_students">
+                    <tr *ngFor="let stu of list_students  | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{stu.stu_id_school}}</td>
                       <td>{{stu.stu_name}}</td>
                       <td>{{stu.stu_sex === 'male'? 'Nam':'Nữ'}}</td>
                       <td>{{stu.fal_name}}</td>
                       <td>{{stu.class_name}}</td>
                       <td>
-                        <button class='btn m-b-xs btn-sm btn-dark btn-addon'  (click)='selectStu(stu)' data-toggle="modal" data-target="#stuModal">
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectStu(stu)' data-toggle="modal" data-target="#stuModal">
                           <i class="icon-pencil"></i>
                           Cập nhật
                         </button>
@@ -57,6 +57,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
 

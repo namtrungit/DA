@@ -5390,3 +5390,9 @@ ul.find-result li p{
 .span-text {
   font-size: 12pt; color: #000000;
 }
+.autofixtext {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 1000px;
+}

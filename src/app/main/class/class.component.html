@@ -47,7 +47,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let class of list_class">
+                    <tr *ngFor="let class of list_class | paginate: { itemsPerPage: 10, currentPage: p }">
                       <!-- <td>{{class.class_id}}</td> -->
                       <td>{{class.class_name}}</td>
                       <td>{{class.fal_name}}</td>
@@ -64,6 +64,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>
@@ -86,7 +87,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-xs btn-danger" (click)="delClass(class_id)" data-dismiss="modal">Xóa</button>
-          <button type="button" (click)="clearClass()"  class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+          <button type="button" (click)="clearClass()" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
         </div>
       </div>
 
@@ -113,8 +114,8 @@
               <option *ngFor="let fal of list_fal" [ngValue]="fal['fal_id']">{{fal['fal_name']}}</option>
             </select>
           </div>
-          <button type="button" (click)="updateClass()"  class="btn btn-sm btn-dark">Cập nhật</button>
-          <button type="button" (click)="clearClass()"  class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+          <button type="button" (click)="updateClass()" class="btn btn-sm btn-dark">Cập nhật</button>
+          <button type="button" (click)="clearClass()" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
         </div>
 
       </div>

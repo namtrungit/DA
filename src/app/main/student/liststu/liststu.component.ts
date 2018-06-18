@@ -10,6 +10,7 @@ declare var toastr: any;
   styleUrls: ['./liststu.component.css']
 })
 export class ListstuComponent implements OnInit {
+  public p = 1;
   public list_students: Array<any> = [];
   public folder_avatar: string = CONFIG.BASE_API + '/uploads/students/';
   public list_class: Array<any> = [];

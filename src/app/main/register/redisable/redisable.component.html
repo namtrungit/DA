@@ -35,7 +35,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let register of list_register">
+                    <tr *ngFor="let register of list_register | paginate: { itemsPerPage: 10, currentPage: p }">
                       <td>{{register.register_id_school}}</td>
                       <td>{{register.stu_name}}</td>
                       <td>{{register.stu_sex === 'male'? 'Nam':'Nữ'}}</td>
@@ -53,6 +53,7 @@
                     </tr>
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
               </div>
             </div>
           </div>

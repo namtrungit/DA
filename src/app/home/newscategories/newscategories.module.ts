@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OldcontractComponent } from './oldcontract.component';
-import { OldcontractService } from './oldcontract.service';
-import { FormsModule } from '@angular/forms';
+import { NewscategoriesComponent } from './newscategories.component';
+import { NewscategoriesService } from './newscategories.service';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 const _routes: Routes = [
-  { path: '', component: OldcontractComponent }
+  { path: '', component: NewscategoriesComponent }
 ];
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     HttpModule,
+    FormsModule,
     RouterModule.forChild(_routes),
     NgxPaginationModule
   ],
-  providers: [OldcontractService],
-  declarations: [OldcontractComponent]
+  providers: [NewscategoriesService],
+  declarations: [NewscategoriesComponent]
 })
-export class OldcontractModule { }
+export class NewscategoriesModule { }

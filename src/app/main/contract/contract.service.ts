@@ -48,4 +48,7 @@ export class ContractService {
   searchContract(contract) {
     return this._http.post(CONFIG.BASE_API + '/contracts/find-contract', contract, { headers: this.createHeader() }).map(res => res.json());
   }
+  getListIdStu() {
+    return this._http.get(CONFIG.BASE_API + '/students/list-id', { headers: this.createHeader() }).map(res => res.json());
+  }
 }
