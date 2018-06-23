@@ -1,0 +1,59 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black" style="text-align:center">
+              <span style="color: #ff6600;">DANH SÁCH</span>
+              <span style="color: #3366ff;">PHIẾU ĐIỆN</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">
+
+                  <select class="form-control" [(ngModel)]="area_id" name="area_id" id="area-id" style="width: 20%" (change)="postArea()">
+                    <option value="">Chọn khu</option>
+                    <option *ngFor="let area of list_area" [ngValue]="area['area_id']">{{area['area_sympol']}}</option>
+                  </select>
+
+              </div>
+              <div class="panel-body">
+                <table class="table table-striped m-b-none">
+                  <thead>
+                    <tr>
+                      <th>Mã phiếu</th>
+                      <th>Phòng</th>
+                      <th>Tháng</th>
+                      <th>Số điện(Kwh)</th>
+                      <th>Tổng tiền</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let elec of list_elec">
+                      <td>{{elec.elec_id}}</td>
+                      <td>{{elec.elec_room}}</td>
+                      <td>{{elec.elec_month}}</td>
+                      <td>{{elec.elec_amount}}</td>
+                      <td>{{elec.elec_total|currency:" ":true:'0.0-0'}} VNĐ</td>
+                      <td>{{elec.elec_status === 'enable'? 'Chưa thanh toán':'Đã thanh toán'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+  </div>
+</div>

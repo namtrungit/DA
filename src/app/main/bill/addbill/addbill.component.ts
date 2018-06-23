@@ -383,6 +383,7 @@ export class AddbillComponent implements OnInit {
       bs_service_id: service['service_id'],
       bs_service_name: service['service_name'],
       bs_count: 1,
+      bs_service_unit: service['service_unit'],
       bs_service_price: service['service_price'],
     };
     console.log(obj);

@@ -15,11 +15,12 @@ export class ServiceComponent implements OnInit {
   public service_id = '';
   public service_name = '';
   public service_price = '';
+  public service_unit = '';
   public service_content = '';
-  public service_status = '';
   // create modal
   public cre_service_name = '';
   public cre_service_price = '';
+  public cre_service_unit = '';
   public cre_service_content = '';
   constructor(
     private _serviceService: ServiceService,
@@ -28,12 +29,6 @@ export class ServiceComponent implements OnInit {
 
   ngOnInit() {
     this.getService();
-    $('#cre-service-date').datetimepicker({
-      format: 'DD/MM/YYYY'
-    });
-    $('#service-date').datetimepicker({
-      format: 'DD/MM/YYYY'
-    });
   }
   getService() {
     this._serviceService.getService().subscribe(res => {
@@ -47,6 +42,7 @@ export class ServiceComponent implements OnInit {
       }
       if (res.status === 'success') {
         this.list_service = res.Services;
+        console.log(this.list_service);
       }
     }, error => {
       console.log('Không nết nối được tới máy chủ');
@@ -57,8 +53,8 @@ export class ServiceComponent implements OnInit {
   clearCreateService() {
     this.cre_service_name = '';
     this.cre_service_price = '';
-    $('#cre-service-date').val(null);
     this.cre_service_content = '';
+    this.cre_service_unit = '';
   }
   addService() {
     if (this.cre_service_name === '') {
@@ -71,9 +67,9 @@ export class ServiceComponent implements OnInit {
       $('#cre-service-price').focus();
       return;
     }
-    if ($('#cre-service-date').val() === '') {
-      toastr.warning('Bạn chưa chọn ngày áp dụng dịch vụ', 'Thông báo');
-      $('#cre-service-date').focus();
+    if (this.cre_service_unit === '') {
+      toastr.warning('Bạn chưa nhập đơn vị cho dịch vụ', 'Thông báo');
+      $('#cre-service-unit').focus();
       return;
     }
     if (this.cre_service_content === '') {
@@ -84,10 +80,11 @@ export class ServiceComponent implements OnInit {
     const service = JSON.stringify({
       service_name: this.cre_service_name,
       service_price: this.cre_service_price,
-      service_date: $('#cre-service-date').val(),
+      service_unit: this.cre_service_unit,
       service_content: this.cre_service_content
     });
     // console.log(service);
+    // return;
     this._serviceService.addService(service).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);
@@ -113,9 +110,8 @@ export class ServiceComponent implements OnInit {
     this.service_id = service.service_id;
     this.service_name = service.service_name;
     this.service_price = service.service_price;
-    $('#service-date').val(service.service_date);
+    this.service_unit = service.service_unit;
     this.service_content = service.service_content;
-    this.service_status = service.service_status;
     // console.log(service);
   }
   updateService() {
@@ -129,9 +125,9 @@ export class ServiceComponent implements OnInit {
       $('#service-price').focus();
       return;
     }
-    if ($('#service-date').val() === '') {
-      toastr.warning('Bạn chưa chọn ngày áp dụng dịch vụ', 'Thông báo');
-      $('#service-date').focus();
+    if (this.service_unit === '') {
+      toastr.warning('Bạn chưa nhập đơn vị', 'Thông báo');
+      $('#service-unit').focus();
       return;
     }
     if (this.service_content === '') {
@@ -143,9 +139,8 @@ export class ServiceComponent implements OnInit {
       service_id: this.service_id,
       service_name: this.service_name,
       service_price: this.service_price,
-      service_date: $('#service-date').val(),
+      service_unit: this.service_unit,
       service_content: this.service_content,
-      service_status: this.service_status
     });
     this._serviceService.updateService(service).subscribe(res => {
       if (res.status === 'error') {

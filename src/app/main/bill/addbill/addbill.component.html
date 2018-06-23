@@ -39,6 +39,9 @@
                               <strong>Số lượng</strong>
                             </td>
                             <td>
+                              <strong>Đơn vị</strong>
+                            </td>
+                            <td>
                               <strong>Đơn giá</strong>
                             </td>
                             <td>
@@ -55,6 +58,7 @@
                             <td>
                               <input type="number" class="text-center" style="width:45px" min="1" value="{{bs.bs_count}}" name="sl{{bs.bs_service_id}}" id="sl{{bs.bs_service_id}}" (click)="capnhatgio($event) ">
                             </td>
+                            <td>{{bs.bs_service_unit}}</td>
                             <td>{{bs.bs_service_price|currency:" ":true:'0.0-0'}} VNĐ</td>
                             <td>{{bs.bs_service_price*bs.bs_count|currency:" ":true:'0.0-0'}} VNĐ</td>
                             <td>
@@ -70,7 +74,7 @@
                       <label class="price">{{tongtien |currency:" ":true:'0.0-0' }}VNĐ</label>
                     </div>
                     <div class="panel-footer">
-                      <button type="button" (click)="Pay()" class="btn btn-success btn-block">Lập biên bản</button>
+                      <button type="button" (click)="Pay()" class="btn btn-success btn-block">Lập hóa đơn</button>
                     </div>
                   </div>
                 </form>

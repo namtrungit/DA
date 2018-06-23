@@ -186,6 +186,9 @@
                                 <strong>Số lượng</strong>
                               </td>
                               <td>
+                                <strong>Đơn vị</strong>
+                              </td>
+                              <td>
                                 <strong>Đơn giá</strong>
                               </td>
                               <td>
@@ -197,6 +200,7 @@
                             <tr *ngFor="let bs of list_bs">
                               <td>{{bs.service_name}}</td>
                               <td>{{bs.bs_count}}</td>
+                              <td>{{bs.service_unit}}</td>
                               <td>{{bs.bs_service_price|currency:" ":true:'0.0-0'}} VNĐ</td>
                               <td>{{bs.bs_total|currency:" ":true:'0.0-0'}} VNĐ</td>
                             </tr>

@@ -22,6 +22,7 @@ const _routes: Routes = [
       { path: 'bus', loadChildren: './bus/bus.module#BusModule' },
       { path: 'review', loadChildren: './review/review.module#ReviewModule' },
       { path: 'newscategories', loadChildren: './newscategories/newscategories.module#NewscategoriesModule' },
+      { path: 'elec', loadChildren: './elec/elec.module#ElecModule' },
     ]
   }
 ];
