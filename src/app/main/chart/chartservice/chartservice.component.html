@@ -1,0 +1,121 @@
+<div class="app-content-body ">
+  <div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+      <!-- main header -->
+      <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+          <div class="col-sm-10 col-xs-12">
+            <h1 class="m-n font-thin h3 text-black">THỐNG KÊ</h1>
+          </div>
+          <div class="col-sm-2 col-xs-12">
+            <button class='btn m-b-xs btn-sm btn-info btn-rounded' (click)='clearYear()' data-toggle="modal" data-target="#yearModal">
+              <i class="icon-pencil"></i>
+              Thống kê
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-md">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Thông tin ký túc xá</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label>Số lượng khu:</label>
+                  <strong class="price">{{area_quantity}}</strong>
+                </div>
+                <div class="form-group">
+                  <label>Số lượng sinh viên trong ký túc xá:</label>
+                  <strong class="price">{{current_contract}}</strong>
+                </div>
+                <div class="form-group">
+                  <label>Tổng số phòng:</label>
+                  <strong class="price">{{room_quantity}}</strong>
+                </div>
+                <div class="form-group">
+                  <label>Số phòng đang hoạt động:</label>
+                  <strong class="price">{{room_quantity-empty_room}}</strong>
+                </div>
+                <div class="form-group">
+                  <label>Số phòng trống:</label>
+                  <strong class="price">{{empty_room}}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Hợp đồng</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <fusioncharts [id]="contract" [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="chartContract">
+                  </fusioncharts>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Dịch vụ</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <fusioncharts [id]="service" [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="chartService">
+                  </fusioncharts>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-heading font-bold">Biên bản</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <fusioncharts [id]="report" [width]="width" [height]="height" [type]="type1" [dataFormat]="dataFormat" [dataSource]="chartReport">
+                  </fusioncharts>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / main -->
+    <!-- Modal year-->
+    <div id="yearModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+            <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold">THỐNG KÊ</div>
+                <div class="panel-body">
+                  <form role="form" #formRoom="ngForm">
+                    <div class="form-group">
+                      <label>Năm</label>
+                      <input class="form-control" type="number" id='year' name="year" [(ngModel)]='year' placeholder="Nhập năm để thống kê">
+                    </div>
+                    <button type="button" (click)="pushYear()" class="btn m-b-xs btn-sm btn-info btn-addon">
+                      <i class='icon-bar-chart'></i>
+                      Thống kê
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

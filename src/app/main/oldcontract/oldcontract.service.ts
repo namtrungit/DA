@@ -26,4 +26,8 @@ export class OldcontractService {
     // tslint:disable-next-line:max-line-length
     return this._http.post(CONFIG.BASE_API + '/contracts/find-contract-old', contract, { headers: this.createHeader() }).map(res => res.json());
   }
+  delContract(contract_id) {
+    // tslint:disable-next-line:max-line-length
+    return this._http.delete(CONFIG.BASE_API + '/contracts/del-contract?contract_id=' + contract_id, { headers: this.createHeader() }).map(res => res.json());
+  }
 }

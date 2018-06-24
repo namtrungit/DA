@@ -114,4 +114,24 @@ export class OldcontractComponent implements OnInit {
       return;
     });
   }
+  delContract() {
+    this._oldContractService.delContract(this.contract_id).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._oldContractService.tokenError();
+      }
+      if (res.status === 'success') {
+        toastr.success(res.message);
+        $('#delModal').modal('toggle');
+        this.getContract();
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
 }

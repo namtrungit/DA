@@ -8,6 +8,7 @@ declare var toastr: any;
   styleUrls: ['./elec.component.css']
 })
 export class ElecComponent implements OnInit {
+  public p = 1;
   public list_area: Array<any> = [];
   public list_elec: Array<any> = [];
   public area_id = '';

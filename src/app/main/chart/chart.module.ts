@@ -9,7 +9,8 @@ const _routes: Routes = [
   {
     path: '', component: ChartComponent, children: [
       { path: '', redirectTo: 'contract', pathMatch: 'full' },
-      { path: 'contract', loadChildren: './chartcontract/chartcontract.module#ChartcontractModule' }
+      { path: 'contract', loadChildren: './chartcontract/chartcontract.module#ChartcontractModule' },
+      { path: 'service', loadChildren: './chartservice/chartservice.module#ChartserviceModule' }
     ]
   }
 ];
