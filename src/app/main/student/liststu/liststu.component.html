@@ -24,7 +24,11 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="panel panel-default">
-              <div class="panel-heading"></div>
+              <div class="panel-heading">
+                <button class='btn m-b-xs btn-sm btn-info' (click)='getStu()'>
+                  <i class="fa fa-refresh"></i>
+                </button>
+              </div>
               <div class="panel-body">
                 <table class="table table-striped b-t b-light table-bordered table-hover table-text-center">
                   <thead>
@@ -49,7 +53,7 @@
                           <i class="icon-pencil"></i>
                           Cập nhật
                         </button>
-                        <button class='btn m-b-xs btn-sm btn-danger btn-addon ' (click)='selectStu(stu)' data-toggle="modal" data-target="#delModal">
+                        <button *ngIf="user_position === 'admin'"  class='btn m-b-xs btn-sm btn-danger btn-addon ' (click)='selectStu(stu)' data-toggle="modal" data-target="#delModal">
                           <i class="icon-trash"></i>
                           Xóa
                         </button>
@@ -230,7 +234,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Mã sinh viên</label>
-            <input id="search-stu-id-school" type="text" [(ngModel)]="search_stu_id_school" name="search_stu_id_school" class="form-control"
+            <input id="search-stu-id-school" type="number" [(ngModel)]="search_stu_id_school" name="search_stu_id_school" class="form-control"
               placeholder="Nhập mã sinh viên">
           </div>
           <div class="form-group">

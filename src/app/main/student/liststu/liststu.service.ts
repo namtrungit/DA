@@ -21,9 +21,9 @@ export class ListstuService {
   tokenError() {
     return this._tokenService.tokenError();
   }
-  delStu(stu_id, room_name) {
+  delStu(stu_id_school) {
     // tslint:disable-next-line:max-line-length
-    return this._http.delete(CONFIG.BASE_API + '/students/del-student?stu_id=' + stu_id + '&room_name=' + room_name, { headers: this.createHeader() }).map(res => res.json());
+    return this._http.delete(CONFIG.BASE_API + '/students/del-student?stu_id_school=' + stu_id_school, { headers: this.createHeader() }).map(res => res.json());
   }
   updateStu(stu) {
     return this._http.put(CONFIG.BASE_API + '/students/update-student', stu, { headers: this.createHeader() }).map(res => res.json());
@@ -48,5 +48,8 @@ export class ListstuService {
   }
   getRoomText(room) {
     return this._http.post(CONFIG.BASE_API + '/rooms/type-room', room, { headers: this.createHeader() }).map(res => res.json());
+  }
+  getProfile() {
+    return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
   }
 }

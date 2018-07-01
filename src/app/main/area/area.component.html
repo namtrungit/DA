@@ -50,7 +50,7 @@
                       <td>{{area.area_address}}</td>
                       <td>{{area.area_sympol}}</td>
                       <td>
-                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectArea(area)' data-toggle="modal" data-target="#updateModal">
+                        <button class='btn m-b-xs btn-sm btn-dark btn-addon'  (click)='selectArea(area)' data-toggle="modal" data-target="#updateModal">
                           <i class="icon-pencil"></i>
                           Cập nhật
                         </button>
@@ -110,11 +110,19 @@
                     <label>Địa chỉ</label>
                     <input class="form-control" id='sl-area-address' name="sl_area_address" [(ngModel)]='sl_area_address' placeholder="Nhập địa chỉ của khu">
                   </div>
-                  <div class="form-group">
-                    <label>Ký hiệu</label>
-                    <input class="form-control" id='sl-area-sympol' name="sl_area_sympol" [(ngModel)]='sl_area_sympol' placeholder="Nhập ký hiệu của khu">
+                  <div class="form-group" ng-show="check">
+                    <label>Ký hiệu cũ: </label>
+                    <strong>{{sl_area_sympol}}</strong>
+                    <button class='btn m-b-xs btn-sm btn-info btn-addon' (click)="check = !check" (click)="clearUpdate()">
+                      Đổi ngày ký hiêu
+                      <i class="fa fa-exchange"></i>
+                    </button>
                   </div>
-                  <button type="button" (click)="updateArea()" class="btn m-b-xs btn-sm btn-dark btn-addon">
+                  <div class="form-group" [hidden]="!check">
+                    <label>Ký hiệu mới</label>
+                    <input class="form-control" id='update-area-sympol' name="update_area_sympol" [(ngModel)]='update_area_sympol' placeholder="Nhập ký hiệu mới">
+                  </div>
+                  <button type="button" (click)="updateArea()"  (click)="check = !check"class="btn m-b-xs btn-sm btn-dark btn-addon">
                     <i class='icon-pencil'></i>
                     Cập nhật
                   </button>

@@ -15,6 +15,7 @@ export class ContractComponent implements OnInit {
   public list_recenbale: Array<any> = [];
   public list_room: Array<any> = [];
   public list_id_stu: Array<any> = [];
+  public user_position = '';
   // ShowDateInpit
   public show = false;
   // create Modal
@@ -171,6 +172,7 @@ export class ContractComponent implements OnInit {
         this.cre_contract_create = res.user.user_name;
         // console.log(this.cre_contract_create);
         this.contract_create = res.user.user_name;
+        this.user_position = res.user.user_positon;
         return;
       }
     }, error => {

@@ -11,6 +11,7 @@ declare var toastr: any;
 export class OldcontractComponent implements OnInit {
   public p = 1;
   list_contract: Array<any> = [];
+  public user_position = '';
   // del and update modal
   public contract_id = '';
   public contract_id_stu_school = '';
@@ -39,6 +40,7 @@ export class OldcontractComponent implements OnInit {
 
   ngOnInit() {
     this.getContract();
+    this.getProfile();
   }
   getContract() {
     this._oldContractService.getContract().subscribe(res => {
@@ -132,6 +134,22 @@ export class OldcontractComponent implements OnInit {
       console.log('Không nết nối được tới máy chủ');
       this._router.navigate(['error']);
       return;
+    });
+  }
+  getProfile() {
+    this._oldContractService.getProfile().subscribe(res => {
+      if (res.status === 'error') {
+        if (!res.isAuth) {
+          this._oldContractService.tokenError();
+        }
+        toastr.error(res.message);
+      } else if (res.status === 'success') {
+        this.user_position = res.user.user_positon;
+        // console.log(this.user_position);
+      }
+    }, error => {
+      console.log('Không thể truy cập đến server');
+      this._router.navigate(['error']);
     });
   }
 }

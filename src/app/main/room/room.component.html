@@ -9,7 +9,7 @@
             <h1 class="m-n font-thin h3 text-black">PHÒNG</h1>
           </div>
           <div class="col-sm-4 col-xs-12">
-            <button class='btn m-b-xs btn-sm btn-info btn-rounded' (click)='clearPrice()' data-toggle="modal" data-target="#priceModal">
+            <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-info btn-rounded' (click)='clearPrice()' data-toggle="modal" data-target="#priceModal">
               <i class="icon-pencil"></i>
               Cập nhật giá phòng
             </button>
@@ -17,7 +17,7 @@
               <i class="icon-magnifier"></i>
               Tìm kiếm
             </button>
-            <button class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateRoom()' data-toggle="modal" data-target="#createModal">
+            <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-success btn-rounded' (click)='clearCreateRoom()' data-toggle="modal" data-target="#createModal">
               <i class="fa fa-plus"></i>
               Thêm
             </button>
@@ -59,11 +59,11 @@
                           <i class="fa fa-group"></i>
                           Sinh viên
                         </button>
-                        <button class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectRoom(room)' data-toggle="modal" data-target="#updateModal">
+                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectRoom(room)' data-toggle="modal" data-target="#updateModal">
                           <i class="icon-pencil"></i>
                           Cập nhật
                         </button>
-                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectRoom(room)' data-toggle="modal" data-target="#delModal">
+                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectRoom(room)' data-toggle="modal" data-target="#delModal">
                           <i class="icon-trash"></i>
                           Xóa
                         </button>

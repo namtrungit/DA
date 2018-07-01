@@ -12,6 +12,7 @@ export class MainComponent implements OnInit {
   public user: Object = {
     user_fullname: ''
   };
+  public user_position = '';
   constructor(
     private _mainService: MainService,
     private _router: Router,
@@ -30,6 +31,8 @@ export class MainComponent implements OnInit {
         toastr.error(res.message);
       } else if (res.status === 'success') {
         this.user = res.user;
+        this.user_position = res.user.user_positon;
+        // console.log(this.user_position);
       }
     }, error => {
       console.log('Không thể truy cập đến server');

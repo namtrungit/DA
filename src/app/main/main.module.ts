@@ -31,6 +31,7 @@ const _routes: Routes = [
       { path: 'news', loadChildren: './news/news.module#NewsModule' },
       { path: 'oldcontract', loadChildren: './oldcontract/oldcontract.module#OldcontractModule' },
       { path: 'report', loadChildren: './report/report.module#ReportModule' },
+      { path: 'user', loadChildren: './user/user.module#UserModule' },
     ]
   }
 ];

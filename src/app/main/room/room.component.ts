@@ -14,6 +14,7 @@ export class RoomComponent implements OnInit {
   public list_area: Array<any> = [];
   public list_floor: Array<any> = [];
   public list_stu: Array<any> = [];
+  public user_position = '';
   // Update Modal
   public room_id = '';
   public room_name = '';
@@ -49,6 +50,23 @@ export class RoomComponent implements OnInit {
   ngOnInit() {
     this.getRoom();
     this.getArea();
+    this.getProfile();
+  }
+  getProfile() {
+    this._roomService.getProfile().subscribe(res => {
+      if (res.status === 'error') {
+        if (!res.isAuth) {
+          this._roomService.tokenError();
+        }
+        toastr.error(res.message);
+      } else if (res.status === 'success') {
+        this.user_position = res.user.user_positon;
+        // console.log(this.user_position);
+      }
+    }, error => {
+      console.log('Không thể truy cập đến server');
+      this._router.navigate(['error']);
+    });
   }
   selectStuInRoom(room) {
     // this.room_id = room.room_id;

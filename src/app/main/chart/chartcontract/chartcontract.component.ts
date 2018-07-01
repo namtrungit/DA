@@ -10,6 +10,8 @@ declare var toastr: any;
 })
 export class ChartcontractComponent implements OnInit {
   public list_contract: Array<any> = [];
+  public month;
+  public year;
   public month_year = '';
   // modal detail contract
   public de_stu_name = '';
@@ -27,12 +29,30 @@ export class ChartcontractComponent implements OnInit {
   constructor(
     private _router: Router,
     private _chartContractService: ChartcontractService
-  ) { }
+  ) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    if (month < 10) {
+      this.month = '0' + month;
+    } else {
+      this.month = month;
+    }
+    if (this.month === 12) {
+      this.month = 1;
+    } else {
+      this.month = Number(this.month) + 1;
+      this.month = '0' + this.month;
+    }
+    this.year = year;
+    this.month_year = this.year + '-' + this.month;
+  }
 
   ngOnInit() {
+    this.chartContract();
   }
   clearSearch() {
-    this.month_year = '';
+    // this.month_year = '';
   }
   chartContract() {
     if (this.month_year === '') {
@@ -52,9 +72,9 @@ export class ChartcontractComponent implements OnInit {
         return this._chartContractService.tokenError();
       }
       if (res.status === 'success') {
-        toastr.success('Tìm thành công', 'Thông báo');
+        // toastr.success('Tìm thành công', 'Thông báo');
         this.list_contract = res.Contracts;
-        $('#searchModal').modal('toggle');
+        // $('#searchModal').modal('toggle');
         return;
       }
     }, error => {
@@ -75,6 +95,6 @@ export class ChartcontractComponent implements OnInit {
     this.de_contract_date_get_room = contract.contract_date_get_room;
     this.de_contract_date_end = contract.contract_date_end;
     this.de_contract_create = contract.contract_create;
-    this.de_contract_price = (contract.af_price * contract.recontract_limit * (100 - contract.recontract_promotion)) / 100;
+    this.de_contract_price = contract.contract_total;
   }
 }

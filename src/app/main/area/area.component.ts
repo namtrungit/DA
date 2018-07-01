@@ -20,7 +20,7 @@ export class AreaComponent implements OnInit {
   public sl_area_id = '';
   public sl_area_sympol = '';
   public sl_area_address = '';
-
+  public update_area_sympol = '';
   constructor(
     private _areaService: AreaService,
     private _router: Router
@@ -28,6 +28,9 @@ export class AreaComponent implements OnInit {
 
   ngOnInit() {
     this.getArea();
+  }
+  clearUpdate() {
+    this.update_area_sympol = '';
   }
   getArea() {
     this._areaService.getArea().subscribe(res => {
@@ -61,6 +64,10 @@ export class AreaComponent implements OnInit {
         this._areaService.tokenError();
         return;
       }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
       if (res.status === 'success') {
         toastr.success(res.message);
         this.getArea();
@@ -89,15 +96,10 @@ export class AreaComponent implements OnInit {
       $('#sl-area-address').focus();
       return;
     }
-    if (this.sl_area_sympol === '') {
-      toastr.warning('Bạn chưa nhập ký tự khu', 'Thông báo');
-      $('#sl-area-sympol').focus();
-      return;
-    }
     const area = JSON.stringify({
       area_id: this.sl_area_id,
       area_address: this.sl_area_address,
-      area_sympol: this.sl_area_sympol,
+      update_area_sympol: this.update_area_sympol,
     });
     // console.log(this.sl_area_sex);
     this._areaService.updateArea(area).subscribe(res => {
@@ -147,6 +149,11 @@ export class AreaComponent implements OnInit {
       }
       if (!res.isAuth && res.status === 'error') {
         this._areaService.tokenError();
+        return;
+      }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        $('#area-sympol').focus();
         return;
       }
       if (res.status === 'success') {

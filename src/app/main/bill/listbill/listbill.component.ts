@@ -14,6 +14,7 @@ export class ListbillComponent implements OnInit {
   public list_bs: Array<any> = [];
   // Bill
   public bill_id = '';
+  public user_position = '';
   // Details modal
   public de_bill_id = '';
   public de_bill_stu_id = '';
@@ -33,6 +34,23 @@ export class ListbillComponent implements OnInit {
 
   ngOnInit() {
     this.getBill();
+    this.getProfile();
+  }
+  getProfile() {
+    this._listbillService.getProfile().subscribe(res => {
+      if (res.status === 'error') {
+        if (!res.isAuth) {
+          this._listbillService.tokenError();
+        }
+        toastr.error(res.message);
+      } else if (res.status === 'success') {
+        this.user_position = res.user.user_positon;
+        // console.log(this.user_position);
+      }
+    }, error => {
+      console.log('Không thể truy cập đến server');
+      this._router.navigate(['error']);
+    });
   }
   getBill() {
     this._listbillService.getBill().subscribe(res => {

@@ -51,7 +51,7 @@
                           <i class="fa fa-file-word-o"></i>
                           Thông tin
                         </button>
-                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#delModal">
+                        <button *ngIf="user_position === 'admin'"  class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#delModal">
                           <i class="icon-trash"></i>
                           Xóa
                         </button>

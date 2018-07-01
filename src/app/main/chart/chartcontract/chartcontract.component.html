@@ -6,7 +6,7 @@
       <div class="bg-light lter b-b wrapper-md">
         <div class="row">
           <div class="col-sm-10 col-xs-12">
-            <h1 class="m-n font-thin h3 text-black">THỐNG KÊ HỢP ĐỒNG</h1>
+            <h1 class="m-n font-thin h3 text-black">THỐNG KÊ HỢP ĐỒNG HẾT HẠN KỲ {{month_year}}</h1>
           </div>
           <div class="col-sm-2 col-xs-12">
             <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
@@ -80,7 +80,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" (click)="chartContract()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+          <button type="button" (click)="chartContract()" class="btn m-b-xs btn-sm btn-primary btn-addon" data-dismiss="modal">
             <i class='icon-magnifier'></i>
             Tìm kiếm
           </button>

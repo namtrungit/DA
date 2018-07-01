@@ -46,4 +46,7 @@ export class RoomService {
   updatePrice(price) {
     return this._http.put(CONFIG.BASE_API + '/rooms/update-price', price, { headers: this.createHeader() }).map(res => res.json());
   }
+  getProfile() {
+    return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
+  }
 }

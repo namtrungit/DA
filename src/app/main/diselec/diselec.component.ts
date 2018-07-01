@@ -12,6 +12,7 @@ export class DiselecComponent implements OnInit {
   public p = 1;
   public list_elec: Array<any> = [];
   public list_room: Array<any> = [];
+  public user_position = '';
   // modal search
   public month_year = '';
   public search_elec_id = '';
@@ -34,6 +35,23 @@ export class DiselecComponent implements OnInit {
   ngOnInit() {
     this.getElec();
     this.getRoom();
+    this.getProfile();
+  }
+  getProfile() {
+    this._diselecService.getProfile().subscribe(res => {
+      if (res.status === 'error') {
+        if (!res.isAuth) {
+          this._diselecService.tokenError();
+        }
+        toastr.error(res.message);
+      } else if (res.status === 'success') {
+        this.user_position = res.user.user_positon;
+        // console.log(this.user_position);
+      }
+    }, error => {
+      console.log('Không thể truy cập đến server');
+      this._router.navigate(['error']);
+    });
   }
   getRoom() {
     this._diselecService.getRoom().subscribe(res => {

@@ -30,4 +30,7 @@ export class OldcontractService {
     // tslint:disable-next-line:max-line-length
     return this._http.delete(CONFIG.BASE_API + '/contracts/del-contract?contract_id=' + contract_id, { headers: this.createHeader() }).map(res => res.json());
   }
+  getProfile() {
+    return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
+  }
 }

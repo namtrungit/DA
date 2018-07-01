@@ -55,7 +55,7 @@
                           <i class="icon-pencil"></i>
                           Cập nhật
                         </button>
-                        <button class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectElec(elec)' data-toggle="modal" data-target="#delModal">
+                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectElec(elec)' data-toggle="modal" data-target="#delModal">
                           <i class="icon-trash"></i>
                           Xóa
                         </button>

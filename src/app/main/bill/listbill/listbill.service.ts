@@ -32,4 +32,7 @@ export class ListbillService {
   findBill(bill) {
     return this._http.post(CONFIG.BASE_API + '/bills/find-bill', bill, { headers: this.createHeader() }).map(res => res.json());
   }
+  getProfile() {
+    return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
+  }
 }

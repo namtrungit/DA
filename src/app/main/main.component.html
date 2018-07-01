@@ -180,52 +180,12 @@
 
       <!-- nabar right -->
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-            <i class="icon-bell fa-fw"></i>
-            <span class="visible-xs-inline">Notifications</span>
-            <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
-          </a>
-          <!-- dropdown -->
-          <div class="dropdown-menu w-xl animated fadeInUp">
-            <div class="panel bg-white">
-              <div class="panel-heading b-light bg-light">
-                <strong>You have
-                  <span>2</span> notifications</strong>
-              </div>
-              <div class="list-group">
-                <a href class="list-group-item">
-                  <span class="pull-left m-r thumb-sm">
-                    <img src="assets/img/a0.jpg" alt="..." class="img-circle">
-                  </span>
-                  <span class="clear block m-b-none">
-                    Use awesome animate.css
-                    <br>
-                    <small class="text-muted">10 minutes ago</small>
-                  </span>
-                </a>
-                <a href class="list-group-item">
-                  <span class="clear block m-b-none">
-                    1.0 initial released
-                    <br>
-                    <small class="text-muted">1 hour ago</small>
-                  </span>
-                </a>
-              </div>
-              <div class="panel-footer text-sm">
-                <a href class="pull-right">
-                  <i class="fa fa-cog"></i>
-                </a>
-                <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
-              </div>
-            </div>
-          </div>
-          <!-- / dropdown -->
-        </li>
+        
         <li class="dropdown">
           <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
             <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-              <img src="assets/img/a0.jpg" alt="...">
+              <img *ngIf="user_position === 'admin'" src="assets/img/admin.jpg" class="img-full" alt="...">
+              <img *ngIf="user_position === 'user'" src="assets/img/user.jpg" class="img-full" alt="...">
               <i class="on md b-white bottom"></i>
             </span>
             <span class="hidden-sm hidden-md">{{user['user_name']}}</span>
@@ -269,7 +229,8 @@
           <div class="dropdown wrapper">
             <a href="app.page.profile">
               <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                <img src="assets/img/a0.jpg" class="img-full" alt="...">
+                <img *ngIf="user_position === 'admin'" src="assets/img/admin.jpg" class="img-full" alt="...">
+                <img *ngIf="user_position === 'user'" src="assets/img/user.jpg" class="img-full" alt="...">
               </span>
             </a>
             <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
@@ -278,26 +239,26 @@
                   <strong class="font-bold text-lt">{{user['user_name']}}</strong>
                   <b class="caret"></b>
                 </span>
-                <span class="text-muted text-xs block">Art Director</span>
+                <span class="text-muted text-xs block">{{user_position}}</span>
               </span>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w hidden-folded">
               <li>
-                <a href>
+                <a routerLink='profile'>
                   <span class="badge bg-danger pull-right"></span>
                   <span>Thông tin</span>
                 </a>
               </li>
               <li>
-                <a ui-sref="app.docs">
+                <a routerLink='password'>
                   <span class="label bg-info pull-right"></span>
                   Đổi mật khẩu
                 </a>
               </li>
               <li class="divider"></li>
               <li>
-                <a ui-sref="access.signin">Đăng xuất</a>
+                <a ui-sref="access.signin" (click)='logOut()'>Đăng xuất</a>
               </li>
             </ul>
             <!-- / dropdown -->
@@ -340,6 +301,12 @@
                       </li>
                     </ul>
                   </li> -->
+            <li *ngIf="user_position === 'admin'">
+              <a routerLink="user">
+                <i class="icon-user icon text-info-lter"></i>
+                <span class="font-bold">User</span>
+              </a>
+            </li>
             <li>
               <a href class="auto">
                 <span class="pull-right text-muted">
@@ -379,7 +346,7 @@
                 </li>
                 <li>
                   <a routerLink='chart/service'>
-                    <span>Dịch vụ</span>
+                    <span>Ký túc xá</span>
                   </a>
                 </li>
               </ul>
@@ -405,7 +372,7 @@
                     <span>Danh sách</span>
                   </a>
                 </li>
-                <li>
+                <li *ngIf="user_position === 'admin'">
                   <a routerLink="student/addstu">
                     <span>Thêm sinh viên</span>
                   </a>
@@ -422,7 +389,7 @@
                       </li>       -->
               </ul>
             </li>
-            <li>
+            <li *ngIf="user_position === 'admin'">
               <a class="auto">
                 <span class="pull-right text-muted">
                   <i class="fa fa-fw fa-angle-right text"></i>
@@ -491,7 +458,7 @@
                 <span>Ký túc xá</span>
               </a>
               <ul class="nav nav-sub dk">
-                <li>
+                <li *ngIf="user_position === 'admin'">
                   <a routerLink='area'>
                     <span>Khu</span>
                   </a>
@@ -501,7 +468,7 @@
                     <span>Phòng</span>
                   </a>
                 </li>
-                <li>
+                <li *ngIf="user_position === 'admin'">
                   <a routerLink="rule">
                     <span>Quy định</span>
                   </a>
@@ -518,7 +485,7 @@
                 <span>Hợp đồng</span>
               </a>
               <ul class="nav nav-sub dk">
-                <li>
+                <li *ngIf="user_position === 'admin'">
                   <a routerLink='contractreg'>
                     <span>Quy định hợp đồng</span>
                   </a>
@@ -545,7 +512,7 @@
                 <span>Dịch vụ</span>
               </a>
               <ul class="nav nav-sub dk">
-                <li>
+                <li *ngIf="user_position === 'admin'">
                   <a routerLink="service">
                     <span>Danh sách dịch vụ</span>
                   </a>

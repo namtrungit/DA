@@ -38,4 +38,7 @@ export class EnelecService {
   getRoom() {
     return this._http.get(CONFIG.BASE_API + '/rooms/room', { headers: this.createHeader() }).map(res => res.json());
   }
+  getProfile() {
+    return this._http.get(CONFIG.BASE_API + '/users/user', { headers: this.createHeader() }).map(res => res.json());
+  }
 }

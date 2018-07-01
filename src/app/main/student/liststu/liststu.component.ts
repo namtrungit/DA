@@ -15,6 +15,7 @@ export class ListstuComponent implements OnInit {
   public folder_avatar: string = CONFIG.BASE_API + '/uploads/students/';
   public list_class: Array<any> = [];
   public list_room: Array<any> = [];
+  public user_position = '';
   public stu_id = '';
   public stu_avatar = '';
   public stu_id_school = '';
@@ -50,6 +51,23 @@ export class ListstuComponent implements OnInit {
     });
     this.getClass();
     this.getRoom();
+    this.getProfile();
+  }
+  getProfile() {
+    this._listStuService.getProfile().subscribe(res => {
+      if (res.status === 'error') {
+        if (!res.isAuth) {
+          this._listStuService.tokenError();
+        }
+        toastr.error(res.message);
+      } else if (res.status === 'success') {
+        this.user_position = res.user.user_positon;
+        // console.log(this.user_position);
+      }
+    }, error => {
+      console.log('Không thể truy cập đến server');
+      this._router.navigate(['error']);
+    });
   }
   uploadAvatar(e) {
     const formData = new FormData();
@@ -153,7 +171,7 @@ export class ListstuComponent implements OnInit {
     console.log(student);
   }
   delStu() {
-    this._listStuService.delStu(this.stu_id, this.stu_room_name).subscribe(res => {
+    this._listStuService.delStu(this.stu_id_school).subscribe(res => {
       if (res.status === 'error') {
         toastr.error(res.message);
         return;
