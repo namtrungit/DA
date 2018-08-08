@@ -173,6 +173,10 @@ export class RoomComponent implements OnInit {
       if (!res.isAuth && res.status === 'error') {
         return this._roomService.tokenError();
       }
+      if (res.status === 'warning') {
+        toastr.warning(res.message);
+        return;
+      }
       if (res.status === 'success') {
         toastr.success(res.message);
         this.getRoom();
