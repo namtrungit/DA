@@ -27,6 +27,10 @@ export class ChartserviceService {
     // tslint:disable-next-line:max-line-length
     return this._http.get(CONFIG.BASE_API + '/contracts/chart-contract?year=' + year, { headers: this.createHeader() }).map(res => res.json());
   }
+  getChartElec(year) {
+    // tslint:disable-next-line:max-line-length
+    return this._http.get(CONFIG.BASE_API + '/elecs/chart-elec?year=' + year, { headers: this.createHeader() }).map(res => res.json());
+  }
   getChartReport(year) {
     return this._http.get(CONFIG.BASE_API + '/reports/chart-report?year=' + year, { headers: this.createHeader() }).map(res => res.json());
   }

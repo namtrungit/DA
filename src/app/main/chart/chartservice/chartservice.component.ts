@@ -13,6 +13,7 @@ export class ChartserviceComponent implements OnInit {
   public list_chart_service: Array<any> = [];
   public chartService;
   public chartContract;
+  public chartElec;
   public chartReport;
   public area_quantity;
   public current_contract;
@@ -43,6 +44,7 @@ export class ChartserviceComponent implements OnInit {
     this.getCurrentContract();
     this.getQuantityRoom();
     this.getEmptyRoom();
+    this.getChartElec(this.year);
   }
   getChartService(year) {
     this._charService.getChartService(year).subscribe(res => {
@@ -57,6 +59,31 @@ export class ChartserviceComponent implements OnInit {
           'chart': {
             'caption': 'Ký túc xá hutech',
             'subCaption': 'Doanh thu dịch vụ năm ' + year,
+            'numberprefix': '',
+            'theme': 'fint'
+          },
+          'data': res.list
+        };
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+  getChartElec(year) {
+    this._charService.getChartElec(year).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._charService.tokenError();
+      }
+      if (res.status === 'success') {
+        this.chartElec = {
+          'chart': {
+            'caption': 'Ký túc xá hutech',
+            'subCaption': 'Doanh thu phiếu điện năm ' + year,
             'numberprefix': '',
             'theme': 'fint'
           },

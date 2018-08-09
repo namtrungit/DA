@@ -51,7 +51,7 @@ export class ContractComponent implements OnInit {
 
   // modal search
   public search_contract_id = '';
-  public search_stu_id = '';
+  public search_stu_name = '';
   constructor(
     private _contractService: ContractService,
     private _router: Router
@@ -95,12 +95,12 @@ export class ContractComponent implements OnInit {
   }
   clearSearch() {
     this.search_contract_id = '';
-    this.search_stu_id = '';
+    this.search_stu_name = '';
   }
   searchContract() {
     const contract = JSON.stringify({
       contract_id: this.search_contract_id,
-      stu_id: this.search_stu_id
+      stu_name: this.search_stu_name
     });
     // console.log(contract);
     this._contractService.searchContract(contract).subscribe(res => {
@@ -360,6 +360,29 @@ export class ContractComponent implements OnInit {
       if (res.status === 'success') {
         toastr.success(res.message);
         $('#updateModal').modal('toggle');
+        this.getContract();
+        return;
+      }
+    }, error => {
+      console.log('Không nết nối được tới máy chủ');
+      this._router.navigate(['error']);
+      return;
+    });
+  }
+  disableContract() {
+    const contract_id = JSON.stringify({
+      contract_id: this.contract_id
+    });
+    // console.log(contract_id);
+    this._contractService.disableContract(contract_id).subscribe(res => {
+      if (res.status === 'error') {
+        toastr.error(res.message);
+      }
+      if (!res.isAuth && res.status === 'error') {
+        return this._contractService.tokenError();
+      }
+      if (res.status === 'success') {
+        toastr.success(res.message);
         this.getContract();
         return;
       }

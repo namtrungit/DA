@@ -51,4 +51,8 @@ export class ContractService {
   getListIdStu() {
     return this._http.get(CONFIG.BASE_API + '/students/list-id', { headers: this.createHeader() }).map(res => res.json());
   }
+  disableContract(contract_id) {
+    // tslint:disable-next-line:max-line-length
+    return this._http.put(CONFIG.BASE_API + '/contracts/disable-contract', contract_id, { headers: this.createHeader() }).map(res => res.json());
+  }
 }

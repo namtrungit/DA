@@ -32,7 +32,7 @@ export class OldcontractComponent implements OnInit {
   public de_contract_price = 0;
   // modal search
   public search_contract_id = '';
-  public search_stu_id = '';
+  public search_stu_name = '';
   constructor(
     private _router: Router,
     private _oldContractService: OldcontractService
@@ -85,12 +85,12 @@ export class OldcontractComponent implements OnInit {
   }
   clearSearch() {
     this.search_contract_id = '';
-    this.search_stu_id = '';
+    this.search_stu_name = '';
   }
   searchContract() {
     const contract = JSON.stringify({
       contract_id: this.search_contract_id,
-      stu_id: this.search_stu_id
+      stu_name: this.search_stu_name
     });
     // console.log(contract);
     this._oldContractService.searchContract(contract).subscribe(res => {

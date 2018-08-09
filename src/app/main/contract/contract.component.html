@@ -38,7 +38,6 @@
                       <td>Phòng</td>
                       <td>Hợp đồng</td>
                       <td>Ngày lập</td>
-                      <td>Người lập</td>
                       <td>Tác vụ</td>
                     </tr>
                   </thead>
@@ -49,17 +48,22 @@
                       <td>{{contract.room_name}}</td>
                       <td>{{contract.recontract_name}}</td>
                       <td>{{contract.contract_createdAt}}</td>
-                      <td>{{contract.contract_create}}</td>
                       <td>
                         <button class='btn m-b-xs btn-sm btn-warning btn-addon' (click)='selectDetailContract(contract)' data-toggle="modal" data-target="#detailModal">
                           <i class="fa fa-file-word-o"></i>
                           Thông tin
                         </button>
-                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#updateModal">
+                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-dark btn-addon' (click)='selectContract(contract)'
+                          data-toggle="modal" data-target="#updateModal">
                           <i class="icon-pencil"></i>
                           Cập nhật
                         </button>
-                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#delModal">
+                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-info btn-addon' (click)='selectContract(contract)' data-toggle="modal" data-target="#disableModal">
+                          <i class="fa fa-eraser"></i>
+                          Hủy
+                        </button>
+                        <button *ngIf="user_position === 'admin'" class='btn m-b-xs btn-sm btn-danger btn-addon' (click)='selectContract(contract)'
+                          data-toggle="modal" data-target="#delModal">
                           <i class="icon-trash"></i>
                           Xóa
                         </button>
@@ -317,8 +321,8 @@
               placeholder="Nhập mã hợp đồng">
           </div>
           <div class="form-group">
-            <label>Mã sinh viên</label>
-            <input id="search-stu-id" type="text" [(ngModel)]="search_stu_id" name="search_stu_id" class="form-control" placeholder="Nhập mã sinh viên">
+            <label>Tên sinh viên</label>
+            <input id="search-stu-name" type="text" [(ngModel)]="search_stu_name" name="search_stu_name" class="form-control" placeholder="Nhập tên sinh viên">
           </div>
         </div>
         <div class="modal-footer">
@@ -333,4 +337,24 @@
     </div>
   </div>
 
+  <!-- Modal del-->
+  <div id="disableModal" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">HỦY HỢP ĐỒNG</h4>
+          </div>
+          <div class="modal-body">
+            <p>BẠN CÓ CHẮC CHẮN CHỨ?</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-xs btn-info" (click)="disableContract(contract_id)" data-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+  
+      </div>
+    </div>
 </div>

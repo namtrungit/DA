@@ -26,7 +26,7 @@ export class ListbillComponent implements OnInit {
 
   // Search modal
   public search_bill_id = '';
-  public search_stu_id = '';
+  public search_stu_name = '';
   constructor(
     private _listbillService: ListbillService,
     private _router: Router
@@ -126,12 +126,12 @@ export class ListbillComponent implements OnInit {
   }
   clearSearch() {
     this.search_bill_id = '';
-    this.search_stu_id = '';
+    this.search_stu_name = '';
   }
   findBill() {
     const bill = JSON.stringify({
       bill_id: this.search_bill_id,
-      bill_stu_id: this.search_stu_id
+      bill_stu_name: this.search_stu_name
     });
     // console.log(bill);
     this._listbillService.findBill(bill).subscribe(res => {

@@ -68,6 +68,17 @@
             </div>
           </div>
           <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading font-bold">Phiếu điện</div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <fusioncharts [id]="elec" [width]="width" [height]="height" [type]="type" [dataFormat]="dataFormat" [dataSource]="chartElec">
+                    </fusioncharts>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="col-sm-12">
             <div class="panel panel-default">
               <div class="panel-heading font-bold">Biên bản</div>
               <div class="panel-body">

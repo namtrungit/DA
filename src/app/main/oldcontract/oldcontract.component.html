@@ -9,10 +9,10 @@
             <h1 class="m-n font-thin h3 text-black">HỢP ĐỒNG</h1>
           </div>
           <div class="col-sm-2 col-xs-12">
-            <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
+            <!-- <button class='btn m-b-xs btn-sm btn-primary btn-rounded' (click)="clearSearch()" data-toggle="modal" data-target="#searchModal">
               <i class="icon-magnifier"></i>
               Tìm kiếm
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -181,8 +181,8 @@
               placeholder="Nhập mã hợp đồng">
           </div>
           <div class="form-group">
-            <label>Mã sinh viên</label>
-            <input id="search-stu-id" type="text" [(ngModel)]="search_stu_id" name="search_stu_id" class="form-control" placeholder="Nhập mã sinh viên">
+            <label>Tên sinh viên</label>
+            <input id="search-stu-name" type="text" [(ngModel)]="search_stu_name" name="search_stu_name" class="form-control" placeholder="Nhập tên sinh viên">
           </div>
         </div>
         <div class="modal-footer">
